@@ -104,20 +104,23 @@ mattMurphyNotes/
 ├── .github/
 │   └── workflows/
 │       └── deploy-pages.yml          # Automated GitHub Pages CI/CD workflow
-├── docs/                             # Full markdown documentation (320+ lessons)
+├── docs/                             # Full markdown documentation (321 lessons)
 │   ├── 01-auth-identity/
 │   ├── 02-security-defense/
 │   └── ...
 ├── site/                             # Interactive GitHub Pages web app
 │   ├── index.html
 │   ├── app.js
-│   └── data.json                     # 1.2MB compiled lesson database
+│   └── data.json                     # Compiled lesson database
 ├── skills/                           # Executable AI Agent Skill Suite
 │   └── matt-murphy-production-engineer/
-│       ├── SKILL.md                  # Master agent system rules
-│       └── rules/                    # Modular domain rulesets
+│       ├── SKILL.md                  # Master agent system rules & 13 layers matrix
+│       ├── rules/                    # 12 Modular architectural domain rulebooks
+│       ├── references/               # Complete 321-lesson catalog, anti-vibe traps & heuristics
+│       └── scripts/                  # Automated static analysis linter (audit_guardrails.py)
 ├── scripts/
-│   └── audit_codebase.py             # CLI codebase linter
+│   ├── audit_codebase.py             # CLI codebase linter
+│   └── build_enterprise_skill.py    # Autonomous skill builder & synthesizer
 ├── banner.svg
 └── README.md
 ```
