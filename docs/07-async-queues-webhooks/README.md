@@ -1,0 +1,29 @@
+# 📁 صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی (Async Queues & Webhooks)
+
+> **تعداد درس‌های ثبت‌شده در این شاخه:** 18 درس  
+> **جایگاه در معماری سیستم:** لایه 6 (Cloud & Compute)
+
+---
+
+## 📋 فهرست درس‌های این حوزه:
+
+| شماره | عنوان تخصصی فارسی | عنوان اصلی انگلیسی | منبع |
+|:---:|:---|:---|:---:|
+| **#006** | [ارسال تاییدیه‌های پرداخت جعلی به وب‌هوک Stripe و مهار تقلب مالی](./006_an_attacker_sent_fake_payment_confirmati.md) | An attacker sent fake payment confirmations to your Stripe | [لینک](https://www.instagram.com/reel/DduM5W5k4HF/) |
+| **#028** | [درس 028: Your server just charged the same card twice, provisioned](./028_your_server_just_charged_the_same_card_t.md) | Your server just charged the same card twice, provisioned | [لینک](https://www.instagram.com/reel/DdMufvsE6Z3/) |
+| **#046** | [درس 046: Your AI built your Stripe checkout](./046_your_ai_built_your_stripe_checkout.md) | Your AI built your Stripe checkout | [لینک](https://www.instagram.com/reel/Dcy-rVRD5jM/) |
+| **#062** | [درس 062: You accept webhooks from Stripe without verifying the](./062_you_accept_webhooks_from_stripe_without.md) | You accept webhooks from Stripe without verifying the | [لینک](https://www.instagram.com/reel/DcbzcfyioD9/) |
+| **#075** | [درس 075: You have paid your payment processor $30,000](./075_you_have_paid_your_payment_processor__30.md) | You have paid your payment processor $30,000 | [لینک](https://www.instagram.com/reel/DcJx3MyDnHE/) |
+| **#076** | [درس 076: One webhook failed. It took your authentication, your](./076_one_webhook_failed__it_took_your_authent.md) | One webhook failed. It took your authentication, your | [لینک](https://www.instagram.com/reel/DcJOWioldeu/) |
+| **#084** | [درس 084: 10,000 people are working on your idea right now](./084_10_000_people_are_working_on_your_idea_r.md) | 10,000 people are working on your idea right now | [لینک](https://www.instagram.com/reel/Db-7JyYDdas/) |
+| **#107** | [درس 107: Your AI can find your perfect customer before you post a](./107_your_ai_can_find_your_perfect_customer_b.md) | Your AI can find your perfect customer before you post a | [لینک](https://www.instagram.com/reel/DbbaGawGG3_/) |
+| **#122** | [درس 122: Your customer just paid you. And they think you are a scam](./122_your_customer_just_paid_you__and_they_th.md) | Your customer just paid you. And they think you are a scam | [لینک](https://www.instagram.com/reel/DbJSeKTFKW0/) |
+| **#123** | [درس 123: Your AI collected revenue from 12 states. You owe sales tax](./123_your_ai_collected_revenue_from_12_states.md) | Your AI collected revenue from 12 states. You owe sales tax | [لینک](https://www.instagram.com/reel/DbIyuH1D2Mx/) |
+| **#127** | [درس 127: Your revenue is disappearing every month and you cannot see](./127_your_revenue_is_disappearing_every_month.md) | Your revenue is disappearing every month and you cannot see | [لینک](https://www.instagram.com/reel/DbETSNnjeGn/) |
+| **#129** | [درس 129: Your first customer dispute will freeze your Stripe account](./129_your_first_customer_dispute_will_freeze.md) | Your first customer dispute will freeze your Stripe account | [لینک](https://www.instagram.com/reel/DbBsA6ljkur/) |
+| **#166** | [درس 166: Your Stripe webhook failed silently for six hours](./166_your_stripe_webhook_failed_silently_for.md) | Your Stripe webhook failed silently for six hours | [لینک](https://www.instagram.com/reel/DadwoMajh8E/) |
+| **#185** | [درس 185: Revenue dropped 40%](./185_revenue_dropped_40.md) | Revenue dropped 40% | [لینک](https://www.instagram.com/reel/DaQKiPRk6KN/) |
+| **#223** | [درس 223: Your payment gateway handles the charge](./223_your_payment_gateway_handles_the_charge.md) | Your payment gateway handles the charge | [لینک](https://www.instagram.com/reel/DZqZW3svYY_/) |
+| **#248** | [درس 248: 45-second request](./248_45-second_request.md) | 45-second request | [لینک](https://www.instagram.com/reel/DZSYNBNxE1k/) |
+| **#266** | [درس 266: Your AI app works](./266_your_ai_app_works.md) | Your AI app works | [لینک](https://www.instagram.com/reel/DY90q5PAPHa/) |
+| **#275** | [درس 275: Your app hit Vercel’s limits](./275_your_app_hit_vercel_s_limits.md) | Your app hit Vercel’s limits | [لینک](https://www.instagram.com/reel/DYzc-WUAOlA/) |

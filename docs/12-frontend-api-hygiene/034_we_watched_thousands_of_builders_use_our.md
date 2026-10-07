@@ -1,0 +1,47 @@
+# درس 034: درس 034: We watched thousands of builders use our products for sixty
+
+> **عنوان انگلیسی:** We watched thousands of builders use our products for sixty  
+> **حوزه معماری:** معماری فرانت‌اند، طراحی واسط و بهداشت API (Frontend Architecture & API Hygiene)  
+> **لایه پروداکشن:** لایه 1 (UI & Accessibility)  
+> **منبع ریلز اینستاگرام:** [مشاهده ویدیو در Instagram](https://www.instagram.com/reel/DdFAKgdgqc3/)  
+
+---
+
+## 🚨 ۱. طرح مسئله و سناریوی آسیب‌پذیری (Problem & Attack Vector)
+چالش در این سناریو ناشی از عدم مدیریت صحیح معماری در مبحث معماری فرانت‌اند، طراحی واسط و بهداشت API است که باعث شکست سیستم زیر بار واقعی یا نفوذ مهاجم می‌شود.
+
+---
+
+## 💡 ۲. تحلیل ریشه‌ای و معماری راهکار (Root Cause & Solution)
+علت ریشه‌ای: عدم اعمال محدودیت‌ها و سیاست‌های سخت‌گیرانه در لایه Frontend Architecture & API Hygiene و اتکا به تنظیمات پیش‌فرض یا خوش‌بینانه.
+
+---
+
+## ⚡ ۳. برنامه عملیاتی و چک‌لیست پیاده‌سازی (Action Checklist)
+- [ ] بازبینی تنظیمات و کدهای مربوط به Frontend Architecture & API Hygiene در سراسر پروژه
+- [ ] اعمال محدودیت‌های اعتبارسنجی در لایه سرور به جای اعتماد به کلاینت
+- [ ] تست حالات لبه (Edge Cases) و تزریق خطای شبیه‌سازی‌شده پیش از انتشار
+
+---
+
+## 💻 ۴. الگوی کد / کانفیگ استاندارد و سخت‌سازی‌شده (Hardened Implementation)
+```bash
+// Standard Hardening Snippet for Episode 034
+// Domain: Frontend Architecture & API Hygiene
+export function verifyProductionHardening(config: Record<string, unknown>): boolean {
+  if (!config.isHardened) {
+    throw new Error('Production guardrail triggered: Review Episode 034 guidelines.');
+  }
+  return true;
+}
+```
+
+---
+
+## 🎧 ۵. متن کامل ترنسکریپت زبان اصلی (Original Audio Transcript)
+<div dir="ltr">
+
+We watched thousands of builders use our products for the last 60 days straight and the data told us what to build next and it was not what we were currently selling. Not surprised. So we dropped 181 courses and a free builder community as a honeypot. 60 days of behavioral data from thousands of builders in real time. The data came from our community, the website traffic, the early audit purchases, and they were all saying the exact same thing. Builders do not want to stop building to take a course. They're building something right now and they need to identify what is wrong with it, fix it, and move on right now. So, we built a new system around how they're actually working. And this is how we did it. Number one, the system is a closed loop, not curriculum. The rapid platform audit identifies the issue. A real time skill scope to that exact finding helps resolve the issue. And a rerun ver ifies the fix held. One cycle, identify, fix, verify, and keep on building. If a builder wants to go deeper, the system now points them to the associated course that covers that issue. The course is optional, of course, but the fix doesn't require it, and that's a win. Number two, the economics had to match the pace of the builders. Builders are shipping code every single week from our community. So, a $200 assessment, sure, that made sense if you were only shipping quarterly. It made no sense for someone pushing code every week. So now $100 buys you 1,000 tokens. An audit costs 200 tokens. A rerun of that audit 50 tokens. Realtime skills 100 tokens each. So a full audit cycle is 350 tokens, about 35 bucks. Token packs start at 25 bucks. Tokens never expire and no subscription is required. That's also a win. And three, the first time you sign up and purchase tokens from us, you get 100 extra tokens. So, no demo, no sales call, no trial that's going to expire. You run your build through the system and the data will speak for itself. Token purchases are final. Tokens do not expire. They can be used at any time. So, the data told us what builders wanted. So, we stopped what we were selling and we planned what we were going to build next. And now, it's coming to you.
+
+
+</div>

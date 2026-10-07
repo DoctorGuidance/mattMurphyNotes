@@ -1,123 +1,122 @@
 <p align="center">
-  <img src="banner.svg" alt="Matt Murphy AI - Coming Soon" width="100%">
+  <img src="banner.svg" alt="Matt Murphy AI Academy" width="100%">
 </p>
 
-# 🧠 Matt Murphy AI Notes & Agent Skills `[COMING SOON ⏳]`
+# 🧠 Matt Murphy Production Engineering Academy & Agent Skills
 
-> **Bridging the chasm between "Vibe Coding" and hardened, scalable, enterprise-grade production engineering.**
+> **Bridging the chasm between superficial "Vibe Coding" and hardened, scalable, enterprise-grade production engineering.**
 
-[![Status: Coming Soon](https://img.shields.io/badge/Status-COMING%20SOON-f59e0b?style=for-the-badge&logo=git&logoColor=white)](#)
-[![Stack: 13 Production Layers](https://img.shields.io/badge/Architecture-13%20Production%20Layers-2ed573?style=for-the-badge)](#)
-[![Target: AI Agents](https://img.shields.io/badge/Platform-Antigravity%20%7C%20Cursor%20%7C%20Claude-ff4757?style=for-the-badge&logo=openai&logoColor=white)](#)
-[![Archive: 320+ Reels](https://img.shields.io/badge/Catalog-320%2B%20Masterclasses-00d2ff?style=for-the-badge)](#)
-
-> [!IMPORTANT]
-> 🚧 **PRE-RELEASE NOTICE (COMING SOON):**  
-> This repository is currently in active staging. The complete library of modular **Agent Skills (`SKILL.md`)**, system architecture checklists, and production playbooks synthesized from **320+ Matt Murphy masterclasses** will be published here in the coming days. **Star or watch this repository** to get notified on release day!
+[![Live Web Platform](https://img.shields.io/badge/Live%20Platform-GitHub%20Pages-22c55e?style=for-the-badge&logo=github&logoColor=white)](https://doctorguidance.github.io/mattMurphyNotes/)
+[![Masterclasses](https://img.shields.io/badge/Masterclasses-320%2B%20Lessons-00d2ff?style=for-the-badge)](#)
+[![Stack](https://img.shields.io/badge/Platform-13%20Production%20Layers-2ed573?style=for-the-badge)](#)
+[![Target](https://img.shields.io/badge/AI%20Agents-Antigravity%20%7C%20Cursor%20%7C%20Claude-ff4757?style=for-the-badge)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](#)
 
 ---
 
-## 🧭 Overview
+## 🌐 وب‌سایت تعاملی و آکادمی آنلاین (Interactive Web App)
 
-In the era of generative AI, shipping an MVP is instantaneous—but scaling it to hundreds of thousands of users without security breaches, runaway cloud bills, or database lockups is an entirely different discipline.
+مستندات، موتور جستجوی لحظه‌ای، ماتریس ۱۳ لایه تولید و **چک‌لیست تعاملی ارزیابی پروداکشن** به صورت زنده بر روی GitHub Pages در دسترس است:
 
-This repository codifies the battle-tested architectural principles, hardening checklists, and systems engineering frameworks shared by **Matt Murphy** ([@mattmurphyai](https://www.instagram.com/mattmurphyai) / [mattmurphy.ai](https://mattmurphy.ai)).
+👉 **[ورود به آکادمی آنلاین مت مورفی (Live Learning Hub)](https://doctorguidance.github.io/mattMurphyNotes/)**
 
-Rather than passive notes, this project translates **320+ technical breakdowns** into modular, executable **Agent Skills**—designed to be directly ingested by modern AI programming environments (**Google Antigravity**, **Cursor**, **Claude Code**, **Windsurf**, and autonomous multi-agent swarms).
+### امکانات سامانه آنلاین:
+- 🔍 **جستجوی بلادرنگ لحظه‌ای (Omnibox `⌘K`):** جستجو بر اساس شماره درس (#043)، عبارات فارسی، کدهای خطا، نام حملات (IDOR, XSS, CSRF, DoS) و کلیدواژه‌های تخصصی.
+- 🏛️ **ماتریس تعاملی ۱۳ لایه تولید (The 13 Production Layers):** پایش تصویری و فیلتر درس‌ها بر اساس لایه‌های معماری نرم‌افزار.
+- 📋 **ماشین‌حساب و چک‌لیست ارزیابی پایداری (Production Audit Scorecard):** ارزیابی زنده پروژه با محاسبه درصد ایمنی و پیشنهاد رفع عیب بر مبنای درس‌های مت مورفی.
+- 💻 **کارت‌های درس تفصیلی:** تفکیک استاندارد هر درس به **طرح مسئله**، **ریشه معماری**، **چک‌لیست عمل**، **کد استاندارد با قابلیت کپی ۱ کلیکی**، و **لینک مستقیم به ریلز رسمی اینستاگرام**.
 
+---
+
+## 🏛️ ساختار دسته‌بندی موضوعی (۱۲ ماژول تخصصی)
+
+تمام ۳۲۰+ درس ویدیویی و صوتی مت مورفی در ۱۲ حوزه تخصصی سازمان‌دهی شده‌اند:
+
+| شناسه ماژول | حوزه تخصصی مهندسی | جایگاه در پلتفرم | تعداد درس‌ها |
+|:---|:---|:---:|:---:|
+| [`01-auth-identity`](./docs/01-auth-identity) | **احراز هویت و مدیریت نشست‌ها** | Layer 04 | ۲۹ درس |
+| [`02-security-defense`](./docs/02-security-defense) | **امنیت نرم‌افزار، حملات و دفاع لایه‌ای** | Layer 08 | ۵۰ درس |
+| [`03-database-storage`](./docs/03-database-storage) | **پایگاه‌داده، روابط، ایندکس و پایداری داده** | Layer 03 | ۳۴ درس |
+| [`04-caching-performance`](./docs/04-caching-performance) | **کشینگ، توزیع لبه و پرفورمنس سیستمی** | Layer 10 | ۱۲ درس |
+| [`05-rate-limiting-abuse`](./docs/05-rate-limiting-abuse) | **محدودسازی نرخ، مقابله با DoS و بات‌ها** | Layer 09 | ۳ درس |
+| [`06-observability-logs`](./docs/06-observability-logs) | **مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا** | Layer 12 | ۱۴ درس |
+| [`07-async-queues-webhooks`](./docs/07-async-queues-webhooks) | **صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی** | Layer 06 | ۱۸ درس |
+| [`08-multi-tenancy`](./docs/08-multi-tenancy) | **معماری چندمستأجره و جداسازی قطعی داده‌ها** | Layer 08 | ۶ درس |
+| [`09-ai-guardrails`](./docs/09-ai-guardrails) | **مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی** | Layer 02 | ۴۸ درس |
+| [`10-cicd-deployments`](./docs/10-cicd-deployments) | **تست، محیط‌های کاری، CI/CD و خط لوله استقرار** | Layer 07 | ۴۵ درس |
+| [`11-cloud-finops`](./docs/11-cloud-finops) | **معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه** | Layer 06 | ۳۰ درس |
+| [`12-frontend-api-hygiene`](./docs/12-frontend-api-hygiene) | **معماری فرانت‌اند، طراحی واسط و بهداشت API** | Layer 01 | ۳۲ درس |
+
+---
+
+## 🤖 نحوه استفاده از اسکیل هوش مصنوعی (AI Agent Skill)
+
+این مخزن حاوی اسکیل رسمی **`matt-murphy-production-engineer`** است که خطوط دفاعی مت مورفی را به دستیارهای کدنویسی تزریق می‌کند.
+
+### ۱. در Google Antigravity
+کافی است پوشه اسکیل را درون دایرکتوری اسکیل‌های پروژه یا سیستم قرار دهید:
+```bash
+cp -r skills/matt-murphy-production-engineer/ ~/.gemini/skills/
 ```
-   ┌─────────────────────────────────────────────────────────────┐
-   │                     "VIBE CODING" (Day 1)                   │
-   │           Fast Prototypes • AI Scaffolding • Fast Demos      │
-   └──────────────────────────────┬──────────────────────────────┘
-                                  │
-                                  ▼
-                 [ 🧠 Matt Murphy Production Guardrails ]
-                                  │
-   ┌──────────────────────────────┴──────────────────────────────┐
-   │                HARDENED PRODUCTION (Day 30+)                │
-   │   13-Layer Stack • RLS • Connection Pooling • Zero Leaks    │
-   └─────────────────────────────────────────────────────────────┘
+
+### ۲. در Cursor IDE
+محتوای فایل اسکیل را به قوانین محلی کرسر اضافه کنید:
+```bash
+cat skills/matt-murphy-production-engineer/SKILL.md >> .cursorrules
+```
+
+### ۳. در Claude Code و Windsurf
+فایل [`SKILL.md`](./skills/matt-murphy-production-engineer/SKILL.md) را به عنوان فایل مرجع پرامپت سیستم معرفی کنید.
+
+---
+
+## 🛠️ اسکنر و لینتر خودکار کدهای پروداکشن (`audit_codebase.py`)
+
+با استفاده از اسکریپت لینتر خط فرمان، می‌توانید کدهای هر پروژه‌ای را پیش از دیپلوی برای کشف ضدالگوهای رایج مت مورفی (مانند توکن در localStorage، وب‌هوک بدون احراز امضا، یا کلیدهای لو رفته) اسکن کنید:
+
+```bash
+python scripts/audit_codebase.py /path/to/your/project
+```
+
+نمونه خروجی:
+```text
+🚨 FOUND 2 POTENTIAL PRODUCTION RISKS:
+
+[CRITICAL] Insecure Token Storage in LocalStorage (MM-043)
+  📍 File: src/auth/client.ts:42
+  📌 Match: localStorage.setItem('token', jwt)
+  💡 Remediation: Move authentication tokens to HttpOnly, Secure, SameSite=Lax cookies.
+  📚 Matt Murphy Masterclass: Episode #043
 ```
 
 ---
 
-## 🏛️ The 13 Production Layers Architecture
-
-A core pillar of Matt Murphy’s methodology is treating modern software as an interdependent **13-layer platform**:
-
-| Layer | Domain | Critical Production Focus |
-|:---:|:---|:---|
-| **01** | **UI & Accessibility** | Layout thrashing prevention, keyboard navigation, contrast, WCAG. |
-| **02** | **APIs & Logic** | Display layer $\ne$ trust layer; strict server-side business validation. |
-| **03** | **Database & Storage** | Normalization, indexing strategies, zero blobs in DB tables. |
-| **04** | **Auth & Permissions** | Secure HttpOnly cookies (never `localStorage`), short-lived tokens, PKCE. |
-| **05** | **Staging & Deployments** | Canary releases, zero direct-to-main pushes, feature flags. |
-| **06** | **Cloud & Compute** | Serverless timeouts, async worker queues, cloud cost guardrails. |
-| **07** | **CI/CD & Pipelines** | Automated regression gates, one-click rollbacks, sealed builds. |
-| **08** | **Security & RLS** | Database-level Row-Level Security, zero service-role keys in clients. |
-| **09** | **Rate Limiting** | Three-tier protection (DoS hard limits, adaptive load, tier quotas). |
-| **10** | **Caching & CDN** | Multi-tenant scope keys, deterministic invalidation, edge distribution. |
-| **11** | **Connection Pooling** | PgBouncer/Supavisor, handling high-concurrency connection spikes. |
-| **12** | **Observability & Logs** | Structured JSON tracing, correlation IDs, proactive alerting. |
-| **13** | **Disaster Recovery** | Point-in-time recovery (PITR), tested restore runbooks, failovers. |
-
----
-
-## 📂 Repository Blueprint
+## 📁 ساختار مخزن (Repository Structure)
 
 ```text
 mattMurphyNotes/
-├── skills/                     # Executable AI Agent Skills (SKILL.md)
-│   ├── production-stack/       # 13-layer rules & architectural constraints
-│   ├── auth-and-security/      # RLS, token protection, and anti-leak rules
-│   ├── database-scaling/       # Query optimization, indexes & connection pools
-│   └── agent-orchestration/    # Task routing, prompt defenses & memory hygiene
-├── playbooks/                  # Human-readable engineering checklists
-│   ├── pre-launch-checklist.md # 47-point pre-deploy verification
-│   └── cost-optimization.md    # API batching, caching & model tiering
-└── archive/                    # Extracted transcripts, hooks & metadata
-    └── index.json              # 320+ categorized episodes with source links
+├── .github/
+│   └── workflows/
+│       └── deploy-pages.yml          # استقرار خودکار روی GitHub Pages
+├── docs/                             # مستندات کامل ۳۲۰ درس در ۱۲ پوشه تخصصی
+│   ├── 01-auth-identity/
+│   ├── 02-security-defense/
+│   └── ...
+├── site/                             # وب‌اپلیکیشن تعاملی GitHub Pages (بدون نیاز به بیلد نود)
+│   ├── index.html
+│   ├── app.js
+│   └── data.json                     # دیتابیس جامع ۱.۲ مگابایتی درس‌ها
+├── skills/                           # اسکیل رسمی ایجنت‌های هوش مصنوعی
+│   └── matt-murphy-production-engineer/
+│       ├── SKILL.md
+│       └── rules/
+├── scripts/
+│   └── audit_codebase.py             # لینتر و اسکنر استاتیک کدهای پروداکشن
+├── banner.svg
+└── README.md
 ```
 
 ---
 
-## 🚀 How to Use These Skills with AI Coding Assistants
-
-### 1. In Google Antigravity
-Copy any skill folder into your project's `.gemini/skills/` directory:
-```bash
-cp -r skills/production-stack/ .gemini/skills/
-```
-
-### 2. In Cursor IDE
-Add relevant skills to your `.cursorrules` or `.cursor/rules/`:
-```bash
-cat skills/auth-and-security/SKILL.md >> .cursorrules
-```
-
-### 3. In Claude Code / Windsurf
-Reference the guidelines directly in your project prompt or workspace context file.
-
----
-
-## 🗺️ Roadmap & Milestones
-
-- [x] **Phase 1: Knowledge Extraction** — 322 episodes cataloged, metadata extracted, and high-fidelity audio archived.
-- [ ] **Phase 2: Taxonomy & Topic Clustering** — Grouping episodes into the 13 architectural layers and core operational domains.
-- [ ] **Phase 3: Skill Codification** — Authoring production-ready `SKILL.md` documents with clear input/output contracts.
-- [ ] **Phase 4: Multi-Agent Evaluation Suite** — Autonomous testing to verify that AI agents adhere to Matt Murphy’s guardrails.
-
----
-
-## 🤝 Attribution & Disclaimer
-
-* All architectural concepts and insights are synthesized from educational materials published by **Matt Murphy** (Founder & CEO of Faction Group, author of *Not Murphy's Law*).
-* Visit his official platform for masterclasses and deep dives: **[mattmurphy.ai](https://mattmurphy.ai)**.
-* This repository is an independent open-source synthesis maintained by the community for AI builders and operators.
-
----
-
-<div align="center">
-  <sub>Maintained with precision by <a href="https://github.com/DoctorGuidance">@DoctorGuidance</a> • Built for builders who ship to production.</sub>
-</div>
+## 📜 لایسنس و حقوق معنوی
+کلیه آموزه‌ها و مفاهیم متعلق به **مت مورفی** ([@mattmurphyai](https://www.instagram.com/mattmurphyai)) است. این بازنویسی، سامانه وب و اسکیل‌های هوش مصنوعی تحت مجوز آزاد **MIT** برای جامعه مهندسی نرم‌افزار توسعه یافته است.
