@@ -1,36 +1,36 @@
-# درس 172: درس 172: GitHub Actions free tier. 2,000 minutes
+# Episode 172: GitHub Actions free tier. 2,000 minutes
 
-> **عنوان انگلیسی:** GitHub Actions free tier. 2,000 minutes  
-> **حوزه معماری:** تست، محیط‌های کاری، CI/CD و خط لوله استقرار (Testing, Staging & CI/CD)  
-> **لایه پروداکشن:** لایه 7 (CI/CD & Pipelines)  
-> **منبع ریلز اینستاگرام:** [مشاهده ویدیو در Instagram](https://www.instagram.com/reel/DaaYDrMkbpW/)  
-
----
-
-## 🚨 ۱. طرح مسئله و سناریوی آسیب‌پذیری (Problem & Attack Vector)
-چالش در این سناریو ناشی از عدم مدیریت صحیح معماری در مبحث تست، محیط‌های کاری، CI/CD و خط لوله استقرار است که باعث شکست سیستم زیر بار واقعی یا نفوذ مهاجم می‌شود.
+> **Category:** Testing, Staging & CI/CD (تست، محیط‌های کاری، CI/CD و خط لوله استقرار)  
+> **Production Layer:** Layer 7  
+> **Official Instagram Reel:** [https://www.instagram.com/reel/DaaYDrMkbpW/](https://www.instagram.com/reel/DaaYDrMkbpW/)  
 
 ---
 
-## 💡 ۲. تحلیل ریشه‌ای و معماری راهکار (Root Cause & Solution)
-علت ریشه‌ای: عدم اعمال محدودیت‌ها و سیاست‌های سخت‌گیرانه در لایه Testing, Staging & CI/CD و اتکا به تنظیمات پیش‌فرض یا خوش‌بینانه.
+## 🚨 1. Problem Statement & Failure Vector (From Voice Transcript)
+You use the free tier of GitHub actions on CI/CD. 2,000 minutes a month, automatic builds on every push. Your solo project uses 80 minutes.
 
 ---
 
-## ⚡ ۳. برنامه عملیاتی و چک‌لیست پیاده‌سازی (Action Checklist)
-- [ ] بازبینی تنظیمات و کدهای مربوط به Testing, Staging & CI/CD در سراسر پروژه
-- [ ] اعمال محدودیت‌های اعتبارسنجی در لایه سرور به جای اعتماد به کلاینت
-- [ ] تست حالات لبه (Edge Cases) و تزریق خطای شبیه‌سازی‌شده پیش از انتشار
+## 💡 2. Root Cause & Architectural Solution (Matt Murphy Analysis)
+Your solo project uses 80 minutes. No problem. It's got you covered.
 
 ---
 
-## 💻 ۴. الگوی کد / کانفیگ استاندارد و سخت‌سازی‌شده (Hardened Implementation)
-```bash
-// Standard Hardening Snippet for Episode 172
-// Domain: Testing, Staging & CI/CD
-export function verifyProductionHardening(config: Record<string, unknown>): boolean {
-  if (!config.isHardened) {
-    throw new Error('Production guardrail triggered: Review Episode 172 guidelines.');
+## ⚡ 3. Hardening Action Checklist
+- [ ] Your solo project uses 80 minutes.
+- [ ] A bug ships to production because the safety net ran out of minutes.
+- [ ] And that day always arrives during a sprint and not in between them.
+
+---
+
+## 💻 4. Hardened Implementation Code / Config
+```typescript
+// Hardened Production Configuration - Episode #172
+// Domain: 10-cicd-deployments
+export function enforceProductionGuardrail(context: Record<string, unknown>) {
+  // Enforce Matt Murphy #172 invariants:
+  if (!context.validated) {
+    throw new Error('Production guardrail triggered: Review Masterclass #172');
   }
   return true;
 }
@@ -38,10 +38,9 @@ export function verifyProductionHardening(config: Record<string, unknown>): bool
 
 ---
 
-## 🎧 ۵. متن کامل ترنسکریپت زبان اصلی (Original Audio Transcript)
+## 🎧 5. Exact Spoken Audio Transcript (Word-for-Word)
 <div dir="ltr">
 
 You use the free tier of GitHub actions on CI/CD. 2,000 minutes a month, automatic builds on every push. Your solo project uses 80 minutes. No problem. It's got you covered. You add a team member, the minutes double. You add integration testing, the minutes triple. You add a staging and deployment step, quadruple. On day 19 of the month, guess what? 2,000 minutes totally gone. And now your pipeline has stopped running. Your team is pushing code without tests, without linting, and without checks. A bug ships to production because the safety net ran out of minutes. And so you upgrade to pay as you go, which is like $4 per additional minute on Mac OS. So your 300minut overrun cost you $1,200 for a CI tool that was free 19 days ago. The free tier was designed to get you started. The pricing was designed to capture you when it mattered the most, and it captured you on the day your team needed a pipeline the most. So, every CI platform has a free tier. Also, every CI platform has a trapdoor underneath it. You do not plan for the day that your team outgrows that ceiling. And that day always arrives during a sprint and not in between them.
-
 
 </div>
