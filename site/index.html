@@ -303,10 +303,30 @@
           </div>
         </div>
 
+        <!-- Skill Resources Bar -->
+        <div class="p-4 rounded-2xl bg-gray-900/60 border border-darkBorder flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="font-bold text-white">Full Enterprise Architecture Package:</span>
+            <span class="text-gray-400">12 Modular Rulebooks • 3 Reference Manuals • Static CLI Linter</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="https://github.com/DoctorGuidance/mattMurphyNotes/tree/main/skills/matt-murphy-production-engineer" target="_blank" class="px-3 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition font-medium flex items-center gap-1.5">
+              <span>📁</span> Browse Full Skill on GitHub
+            </a>
+            <a href="https://github.com/DoctorGuidance/mattMurphyNotes/blob/main/skills/matt-murphy-production-engineer/references/anti-vibe-traps.md" target="_blank" class="px-3 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-darkBorder transition font-medium flex items-center gap-1.5">
+              <span>🚨</span> 321 Anti-Vibe Traps
+            </a>
+            <a href="https://github.com/DoctorGuidance/mattMurphyNotes/blob/main/skills/matt-murphy-production-engineer/references/production-verification-heuristics.md" target="_blank" class="px-3 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-darkBorder transition font-medium flex items-center gap-1.5">
+              <span>🔬</span> 13-Layer Heuristics
+            </a>
+          </div>
+        </div>
+
         <div class="space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white" id="txt-skill-source-title">Full Skill Specification (SKILL.md)</h3>
-            <button onclick="copySkillSource()" id="copy-skill-btn" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs text-white border border-darkBorder transition">
+            <h3 class="text-sm font-bold text-white" id="txt-skill-source-title">Full Master Skill Specification (SKILL.md)</h3>
+            <button onclick="copySkillSource()" id="copy-skill-btn" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs text-white font-bold transition shadow-lg shadow-emerald-600/20">
               Copy SKILL.md 📋
             </button>
           </div>
@@ -446,6 +466,6 @@
   </footer>
 
   <!-- App Script -->
-  <script src="app.js"></script>
+  <script src="app.js?v=3.2.0"></script>
 </body>
 </html>
