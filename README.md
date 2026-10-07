@@ -84,40 +84,69 @@ This repository provides an enterprise-grade **AI Agent Skill** that hardens cod
 
 ### 🚀 Installation & Setup Across AI Coding Environments
 
-#### 1. In Google Antigravity (AGY)
-Install globally across all workspaces:
+#### 1. In Google Antigravity (AGY / Gemini CLI)
+
+**Option A: 1-Line Direct Global Install (Linux / macOS / WSL)**
 ```bash
-# Global configuration (Recommended)
-mkdir -p ~/.gemini/config/skills/matt-murphy-production-engineer
-cp -r skills/matt-murphy-production-engineer/* ~/.gemini/config/skills/matt-murphy-production-engineer/
+git clone https://github.com/DoctorGuidance/mattMurphyNotes.git /tmp/mm && mkdir -p ~/.gemini/config/skills && cp -r /tmp/mm/skills/matt-murphy-production-engineer ~/.gemini/config/skills/ && rm -rf /tmp/mm
 ```
-Or install in a specific project:
+
+**Option B: 1-Line Direct Global Install (Windows PowerShell)**
+```powershell
+git clone https://github.com/DoctorGuidance/mattMurphyNotes.git $env:TEMP\mm; New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.gemini\config\skills"; Copy-Item -Recurse -Force "$env:TEMP\mm\skills\matt-murphy-production-engineer" "$env:USERPROFILE\.gemini\config\skills\"; Remove-Item -Recurse -Force $env:TEMP\mm
+```
+
+**Option C: In a Local Project Workspace**  
+Clone or copy the `.gemini/skills/` directory into your project's root:
 ```bash
-mkdir -p .gemini/skills/matt-murphy-production-engineer
-cp -r skills/matt-murphy-production-engineer/* .gemini/skills/matt-murphy-production-engineer/
+git clone https://github.com/DoctorGuidance/mattMurphyNotes.git
+cd your-project
+cp -r /path/to/mattMurphyNotes/skills/matt-murphy-production-engineer .gemini/skills/
 ```
 *Antigravity automatically discovers and activates the skill whenever designing architectures, implementing auth/security, refactoring databases, or reviewing full-stack code.*
 
+---
+
 #### 2. In Cursor IDE
-Add to modern Cursor rules or classic `.cursorrules`:
+
+**Option A: 1-Line Direct Download (No clone needed)**
 ```bash
 # Modern Cursor (.cursor/rules)
 mkdir -p .cursor/rules
-cp skills/matt-murphy-production-engineer/SKILL.md .cursor/rules/matt-murphy.mdc
-
-# Classic .cursorrules
-cat skills/matt-murphy-production-engineer/SKILL.md >> .cursorrules
+curl -fsSL -o .cursor/rules/matt-murphy.mdc https://raw.githubusercontent.com/DoctorGuidance/mattMurphyNotes/main/skills/matt-murphy-production-engineer/SKILL.md
 ```
 
-#### 3. In Claude Code, Windsurf & Cline
-Integrate with your project instructions:
+**Option B: Classic `.cursorrules`**
 ```bash
-# Claude Code (CLAUDE.md)
-cat skills/matt-murphy-production-engineer/SKILL.md >> CLAUDE.md
-
-# Windsurf (.windsurfrules)
-cp skills/matt-murphy-production-engineer/SKILL.md .windsurfrules
+curl -fsSL https://raw.githubusercontent.com/DoctorGuidance/mattMurphyNotes/main/skills/matt-murphy-production-engineer/SKILL.md >> .cursorrules
 ```
+
+---
+
+#### 3. In Claude Code, Windsurf, Cline & Roo Code
+
+**Claude Code (`CLAUDE.md`):**
+```bash
+curl -fsSL https://raw.githubusercontent.com/DoctorGuidance/mattMurphyNotes/main/skills/matt-murphy-production-engineer/SKILL.md >> CLAUDE.md
+```
+
+**Windsurf / Cascade (`.windsurfrules`):**
+```bash
+curl -fsSL -o .windsurfrules https://raw.githubusercontent.com/DoctorGuidance/mattMurphyNotes/main/skills/matt-murphy-production-engineer/SKILL.md
+```
+
+---
+
+#### 4. How to Verify Your Installation
+
+Ask your AI coding assistant:
+> *"What production engineering rules and guardrails do you follow for authentication and webhooks?"*
+
+If installed correctly, the agent will cite:
+- **Matt Murphy #043:** Never store JWTs/tokens in `localStorage` (enforce `HttpOnly; Secure; SameSite=Lax` cookies).
+- **Matt Murphy #006:** Stripe/payment webhooks must verify the raw body buffer signature.
+- **Matt Murphy #044:** Explicit tenant scoping on all database queries (Anti-IDOR).
+- **The 4 Mandatory UI States:** Loading, Error (with interactive retry), Empty, and Success.
 
 ---
 
