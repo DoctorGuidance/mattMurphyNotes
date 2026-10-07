@@ -14,71 +14,77 @@
 
 ---
 
-## 🌐 وب‌سایت تعاملی و آکادمی آنلاین (Interactive Web App)
+## 🌐 Live Interactive Academy (GitHub Pages)
 
-مستندات، موتور جستجوی لحظه‌ای، ماتریس ۱۳ لایه تولید و **چک‌لیست تعاملی ارزیابی پروداکشن** به صورت زنده بر روی GitHub Pages در دسترس است:
+The full interactive documentation, omnibox search engine, 13 production layers matrix, and **Production Audit Scorecard** are live on GitHub Pages:
 
-👉 **[ورود به آکادمی آنلاین مت مورفی (Live Learning Hub)](https://doctorguidance.github.io/mattMurphyNotes/)**
+👉 **[Enter the Live Matt Murphy Academy](https://doctorguidance.github.io/mattMurphyNotes/)**
 
-### امکانات سامانه آنلاین:
-- 🔍 **جستجوی بلادرنگ لحظه‌ای (Omnibox `⌘K`):** جستجو بر اساس شماره درس (#043)، عبارات فارسی، کدهای خطا، نام حملات (IDOR, XSS, CSRF, DoS) و کلیدواژه‌های تخصصی.
-- 🏛️ **ماتریس تعاملی ۱۳ لایه تولید (The 13 Production Layers):** پایش تصویری و فیلتر درس‌ها بر اساس لایه‌های معماری نرم‌افزار.
-- 📋 **ماشین‌حساب و چک‌لیست ارزیابی پایداری (Production Audit Scorecard):** ارزیابی زنده پروژه با محاسبه درصد ایمنی و پیشنهاد رفع عیب بر مبنای درس‌های مت مورفی.
-- 💻 **کارت‌های درس تفصیلی:** تفکیک استاندارد هر درس به **طرح مسئله**، **ریشه معماری**، **چک‌لیست عمل**، **کد استاندارد با قابلیت کپی ۱ کلیکی**، و **لینک مستقیم به ریلز رسمی اینستاگرام**.
+### Key Platform Features:
+- 🔍 **Real-Time Omnibox Search (`⌘K`):** Instantly filter across all 320+ masterclasses by episode number (`#043`), topics, vulnerability names (`IDOR`, `XSS`, `CSRF`, `DoS`), or keywords.
+- 🌍 **Multilingual & RTL Support:** Switch seamlessly between **English (Default)**, **فارسی (Persian / RTL)**, **Deutsch**, **Español**, and **中文**.
+- 🏛️ **13 Production Layers Matrix:** Visual navigation mapping software architecture layers directly to battle-tested failure modes and hardening guides.
+- 📋 **Production Audit Scorecard:** Interactive 15-point checklist calculating your system's hardening score in real-time, with direct markdown report export.
+- 💻 **Standardized Engineering Deep-Dives:** Every lesson features:
+  - 🚨 **Problem Statement & Attack Vector**
+  - 💡 **Root Cause & Architectural Solution**
+  - ⚡ **Hardening Action Checklist**
+  - 💻 **Hardened Code / Config with 1-Click Copy**
+  - 🎧 **Direct Instagram Reel Link & Original Spoken Audio Transcript**
 
 ---
 
-## 🏛️ ساختار دسته‌بندی موضوعی (۱۲ ماژول تخصصی)
+## 🏛️ The 12 Architectural Modules
 
-تمام ۳۲۰+ درس ویدیویی و صوتی مت مورفی در ۱۲ حوزه تخصصی سازمان‌دهی شده‌اند:
+All 320+ lessons are cataloged into 12 distinct engineering domains:
 
-| شناسه ماژول | حوزه تخصصی مهندسی | جایگاه در پلتفرم | تعداد درس‌ها |
+| Module Directory | Engineering Domain | Target Layer | Masterclasses |
 |:---|:---|:---:|:---:|
-| [`01-auth-identity`](./docs/01-auth-identity) | **احراز هویت و مدیریت نشست‌ها** | Layer 04 | ۲۹ درس |
-| [`02-security-defense`](./docs/02-security-defense) | **امنیت نرم‌افزار، حملات و دفاع لایه‌ای** | Layer 08 | ۵۰ درس |
-| [`03-database-storage`](./docs/03-database-storage) | **پایگاه‌داده، روابط، ایندکس و پایداری داده** | Layer 03 | ۳۴ درس |
-| [`04-caching-performance`](./docs/04-caching-performance) | **کشینگ، توزیع لبه و پرفورمنس سیستمی** | Layer 10 | ۱۲ درس |
-| [`05-rate-limiting-abuse`](./docs/05-rate-limiting-abuse) | **محدودسازی نرخ، مقابله با DoS و بات‌ها** | Layer 09 | ۳ درس |
-| [`06-observability-logs`](./docs/06-observability-logs) | **مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا** | Layer 12 | ۱۴ درس |
-| [`07-async-queues-webhooks`](./docs/07-async-queues-webhooks) | **صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی** | Layer 06 | ۱۸ درس |
-| [`08-multi-tenancy`](./docs/08-multi-tenancy) | **معماری چندمستأجره و جداسازی قطعی داده‌ها** | Layer 08 | ۶ درس |
-| [`09-ai-guardrails`](./docs/09-ai-guardrails) | **مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی** | Layer 02 | ۴۸ درس |
-| [`10-cicd-deployments`](./docs/10-cicd-deployments) | **تست، محیط‌های کاری، CI/CD و خط لوله استقرار** | Layer 07 | ۴۵ درس |
-| [`11-cloud-finops`](./docs/11-cloud-finops) | **معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه** | Layer 06 | ۳۰ درس |
-| [`12-frontend-api-hygiene`](./docs/12-frontend-api-hygiene) | **معماری فرانت‌اند، طراحی واسط و بهداشت API** | Layer 01 | ۳۲ درس |
+| [`01-auth-identity`](./docs/01-auth-identity) | **Authentication, Identity & Session Management** | Layer 04 | 29 Lessons |
+| [`02-security-defense`](./docs/02-security-defense) | **Application Security, Attacks & Multi-Layer Defense** | Layer 08 | 50 Lessons |
+| [`03-database-storage`](./docs/03-database-storage) | **Database Architecture, Indexing & Data Durability** | Layer 03 | 34 Lessons |
+| [`04-caching-performance`](./docs/04-caching-performance) | **Caching, Edge Distribution & System Performance** | Layer 10 | 12 Lessons |
+| [`05-rate-limiting-abuse`](./docs/05-rate-limiting-abuse) | **Rate Limiting, Denial-of-Service & Bot Defense** | Layer 09 | 3 Lessons |
+| [`06-observability-logs`](./docs/06-observability-logs) | **Observability, Structured Logging & Error Tracing** | Layer 12 | 14 Lessons |
+| [`07-async-queues-webhooks`](./docs/07-async-queues-webhooks) | **Asynchronous Job Queues & Financial Webhooks** | Layer 06 | 18 Lessons |
+| [`08-multi-tenancy`](./docs/08-multi-tenancy) | **Multi-Tenancy & Zero-Leak Data Isolation** | Layer 08 | 6 Lessons |
+| [`09-ai-guardrails`](./docs/09-ai-guardrails) | **LLM Guardrails, Prompt Defense & Legal Compliance** | Layer 02 | 48 Lessons |
+| [`10-cicd-deployments`](./docs/10-cicd-deployments) | **Testing, Staging Parity & Deployment Pipelines** | Layer 07 | 45 Lessons |
+| [`11-cloud-finops`](./docs/11-cloud-finops) | **Cloud Resilience, Serverless & Cost Optimization** | Layer 06 | 30 Lessons |
+| [`12-frontend-api-hygiene`](./docs/12-frontend-api-hygiene) | **Frontend Architecture & API Hygiene** | Layer 01 | 32 Lessons |
 
 ---
 
-## 🤖 نحوه استفاده از اسکیل هوش مصنوعی (AI Agent Skill)
+## 🤖 AI Agent Skill Suite (`matt-murphy-production-engineer`)
 
-این مخزن حاوی اسکیل رسمی **`matt-murphy-production-engineer`** است که خطوط دفاعی مت مورفی را به دستیارهای کدنویسی تزریق می‌کند.
+This repository provides an autonomous **Agent Skill** that injects Matt Murphy's production guardrails into AI programming environments to prevent vulnerable code generation.
 
-### ۱. در Google Antigravity
-کافی است پوشه اسکیل را درون دایرکتوری اسکیل‌های پروژه یا سیستم قرار دهید:
+### 1. In Google Antigravity
+Copy the skill into your project's `.gemini/skills/` directory:
 ```bash
 cp -r skills/matt-murphy-production-engineer/ ~/.gemini/skills/
 ```
 
-### ۲. در Cursor IDE
-محتوای فایل اسکیل را به قوانین محلی کرسر اضافه کنید:
+### 2. In Cursor IDE
+Append the production rules to your project's `.cursorrules`:
 ```bash
 cat skills/matt-murphy-production-engineer/SKILL.md >> .cursorrules
 ```
 
-### ۳. در Claude Code و Windsurf
-فایل [`SKILL.md`](./skills/matt-murphy-production-engineer/SKILL.md) را به عنوان فایل مرجع پرامپت سیستم معرفی کنید.
+### 3. In Claude Code & Windsurf
+Reference [`SKILL.md`](./skills/matt-murphy-production-engineer/SKILL.md) directly in your project prompt or workspace instructions (`CLAUDE.md` / `AGENT.md`).
 
 ---
 
-## 🛠️ اسکنر و لینتر خودکار کدهای پروداکشن (`audit_codebase.py`)
+## 🛠️ CLI Static Codebase Auditor (`audit_codebase.py`)
 
-با استفاده از اسکریپت لینتر خط فرمان، می‌توانید کدهای هر پروژه‌ای را پیش از دیپلوی برای کشف ضدالگوهای رایج مت مورفی (مانند توکن در localStorage، وب‌هوک بدون احراز امضا، یا کلیدهای لو رفته) اسکن کنید:
+Quickly scan any existing project before deployment for critical Matt Murphy anti-patterns (such as tokens in `localStorage`, unverified payment webhooks, or exposed secrets):
 
 ```bash
 python scripts/audit_codebase.py /path/to/your/project
 ```
 
-نمونه خروجی:
+Sample output:
 ```text
 🚨 FOUND 2 POTENTIAL PRODUCTION RISKS:
 
@@ -91,32 +97,32 @@ python scripts/audit_codebase.py /path/to/your/project
 
 ---
 
-## 📁 ساختار مخزن (Repository Structure)
+## 📁 Repository Structure
 
 ```text
 mattMurphyNotes/
 ├── .github/
 │   └── workflows/
-│       └── deploy-pages.yml          # استقرار خودکار روی GitHub Pages
-├── docs/                             # مستندات کامل ۳۲۰ درس در ۱۲ پوشه تخصصی
+│       └── deploy-pages.yml          # Automated GitHub Pages CI/CD workflow
+├── docs/                             # Full markdown documentation (320+ lessons)
 │   ├── 01-auth-identity/
 │   ├── 02-security-defense/
 │   └── ...
-├── site/                             # وب‌اپلیکیشن تعاملی GitHub Pages (بدون نیاز به بیلد نود)
+├── site/                             # Interactive GitHub Pages web app
 │   ├── index.html
 │   ├── app.js
-│   └── data.json                     # دیتابیس جامع ۱.۲ مگابایتی درس‌ها
-├── skills/                           # اسکیل رسمی ایجنت‌های هوش مصنوعی
+│   └── data.json                     # 1.2MB compiled lesson database
+├── skills/                           # Executable AI Agent Skill Suite
 │   └── matt-murphy-production-engineer/
-│       ├── SKILL.md
-│       └── rules/
+│       ├── SKILL.md                  # Master agent system rules
+│       └── rules/                    # Modular domain rulesets
 ├── scripts/
-│   └── audit_codebase.py             # لینتر و اسکنر استاتیک کدهای پروداکشن
+│   └── audit_codebase.py             # CLI codebase linter
 ├── banner.svg
 └── README.md
 ```
 
 ---
 
-## 📜 لایسنس و حقوق معنوی
-کلیه آموزه‌ها و مفاهیم متعلق به **مت مورفی** ([@mattmurphyai](https://www.instagram.com/mattmurphyai)) است. این بازنویسی، سامانه وب و اسکیل‌های هوش مصنوعی تحت مجوز آزاد **MIT** برای جامعه مهندسی نرم‌افزار توسعه یافته است.
+## 📜 License & Acknowledgments
+All original insights and video concepts belong to **Matt Murphy** ([@mattmurphyai](https://www.instagram.com/mattmurphyai) / [mattmurphy.ai](https://mattmurphy.ai)). This open-source systematization, interactive learning hub, and AI agent skills are maintained by DoctorGuidance under the **MIT License**.

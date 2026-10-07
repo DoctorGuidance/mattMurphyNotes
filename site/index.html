@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="dark">
+<html lang="en" dir="ltr" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matt Murphy Production Engineering | آکادمی مهندسی سیستم‌ها و تولید مت مورفی</title>
+  <title>Matt Murphy Production Engineering Academy | Systems Architecture & Guardrails</title>
   
-  <!-- Fonts: Vazirmatn & JetBrains Mono -->
+  <!-- Fonts: Inter, JetBrains Mono & Vazirmatn -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,7 +18,8 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Vazirmatn', 'sans-serif'],
+            sans: ['Inter', 'Vazirmatn', 'sans-serif'],
+            fa: ['Vazirmatn', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
@@ -41,19 +42,21 @@
     body {
       background-color: #090d16;
       color: #f3f4f6;
+      font-family: 'Inter', sans-serif;
+    }
+    [dir="rtl"] body, [dir="rtl"] .font-i18n {
       font-family: 'Vazirmatn', sans-serif;
     }
     code, pre {
       font-family: 'JetBrains Mono', monospace;
-      direction: ltr;
-      text-align: left;
+      direction: ltr !important;
+      text-align: left !important;
     }
     .glass-header {
       background: rgba(9, 13, 22, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
-    /* Custom scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
@@ -75,8 +78,8 @@
   <!-- Top Announcement Bar -->
   <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
     <span class="inline-block w-2 h-2 rounded-full bg-emerald-200 animate-ping"></span>
-    <span>گذر از «وایب‌کدینگ سطحی» به مهندسی آزموده‌شده در پروداکشن | مبتنی بر ۳۲۰+ درس ویدیویی و صوتی مت مورفی</span>
-    <a href="#audit-tab" onclick="switchTab('audit')" class="underline font-bold mr-2 hover:text-emerald-200 transition">ارزیابی آنلاین پروژه شما ←</a>
+    <span id="txt-announcement">Bridging the chasm between "Vibe Coding" and hardened, production-grade engineering | Based on 320+ Matt Murphy masterclasses</span>
+    <a href="#audit" onclick="switchTab('audit')" id="txt-announcement-link" class="underline font-bold ml-2 hover:text-emerald-200 transition">Audit your project online →</a>
   </div>
 
   <!-- Header Navigation -->
@@ -97,24 +100,39 @@
       <!-- Center Nav Tabs -->
       <nav class="hidden md:flex items-center gap-1 bg-gray-900/80 p-1 rounded-xl border border-darkBorder text-xs font-semibold">
         <button onclick="switchTab('explorer')" id="tab-btn-explorer" class="tab-btn px-4 py-2 rounded-lg bg-emerald-600 text-white shadow transition">
-          📚 بانک دروس (۳۲۰)
+          📚 Masterclasses (320)
         </button>
         <button onclick="switchTab('layers')" id="tab-btn-layers" class="tab-btn px-4 py-2 rounded-lg text-gray-400 hover:text-white transition">
-          🏛️ ماتریس ۱۳ لایه
+          🏛️ 13 Production Layers
         </button>
         <button onclick="switchTab('audit')" id="tab-btn-audit" class="tab-btn px-4 py-2 rounded-lg text-gray-400 hover:text-white transition">
-          🛡️ ارزیابی آمادگی پروداکشن
+          🛡️ Production Audit
         </button>
         <button onclick="switchTab('skill')" id="tab-btn-skill" class="tab-btn px-4 py-2 rounded-lg text-gray-400 hover:text-white transition">
-          🤖 اسکیل هوش مصنوعی
+          🤖 AI Agent Skill
         </button>
       </nav>
 
-      <!-- Right Actions -->
+      <!-- Right Actions: Language Switcher & GitHub -->
       <div class="flex items-center gap-3">
+        <!-- Language Selector -->
+        <div class="relative">
+          <select 
+            id="lang-select" 
+            onchange="changeLanguage(this.value)"
+            class="bg-gray-800 text-gray-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 border border-darkBorder focus:border-emerald-500 focus:outline-none cursor-pointer"
+          >
+            <option value="en">🇺🇸 English</option>
+            <option value="fa">🇮🇷 فارسی (RTL)</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="zh">🇨🇳 中文</option>
+          </select>
+        </div>
+
         <a href="https://github.com/DoctorGuidance/mattMurphyNotes" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/80 hover:bg-gray-700 text-gray-200 text-xs border border-darkBorder transition">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          <span class="font-bold">گیت‌هاب</span>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12z"/></svg>
+          <span class="font-bold hidden sm:inline">GitHub</span>
         </a>
       </div>
     </div>
@@ -124,7 +142,7 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- ========================================== -->
-    <!-- TAB 1: EXPLORER (بانک جامع دروس) -->
+    <!-- TAB 1: EXPLORER -->
     <!-- ========================================== -->
     <div id="view-explorer" class="space-y-8">
       
@@ -135,18 +153,18 @@
         
         <div class="relative z-10 max-w-3xl space-y-4">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-            <span>🛡️ اصول مهندسی سیستم‌های پایدار</span>
+            <span id="txt-hero-tag">🛡️ Production Systems Architecture</span>
             <span class="w-1 h-1 rounded-full bg-emerald-500"></span>
             <span>Matt Murphy AI</span>
           </div>
-          <h1 class="text-2xl sm:text-4xl font-black text-white leading-tight">
-            دانش‌نامه و پایگاه قواعد پروداکشن: <br>
+          <h1 id="txt-hero-title" class="text-2xl sm:text-4xl font-black text-white leading-tight">
+            Hardened Systems Knowledge Base: <br>
             <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
-              ۳۲۰ درس کلیدی برای تاب‌آوری نرم‌افزار
+              320+ Critical Lessons for Software Resilience
             </span>
           </h1>
-          <p class="text-sm sm:text-base text-gray-400 leading-relaxed">
-            کدهای تولیدشده توسط مدل‌های زبانی در نگاه اول کار می‌کنند، اما در مواجهه با ترافیک واقعی، حملات امنیتی و تداخل داده‌ها فرومی‌پاشند. این پلتفرم تمامی تجربیات زیسته مت مورفی را به ساختار استاندارد <strong class="text-white">طرح مسئله، ریشه معماری، چک‌لیست عمل و کد ضدگلوله</strong> تبدیل کرده است.
+          <p id="txt-hero-desc" class="text-sm sm:text-base text-gray-400 leading-relaxed">
+            AI-generated scaffolding works in happy-path demos, but collapses under real-world traffic, multi-tenant leaks, and adversarial attacks. This platform codifies Matt Murphy's production engineering principles into standardized <strong class="text-white">Problem Statements, Root Causes, Action Checklists, and Hardened Code</strong>.
           </p>
         </div>
 
@@ -157,10 +175,10 @@
               type="text" 
               id="search-input" 
               oninput="handleSearch()"
-              placeholder="جستجو بر اساس شماره اپیزود (مثلا 043)، عنوان، کلمات فارسی یا انگلیسی (JWT, RLS, Stripe, DoS)..."
+              placeholder="Search by episode (e.g. 043), title, keywords (JWT, RLS, Stripe, DoS, cookie)..."
               class="w-full bg-gray-900/90 text-white placeholder-gray-500 text-sm rounded-xl px-4 py-3.5 pl-10 border border-darkBorder focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition"
             >
-            <span class="absolute left-3 top-3.5 text-gray-500 text-xs px-1.5 py-0.5 rounded border border-gray-700 bg-gray-800 font-mono">⌘K</span>
+            <span class="absolute right-3 top-3.5 text-gray-500 text-xs px-1.5 py-0.5 rounded border border-gray-700 bg-gray-800 font-mono">⌘K</span>
           </div>
 
           <div class="md:col-span-4 flex gap-2">
@@ -169,7 +187,7 @@
               onchange="handleFilterChange()"
               class="w-full bg-gray-900/90 text-gray-300 text-xs rounded-xl px-3 py-3 border border-darkBorder focus:border-emerald-500 focus:outline-none transition"
             >
-              <option value="all">تمامی حوزه‌ها (۱۲ دسته)</option>
+              <option value="all">All Domains (12 Modules)</option>
             </select>
           </div>
         </div>
@@ -180,78 +198,72 @@
 
       <!-- Stats Bar & Active Filters -->
       <div class="flex items-center justify-between text-xs text-gray-400 px-1">
-        <div>
-          نمایش <span id="results-count" class="font-bold text-emerald-400">0</span> درس از ۳۲۱ درس ثبت‌شده
+        <div id="txt-showing-stats">
+          Showing <span id="results-count" class="font-bold text-emerald-400">0</span> of 321 masterclasses
         </div>
         <div id="active-filter-label" class="text-gray-400">
-          فیلتر: <span class="text-white font-medium">همه</span>
+          Filter: <span class="text-white font-medium">All</span>
         </div>
       </div>
 
       <!-- Episodes Grid -->
-      <div id="episodes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Injected via JavaScript -->
-      </div>
+      <div id="episodes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
       <!-- Pagination / Load More -->
       <div id="load-more-container" class="text-center py-6 hidden">
-        <button onclick="loadMoreEpisodes()" class="px-6 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-bold border border-darkBorder transition">
-          بارگذاری موارد بیشتر...
+        <button onclick="loadMoreEpisodes()" id="txt-load-more" class="px-6 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-xs font-bold border border-darkBorder transition">
+          Load more masterclasses...
         </button>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- TAB 2: THE 13 PRODUCTION LAYERS (ماتریس ۱۳ لایه) -->
+    <!-- TAB 2: THE 13 PRODUCTION LAYERS -->
     <!-- ========================================== -->
     <div id="view-layers" class="hidden space-y-8">
       <div class="text-center max-w-2xl mx-auto space-y-2">
-        <h2 class="text-2xl font-black text-white">پلتفرم ۱۳ لایه توسعه پروداکشن مدرن</h2>
-        <p class="text-xs sm:text-sm text-gray-400">
-          فول‌استک به معنای فرانت‌اند و بک‌اند نیست؛ یک سیستم تولید پایدار از ۱۳ لایه مستقل تشکیل شده که نقص در هر لایه کل محصول را زمین‌گیر می‌کند.
+        <h2 id="txt-layers-title" class="text-2xl font-black text-white">The 13 Modern Production Layers Platform</h2>
+        <p id="txt-layers-desc" class="text-xs sm:text-sm text-gray-400">
+          Full-stack does not mean frontend and backend. Production resilience is an interdependent 13-layer platform. A defect in any layer brings down the entire system.
         </p>
       </div>
 
-      <div id="layers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Injected via JS -->
-      </div>
+      <div id="layers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
     <!-- ========================================== -->
-    <!-- TAB 3: AUDIT SCORECARD (ارزیابی آمادگی) -->
+    <!-- TAB 3: AUDIT SCORECARD -->
     <!-- ========================================== -->
     <div id="view-audit" class="hidden space-y-8">
       <div class="bg-gradient-to-b from-gray-900 to-darkBg rounded-3xl p-6 sm:p-10 border border-darkBorder shadow-2xl">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-8 space-y-3">
-            <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold">
-              🛠️ ممیزی زنده و آنلاین
+            <span id="txt-audit-badge" class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold">
+              🛠️ Interactive Production Auditor
             </span>
-            <h2 class="text-2xl sm:text-3xl font-black text-white">
-              چک‌لیست و ارزیابی آمادگی سیستم شما در پروداکشن
+            <h2 id="txt-audit-title" class="text-2xl sm:text-3xl font-black text-white">
+              Is Your Application Hardened for Production?
             </h2>
-            <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
-              آیا کدهای پروژه شما در برابر حملات متداول، سرقت توکن‌ها، بارهای ناگهانی دیتابیس و وب‌هوک‌های تقلبی ایمن است؟ این چک‌لیست برگرفته از حوادث واقعی ۳۲۰ اپیزود مت مورفی است.
+            <p id="txt-audit-desc" class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+              Verify your application against the top architectural, security, and scalability failure modes discovered across 320+ Matt Murphy production audits.
             </p>
           </div>
           <div class="lg:col-span-4 bg-gray-950/70 p-6 rounded-2xl border border-darkBorder text-center space-y-3">
-            <div class="text-xs text-gray-400 font-semibold">امتیاز سخت‌سازی سیستم شما:</div>
+            <div id="txt-score-label" class="text-xs text-gray-400 font-semibold">Your Production Hardening Score:</div>
             <div id="audit-score-display" class="text-5xl font-black text-emerald-400 font-mono">0%</div>
-            <div id="audit-score-status" class="text-xs font-bold text-gray-400">لطفاً چک‌لیست زیر را تکمیل کنید</div>
-            <button onclick="exportAuditReport()" class="w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center justify-center gap-2">
-              <span>دریافت گزارش تفصیلی (Markdown)</span>
+            <div id="audit-score-status" class="text-xs font-bold text-gray-400">Complete the checklist below</div>
+            <button onclick="exportAuditReport()" id="txt-btn-export" class="w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center justify-center gap-2">
+              <span>Export Audit Report (Markdown)</span>
             </button>
           </div>
         </div>
       </div>
 
-      <div class="space-y-6" id="audit-checklist-container">
-        <!-- Checkpoints Injected via JS -->
-      </div>
+      <div class="space-y-6" id="audit-checklist-container"></div>
     </div>
 
     <!-- ========================================== -->
-    <!-- TAB 4: AI AGENT SKILL (اسکیل هوش مصنوعی) -->
+    <!-- TAB 4: AI AGENT SKILL -->
     <!-- ========================================== -->
     <div id="view-skill" class="hidden space-y-8">
       <div class="bg-gradient-to-b from-gray-900 to-darkBg rounded-3xl p-6 sm:p-10 border border-darkBorder shadow-2xl space-y-6">
@@ -260,31 +272,31 @@
             🤖 Agentic Coding Hardening Skill
           </span>
           <h2 class="text-2xl sm:text-3xl font-black text-white">
-            اسکیل رسمی هوش مصنوعی: <span class="text-emerald-400">matt-murphy-production-engineer</span>
+            Official AI Agent Skill: <span class="text-emerald-400">matt-murphy-production-engineer</span>
           </h2>
-          <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
-            این اسکیل دستیارهای کدنویسی شما (Google Antigravity, Cursor, Claude Code, Windsurf) را مجهز به خطوط دفاعی مت مورفی می‌کند تا در زمان تولید کد یا بازبینی، از تزریق ضدالگوهای کشنده ممانعت به عمل آورند.
+          <p id="txt-skill-desc" class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+            Equip your AI programming assistants (Google Antigravity, Cursor, Claude Code, Windsurf) with Matt Murphy's production guardrails to stop critical vulnerabilities before code is deployed.
           </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
           <div class="p-4 rounded-xl bg-gray-900/80 border border-darkBorder">
-            <div class="font-bold text-white mb-1">۱. Google Antigravity</div>
-            <p class="text-gray-400 mb-3">پوشه اسکیل را در مسیر پروژه قرار دهید:</p>
+            <div class="font-bold text-white mb-1">1. Google Antigravity</div>
+            <p class="text-gray-400 mb-3">Copy skill folder into your project:</p>
             <code class="block p-2 rounded bg-gray-950 text-emerald-400 text-[11px] font-mono">
               cp -r skills/matt-murphy-production-engineer/ .gemini/skills/
             </code>
           </div>
           <div class="p-4 rounded-xl bg-gray-900/80 border border-darkBorder">
-            <div class="font-bold text-white mb-1">۲. Cursor IDE</div>
-            <p class="text-gray-400 mb-3">قواعد را به فایل قوانین کرسر اضافه نمایید:</p>
+            <div class="font-bold text-white mb-1">2. Cursor IDE</div>
+            <p class="text-gray-400 mb-3">Append rules to your cursorrules:</p>
             <code class="block p-2 rounded bg-gray-950 text-emerald-400 text-[11px] font-mono">
               cat skills/.../SKILL.md >> .cursorrules
             </code>
           </div>
           <div class="p-4 rounded-xl bg-gray-900/80 border border-darkBorder">
-            <div class="font-bold text-white mb-1">۳. Claude Code & Windsurf</div>
-            <p class="text-gray-400 mb-3">مستقیماً در فایل کانتکست پروژه قرار دهید:</p>
+            <div class="font-bold text-white mb-1">3. Claude Code & Windsurf</div>
+            <p class="text-gray-400 mb-3">Reference directly in project context:</p>
             <code class="block p-2 rounded bg-gray-950 text-emerald-400 text-[11px] font-mono">
               Reference in AGENT.md or CLAUDE.md
             </code>
@@ -293,13 +305,12 @@
 
         <div class="space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white">سورس کامل اسکیل (SKILL.md)</h3>
+            <h3 class="text-sm font-bold text-white" id="txt-skill-source-title">Full Skill Specification (SKILL.md)</h3>
             <button onclick="copySkillSource()" id="copy-skill-btn" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs text-white border border-darkBorder transition">
-              کپی متن کامل اسکیل 📋
+              Copy SKILL.md 📋
             </button>
           </div>
           <pre id="skill-source-box" class="p-4 rounded-2xl bg-gray-950 border border-darkBorder text-gray-300 text-xs overflow-x-auto max-h-[500px]">
-          <!-- Loaded via JS -->
           </pre>
         </div>
       </div>
@@ -318,11 +329,11 @@
         <div class="space-y-2">
           <div class="flex flex-wrap items-center gap-2 text-xs">
             <span id="modal-ep-badge" class="px-2.5 py-0.5 rounded-full font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">#043</span>
-            <span id="modal-cat-badge" class="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">احراز هویت</span>
-            <span id="modal-layer-badge" class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">لایه ۴</span>
+            <span id="modal-cat-badge" class="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">Authentication</span>
+            <span id="modal-layer-badge" class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">Layer 4</span>
           </div>
-          <h3 id="modal-title-fa" class="text-lg sm:text-xl font-black text-white">عنوان فارسی درس</h3>
-          <p id="modal-title-en" class="text-xs text-gray-400 font-mono" dir="ltr">Original English Title</p>
+          <h3 id="modal-title-primary" class="text-lg sm:text-xl font-black text-white">Title</h3>
+          <p id="modal-title-secondary" class="text-xs text-gray-400 font-mono">Secondary Title</p>
         </div>
         <button onclick="closeModal()" class="text-gray-400 hover:text-white p-2 rounded-xl bg-gray-800/80 hover:bg-gray-700 transition">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -336,7 +347,7 @@
         <div class="p-4 rounded-2xl bg-red-950/20 border border-red-500/30 space-y-2">
           <div class="font-bold text-red-400 flex items-center gap-2 text-sm">
             <span>🚨</span>
-            <span>طرح مسئله و بردار نفوذ / شکست (Problem & Attack Vector)</span>
+            <span id="modal-lbl-problem">Problem Statement & Attack Vector</span>
           </div>
           <p id="modal-problem" class="text-gray-300 leading-relaxed"></p>
         </div>
@@ -345,7 +356,7 @@
         <div class="p-4 rounded-2xl bg-amber-950/20 border border-amber-500/30 space-y-2">
           <div class="font-bold text-amber-400 flex items-center gap-2 text-sm">
             <span>💡</span>
-            <span>تحلیل ریشه‌ای و معماری راهکار (Root Cause & Solution)</span>
+            <span id="modal-lbl-root-cause">Root Cause & Architectural Solution</span>
           </div>
           <p id="modal-root-cause" class="text-gray-300 leading-relaxed"></p>
         </div>
@@ -354,9 +365,9 @@
         <div class="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-3">
           <div class="font-bold text-emerald-400 flex items-center gap-2 text-sm">
             <span>⚡</span>
-            <span>برنامه عملیاتی و چک‌لیست پیاده‌سازی (Action Checklist)</span>
+            <span id="modal-lbl-action-plan">Hardening Action Checklist</span>
           </div>
-          <ul id="modal-action-plan" class="space-y-1.5 text-gray-300 pr-4 list-disc"></ul>
+          <ul id="modal-action-plan" class="space-y-1.5 text-gray-300 pl-4 list-disc"></ul>
         </div>
 
         <!-- Hardened Code Snippet -->
@@ -364,10 +375,10 @@
           <div class="flex items-center justify-between">
             <span class="font-bold text-white text-xs flex items-center gap-2">
               <span>💻</span>
-              <span>الگوی کد استاندارد و سخت‌سازی‌شده (Hardened Code)</span>
+              <span id="modal-lbl-code">Hardened Production Code / Config</span>
             </span>
             <button onclick="copyModalCode()" id="modal-copy-code-btn" class="text-[11px] text-emerald-400 hover:text-emerald-300 px-2 py-1 rounded bg-gray-800 border border-darkBorder transition">
-              کپی کد 📋
+              Copy Code 📋
             </button>
           </div>
           <pre class="p-4 rounded-2xl bg-gray-950 border border-darkBorder text-gray-200 text-xs overflow-x-auto"><code id="modal-code"></code></pre>
@@ -375,7 +386,7 @@
 
         <!-- Transcript Section -->
         <div class="space-y-2">
-          <div class="font-bold text-gray-400 text-xs">متن اصلی ترنسکریپت (Original Audio Transcript)</div>
+          <div class="font-bold text-gray-400 text-xs" id="modal-lbl-transcript">Original Spoken Audio Transcript</div>
           <p id="modal-transcript" class="p-4 rounded-2xl bg-gray-950/50 border border-darkBorder text-gray-400 text-xs leading-relaxed font-mono" dir="ltr"></p>
         </div>
 
@@ -385,10 +396,10 @@
       <div class="p-4 border-t border-darkBorder bg-gray-950 flex items-center justify-between">
         <a id="modal-instagram-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-xs transition">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          <span>مشاهده ریلز رسمی در اینستاگرام</span>
+          <span id="modal-lbl-view-reel">Watch Reel on Instagram</span>
         </a>
-        <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition">
-          بستن پنجره
+        <button onclick="closeModal()" id="modal-lbl-close" class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition">
+          Close
         </button>
       </div>
 
@@ -397,11 +408,11 @@
 
   <!-- Footer -->
   <footer class="border-t border-darkBorder py-8 bg-gray-950 text-xs text-gray-500 text-center space-y-2">
-    <div>
-      کدگذاری‌شده بر مبنای آموزه‌ها و تجربیات <a href="https://www.instagram.com/mattmurphyai" target="_blank" class="text-emerald-400 hover:underline">Matt Murphy</a> توسط تیم DoctorGuidance
+    <div id="txt-footer-attr">
+      Codified from the engineering masterclasses of <a href="https://www.instagram.com/mattmurphyai" target="_blank" class="text-emerald-400 hover:underline">Matt Murphy</a> by the DoctorGuidance Team
     </div>
     <div class="font-mono text-[11px] text-gray-600">
-      Open Source • Licensed under MIT • Designed for Antigravity & Agentic Engineers
+      Open Source • Licensed under MIT • Designed for Antigravity, Cursor & Autonomous AI Agents
     </div>
   </footer>
 
