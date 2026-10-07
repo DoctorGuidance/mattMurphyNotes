@@ -18,7 +18,7 @@ Your login endpoint received 14,000 requests last night. None of them were your 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
+| Exposes security boundaries in 'Your login endpoint received 14,000 requests last night', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your login endpoint received 14,000 requests last night'. |
 
 ---
 

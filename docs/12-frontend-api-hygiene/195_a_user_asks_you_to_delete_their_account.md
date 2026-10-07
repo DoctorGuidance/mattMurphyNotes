@@ -18,7 +18,7 @@ A user asks you to delete their account.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Stores credentials in client-side localStorage/sessionStorage vulnerable to XSS and malicious dependencies. | Stores tokens in HttpOnly, Secure, SameSite=Lax cookies completely inaccessible to JavaScript. |
+| Assumes successful network responses and relies solely on frontend validation for business state in 'A user asks you to delete their account'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
 
 ---
 

@@ -18,7 +18,7 @@ An AI scaffolding tool configured CORS with `Access-Control-Allow-Origin: *`. An
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sets CORS to wildcard `*` to eliminate developer console errors during local development. | Explicit domain whitelist for allowed origins with credentials verification; rejects unauthorized origins. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled to silence development CORS errors in production. | Restricts CORS headers to an explicit whitelist of trusted production domains and validates preflight request origins. |
 
 ---
 

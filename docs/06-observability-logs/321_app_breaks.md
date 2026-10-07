@@ -18,7 +18,7 @@ The app breaks, so you check the logs
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Ships demo code directly into production without verifying boundary limits or failure fallback paths. | Hardens systems with circuit breakers, exponential backoff retries, and isolated fault boundaries. |
+| Logs unstructured text or swallows exceptions silently in 'App breaks', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
 
 ---
 

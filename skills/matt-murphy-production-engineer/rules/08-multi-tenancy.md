@@ -36,12 +36,12 @@ Analysis of 6 incidents and breakdowns from this domain:
 ## ❌ 3. Vibe-Coding Traps vs. Production Reality Matrix
 | # | ❌ The Vibe-Coding Trap (What Naive AI Builds) | ✅ Hardened Production Standard |
 |---|:---|:---|
-| **#061** | Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
-| **#156** | Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
-| **#190** | Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
-| **#221** | Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
-| **#225** | Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
-| **#270** | Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| **#061** | Relies on loose application filters for tenant isolation in 'There are 10,000 business owners within 50 miles of you', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'There are 10,000 business owners within 50 miles of you'. |
+| **#156** | Relies on loose application filters for tenant isolation in 'Starting in August…..35 new courses every week for ten weeks', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Starting in August…..35 new courses every week for ten weeks'. |
+| **#190** | Relies on loose application filters for tenant isolation in 'You wrote RLS policies', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'You wrote RLS policies'. |
+| **#221** | Relies on loose application filters for tenant isolation in 'Application-level filtering is a prayer', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Application-level filtering is a prayer'. |
+| **#225** | Relies on loose application filters for tenant isolation in 'Your multi-tenant isolation model is not a technical', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Your multi-tenant isolation model is not a technical'. |
+| **#270** | Relies on loose application filters for tenant isolation in 'Vibe Coded Multi-Tenant Platform', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Vibe Coded Multi-Tenant Platform'. |
 
 ---
 

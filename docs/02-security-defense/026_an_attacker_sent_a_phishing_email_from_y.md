@@ -18,7 +18,7 @@ An attacker sent a phishing email from your domain.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Exposes security boundaries in 'An attacker sent a phishing email from your domain', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker sent a phishing email from your domain'. |
 
 ---
 

@@ -18,7 +18,7 @@ Most people think full-stack means frontend and backend.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Assumes successful network responses and relies solely on frontend validation for business state in 'Most people think full-stack means frontend and backend'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
 
 ---
 

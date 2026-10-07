@@ -18,7 +18,7 @@ So, I told you last week that vibecoded apps have one thing in common
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves authentication broken or stores keys in client-side storage where any script can copy them. | Enforces strict `__Host-` prefixed HttpOnly cookies with automatic rotating refresh tokens. |
+| Implements naive authentication in 'Vibe-coded apps have one thing in common. The auth is broken', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Vibe-coded apps have one thing in common. The auth is broken'. |
 
 ---
 

@@ -18,7 +18,7 @@ Static credentials are permanent doors for attackers.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Implements naive authentication in 'Static credentials are permanent doors for attackers', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Static credentials are permanent doors for attackers'. |
 
 ---
 

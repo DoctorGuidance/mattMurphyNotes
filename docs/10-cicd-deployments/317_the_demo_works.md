@@ -18,7 +18,7 @@ The demo works. The investor deck looks fantastic.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Ships demo code directly into production without verifying boundary limits or failure fallback paths. | Hardens systems with circuit breakers, exponential backoff retries, and isolated fault boundaries. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'The demo works'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'The demo works'. |
 
 ---
 

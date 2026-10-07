@@ -18,7 +18,7 @@ Your AI built your database. It never planned for the day you have to change it.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Executes unindexed or unconstrained database queries in 'Your AI built your database. It never planned for the day', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your AI built your database. It never planned for the day'. |
 
 ---
 

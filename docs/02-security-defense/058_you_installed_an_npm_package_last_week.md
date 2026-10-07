@@ -18,7 +18,7 @@ You installed an npm package last week. It has been sending your environment var
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
+| Installs untrusted npm packages without automated audit scanning or lockfile verification, allowing malicious code to exfiltrate `process.env`. | Runs automated dependency vulnerability audits (`npm audit` / Snyk), verifies lockfile checksums, and isolates process secrets. |
 
 ---
 

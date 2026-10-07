@@ -18,7 +18,7 @@ Your user clicked delete my account.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Logs unstructured text or swallows exceptions silently in 'Your user clicked delete my account', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
 
 ---
 

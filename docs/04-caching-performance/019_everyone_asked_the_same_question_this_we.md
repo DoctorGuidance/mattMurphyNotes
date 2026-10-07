@@ -18,7 +18,7 @@ Everyone asked the same question this week.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Relies on expensive multi-seat cloud SaaS subscriptions for internal AI agents without evaluating self-hosted sovereign options. | Deploys cost-effective local AI workstations and self-hosted models for recurring background agent workloads. |
 
 ---
 

@@ -18,7 +18,7 @@ A customer just called you. They are looking at someone else's revenue dashboard
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| Executes multi-step billing and credit adjustments across separate uncoordinated database calls without ACID transactions. | Wraps balance updates and financial order state changes inside atomic database transactions (`$transaction`), ensuring all-or-nothing rollback. |
 
 ---
 

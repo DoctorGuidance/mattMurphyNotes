@@ -18,7 +18,7 @@ An attacker just grabbed your Google Login authorization code on a mobile networ
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
+| Exposes security boundaries in 'An attacker just grabbed your Google Login authorization', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker just grabbed your Google Login authorization'. |
 
 ---
 

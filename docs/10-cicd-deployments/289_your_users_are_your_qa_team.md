@@ -18,7 +18,7 @@ Your users are your QA team.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Builds frontend components handling only the happy path, showing blank screens or infinite spinners on network failure. | Implements all 4 mandatory UI states (Loading skeleton, Error with interactive Retry, Empty guidance, and Success) for every async view. |
 
 ---
 

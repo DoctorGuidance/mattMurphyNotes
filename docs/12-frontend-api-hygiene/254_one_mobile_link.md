@@ -18,7 +18,7 @@ Your mobile app exists, but when someone shares a link to your content, it opens
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Assumes successful network responses and relies solely on frontend validation for business state in 'One mobile link'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
 
 ---
 

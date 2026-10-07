@@ -16,6 +16,36 @@ Your mission is to eradicate fragile, prototype-level code ('vibe coding') and e
 
 ---
 
+## 🔄 Autonomous Agent Operating Protocol (Workflows)
+
+Whenever you are designing, implementing, refactoring, or auditing code, follow this mandatory 5-step protocol:
+
+```
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │ 1. DOMAIN & LAYER AUTO-DETECTION                                       │
+ │    Map the user's task to relevant production layers (1-13) and        │
+ │    architectural domains (01-auth-identity through 12-frontend-api).   │
+ ├────────────────────────────────────────────────────────────────────────┤
+ │ 2. ACTIVATE DOMAIN RULEBOOK                                            │
+ │    Read the specific rulebook under `rules/{domain}.md` to load        │
+ │    hardened code patterns, failure vectors, and action items.          │
+ ├────────────────────────────────────────────────────────────────────────┤
+ │ 3. CROSS-CHECK ANTI-VIBE TRAPS MATRIX                                  │
+ │    Verify the implementation against `references/anti-vibe-traps.md`   │
+ │    to eliminate known naive AI mistakes before writing any code.       │
+ ├────────────────────────────────────────────────────────────────────────┤
+ │ 4. RUN 13-LAYER HEURISTIC DIAGNOSTIC                                   │
+ │    Audit the code against `references/production-verification-         │
+ │    heuristics.md` (4 UI states, timeouts, indexes, RLS, cookies).      │
+ ├────────────────────────────────────────────────────────────────────────┤
+ │ 5. EXECUTE AUTOMATED STATIC AUDITOR                                    │
+ │    Run `python scripts/audit_guardrails.py .` to mechanically prove     │
+ │    zero critical guardrail violations before declaring completion.     │
+ └────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
 ## 🏗️ The 13 Production Layers Platform Matrix
 
 Every production system must be verified against the **13 Production Layers**:
@@ -71,24 +101,24 @@ The complete knowledge base is modularized into 12 authoritative rulebooks:
 - **OAuth Integrity:** Implement state parameters and PKCE (Proof Key for Code Exchange) on all third-party OAuth flows (Google, GitHub) to eliminate authorization code interception.
 - **Token Lifespans:** Access tokens must expire within 10–15 minutes. Long-lived sessions must use rotating refresh tokens with database family tracking to detect token reuse attacks.
 
-### 2. Application Security & Defense (Lessons 004, 005, 007, 015, 105, 191)
+### 2. Application Security & Defense (Lessons 004, 005, 007, 014, 015, 105, 191)
 - **Zero Secrets in Client Bundles:** Never expose database connection strings, Service-Role keys (Supabase), Stripe secret keys, or LLM API keys in frontend code or repository commits.
 - **Strict CORS Scoping:** Never configure CORS with wildcard `Access-Control-Allow-Origin: *` on authenticated APIs. Specify explicit allowed origin domains.
 - **Clickjacking Protection:** Set `X-Frame-Options: DENY` or CSP `frame-ancestors 'none'` to block malicious iframe framing.
 - **Database Row-Level Security (RLS):** When using Supabase, PostgreSQL, or Convex, always enable RLS policies on tables containing multi-user data. Never rely on frontend client filters to hide private rows.
 
-### 3. Database Engineering & Storage (Lessons 003, 174, 192, 211, 287, 288)
+### 3. Database Engineering & Storage (Lessons 003, 045, 065, 174, 192, 211, 216)
 - **Connection Pooling Mandatory:** High-concurrency or serverless architectures (Vercel, AWS Lambda) must connect to PostgreSQL through a transaction pooler (PgBouncer, Supavisor). Direct connection exhaustion crashes production.
 - **Zero Unindexed Queries:** Every column participating in `WHERE`, `JOIN`, or `ORDER BY` clauses must have an explicit B-tree or composite index. Eliminate full table scans.
 - **Relational Integrity:** Define explicit Foreign Keys with logical cascade constraints (`ON DELETE CASCADE` / `SET NULL`). Never store raw files or large blobs in relational tables; offload to S3/Object Storage.
 - **Tested Backups:** A backup is merely a hypothesis until a restore drill has succeeded. Verify automated daily Point-In-Time Recovery (PITR).
 
-### 4. Financial Webhooks & Asynchronous Queues (Lessons 006, 022, 103)
+### 4. Financial Webhooks & Asynchronous Queues (Lessons 006, 022, 103, 104)
 - **Raw Buffer Signature Verification:** Stripe, Paddle, and payment webhooks MUST verify signatures using the raw HTTP request buffer (`req.body` as raw Buffer, NOT parsed JSON).
 - **Idempotency Keys:** Every state-mutating webhook and financial charge endpoint MUST check an idempotency key (stored in Redis or a DB unique index) to prevent double charging on retry attempts.
 - **Async Isolation:** Long-running jobs (video encoding, report generation, LLM batch calls) must be pushed to a dedicated background queue (BullMQ, Celery) with Dead-Letter Queues (DLQ) and exponential backoff retry policies.
 
-### 5. Rate Limiting & Denial of Service Protection (Lessons 103, 104, 215)
+### 5. Rate Limiting & Denial of Service Protection (Lessons 052, 103, 104, 215)
 - **Multi-Tier Rate Limiting:** Protect all public endpoints with Redis-backed Token Bucket rate limiting across 3 tiers:
   1. *IP-based hard cap* for unauthenticated routes (e.g., 10 req/min for login or search).
   2. *User-based quota* for authenticated API usage.
@@ -128,7 +158,7 @@ The complete knowledge base is modularized into 12 authoritative rulebooks:
 
 ## 📁 Supporting References & Tools
 
-- **[Complete Masterclass Catalog](./references/masterclass-catalog.md):** Full index of all 321 episodes.
-- **[Anti-Vibe-Coding Matrix](./references/anti-vibe-traps.md):** 50+ catastrophic traps vs senior standards.
-- **[Verification Heuristics](./references/production-verification-heuristics.md):** Diagnostic checks for all 13 layers.
-- **[Static Guardrail Auditor (`scripts/audit_guardrails.py`)](./scripts/audit_guardrails.py):** Automated linter for scanning repositories.
+- **[Complete Masterclass Catalog](./references/masterclass-catalog.md):** Full chronological index of all 321 episodes.
+- **[Anti-Vibe-Coding Matrix](./references/anti-vibe-traps.md):** 321 bespoke catastrophic traps vs senior standards.
+- **[Verification Heuristics](./references/production-verification-heuristics.md):** Deep diagnostic checks for all 13 layers.
+- **[Static Guardrail Auditor (`scripts/audit_guardrails.py`)](./scripts/audit_guardrails.py):** Automated static linter with 25+ production rules.

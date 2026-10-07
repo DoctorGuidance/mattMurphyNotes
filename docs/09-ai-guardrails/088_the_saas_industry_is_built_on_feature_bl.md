@@ -18,7 +18,7 @@ The SaaS industry is built on feature bloat. That model is dying.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'The SaaS industry is built on feature bloat. That model is'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
 
 ---
 

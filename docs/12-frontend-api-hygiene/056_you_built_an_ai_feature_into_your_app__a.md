@@ -18,7 +18,7 @@ You built an AI feature into your app. A user told your AI to ignore its instruc
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Assumes successful network responses and relies solely on frontend validation for business state in 'You built an AI feature into your app. A user told your AI'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
 
 ---
 

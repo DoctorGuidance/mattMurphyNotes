@@ -18,7 +18,7 @@ Last week I told you you don't need a sock 2 security audit, but you do need to 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Queries database solely by resource ID from URL parameter without verifying tenant or user ownership. | Mandates ownership checks on every query (`where: { id, tenantId, userId }`) blocking unauthorized object access. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'You don’t need SOC2'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

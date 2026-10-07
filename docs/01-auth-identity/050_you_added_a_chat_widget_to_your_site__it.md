@@ -18,7 +18,7 @@ You added a chat widget to your site. It can read every password your users type
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
+| Embeds unvetted third-party JavaScript chat widgets globally without Content Security Policy (CSP) isolation, exposing user keystrokes. | Restricts third-party scripts via strict CSP script-src directives, sandboxes iframe widgets, and audits external DOM access. |
 
 ---
 

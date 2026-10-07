@@ -18,7 +18,7 @@ Developers prefix Supabase Service Role keys or OpenAI secrets with `NEXT_PUBLIC
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Prefixes administrative secrets with client-visible environment flags to make queries work quickly. | Strict segregation of server secrets; automated pre-commit scanners (Trufflehog) blocking secret commits. |
+| Prefixes database service-role secrets or private API keys with `NEXT_PUBLIC_` or `VITE_`, leaking admin credentials into client bundles. | Keeps secret API keys strictly on server runtimes, accessing backend services through authenticated server API proxies. |
 
 ---
 

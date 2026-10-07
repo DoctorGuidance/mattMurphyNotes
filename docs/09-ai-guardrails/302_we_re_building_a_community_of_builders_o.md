@@ -18,7 +18,7 @@ I'm about to tell you something that should make every AI builder pay close atte
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Ships demo code directly into production without verifying boundary limits or failure fallback paths. | Hardens systems with circuit breakers, exponential backoff retries, and isolated fault boundaries. |
+| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'We’re building a community of builders, operators, and vibe'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
 
 ---
 

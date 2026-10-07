@@ -18,7 +18,7 @@ Your API key is in your frontend.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
+| Assumes successful network responses and relies solely on frontend validation for business state in 'Your API key is in your frontend'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
 
 ---
 

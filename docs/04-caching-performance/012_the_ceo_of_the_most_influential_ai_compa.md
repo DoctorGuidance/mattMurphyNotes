@@ -18,7 +18,7 @@ The CEO of the most influential AI company on the planet asked the entire indust
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Builds product roadmaps around speculative vendor announcements and public essays rather than audited operational realities. | Bases infrastructure decisions on regulatory filings, concrete latency/cost benchmarks, and architectural independence. |
 
 ---
 

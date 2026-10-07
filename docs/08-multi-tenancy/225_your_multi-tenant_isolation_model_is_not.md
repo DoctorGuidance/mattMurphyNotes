@@ -18,7 +18,7 @@ Your multi-tenant isolation model is not a technical decision.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| Relies on loose application filters for tenant isolation in 'Your multi-tenant isolation model is not a technical', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Your multi-tenant isolation model is not a technical'. |
 
 ---
 

@@ -18,7 +18,7 @@ Your app got featured on Product Hunt. 4,000 signups in 48 hours.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Implements naive authentication in 'Your app got featured on Product Hunt. 4,000 signups in 48', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your app got featured on Product Hunt. 4,000 signups in 48'. |
 
 ---
 

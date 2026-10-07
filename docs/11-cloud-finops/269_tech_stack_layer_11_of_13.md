@@ -18,7 +18,7 @@ Tech Stack Layer 11 of 13.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Tech Stack Layer 11 of 13'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

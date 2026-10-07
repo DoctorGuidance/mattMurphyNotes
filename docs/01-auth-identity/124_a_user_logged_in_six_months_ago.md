@@ -18,7 +18,7 @@ A user logged in six months ago.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Issues indefinite session tokens without server-side invalidation or inactivity timeout checks, leaving stale sessions permanently open. | Enforces rolling session timeouts, short-lived access tokens (15m), and instant server-side revocation on password/security events. |
 
 ---
 

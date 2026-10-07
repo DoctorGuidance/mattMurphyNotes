@@ -18,7 +18,7 @@ An attacker logged into your app at 3 AM from another country.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Exposes security boundaries in 'An attacker logged into your app at 3 AM from another', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker logged into your app at 3 AM from another'. |
 
 ---
 

@@ -18,7 +18,7 @@ Self-hosted or managed.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Self-hosted or managed'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

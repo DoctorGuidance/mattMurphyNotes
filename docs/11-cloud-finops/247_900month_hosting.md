@@ -18,7 +18,7 @@ Your app has 200 users. Your infrastructure bill, it's $900 a month. If you char
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in '$900month hosting'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

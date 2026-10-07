@@ -18,7 +18,7 @@ Your app works in the demo. It works when you show your friends. But it’s not 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Your app works in the demo. It works when you show your'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Your app works in the demo. It works when you show your'. |
 
 ---
 

@@ -18,7 +18,7 @@ MCP is a dead end. Your agent can build its own integrations now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
+| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'MCP is a dead end. Your agent can build its own'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
 
 ---
 

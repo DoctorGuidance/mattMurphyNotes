@@ -18,7 +18,7 @@ Every business within five miles of you has a scheduling problem they are paying
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Every business within five miles of you has a scheduling'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

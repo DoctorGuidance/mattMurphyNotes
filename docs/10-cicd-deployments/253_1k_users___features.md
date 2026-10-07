@@ -18,7 +18,7 @@ Today you learned about Canary deployments and mobile deep links. Both of those 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in '1K users = features'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for '1K users = features'. |
 
 ---
 

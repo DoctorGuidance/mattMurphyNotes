@@ -18,7 +18,7 @@ A user visits `/api/invoices/1042`. They change the URL to `1043` and view anoth
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Queries directly by resource ID (`findUnique({ where: { id } })`), trusting client URL parameters. | Mandatory composite scoping: `WHERE id = :id AND tenant_id = :tenantId AND user_id = :userId`. |
+| Queries database solely by resource ID from URL parameter (`/api/invoices/:id`), allowing any user to access another tenant's records (IDOR). | Enforces composite scoping on every query (`WHERE id = :id AND tenant_id = :tenant_id AND user_id = :user_id`) to mathematically eliminate IDOR. |
 
 ---
 

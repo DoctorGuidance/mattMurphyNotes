@@ -18,7 +18,7 @@ Three backup decisions you make right now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Relies on infrequent daily database snapshots stored on the same cloud server without performing scheduled restore drills. | Implements automated continuous WAL backups to isolated secondary cloud regions with automated recurring restore validation. |
 
 ---
 

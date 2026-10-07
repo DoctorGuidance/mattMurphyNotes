@@ -18,7 +18,7 @@ Someone sent a forged request to your API last Tuesday.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Blindly passes entire request body to ORM update methods, allowing attackers to inject `isAdmin: true` or elevated roles. | Enforces strict input allowlists using Zod schemas (`.strict()`), rejecting any non-whitelisted parameters. |
+| Runs database without automated WAL archiving, relying on nightly backups that lose up to 24 hours of customer transactions. | Implements continuous Point-In-Time Recovery (PITR) with continuous WAL streaming to offsite cloud storage. |
 
 ---
 

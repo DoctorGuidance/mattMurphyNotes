@@ -18,7 +18,7 @@ Your error tracker catches errors your code throws.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Assumes error trackers catch every production failure without deploying end-to-end synthetic canary health checks. | Deploys automated synthetic transaction canaries verifying payment webhook pipelines end-to-end around the clock. |
 
 ---
 

@@ -18,7 +18,7 @@ Neon. PlanetScale. Cloudflare D1.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Neon. PlanetScale. Cloudflare D1'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

@@ -18,7 +18,7 @@ A single script running 500 requests per second against your login or search end
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves public routes completely open, assuming modern cloud infrastructure will auto-scale to absorb attacks. | Multi-tier Redis rate limiting (IP caps, User quotas, API Key limits) returning HTTP 429 with Retry-After. |
+| Leaves API routes unprotected by rate limits, allowing bot scrapers or brute-force credential stuffing to crash servers. | Implements Redis-backed Token Bucket rate limiting across IP, user session, and tenant tiers, returning standard HTTP 429. |
 
 ---
 

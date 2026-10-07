@@ -18,7 +18,7 @@ You put Cloudflare in front of your app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
+| Implements caching without invalidation strategies or tenant namespaces in 'You put Cloudflare in front of your app', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
 
 ---
 

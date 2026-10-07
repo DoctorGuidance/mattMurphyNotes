@@ -18,7 +18,7 @@ Your revenue dropped 40% last Tuesday. Sentry showed zero new errors. Post hog s
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
+| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Revenue dropped 40%'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
 
 ---
 

@@ -18,7 +18,7 @@ Your app is copy-pasted from ChatGPT.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified AI code assumptions without failure handling or production boundaries in Application Security & Defense. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Application Security & Defense. |
+| Exposes security boundaries in 'Your app is copy-pasted from ChatGPT', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your app is copy-pasted from ChatGPT'. |
 
 ---
 

@@ -18,7 +18,7 @@ An attacker just accessed every protected page in your app without logging in.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Stores credentials in client-side localStorage/sessionStorage vulnerable to XSS and malicious dependencies. | Stores tokens in HttpOnly, Secure, SameSite=Lax cookies completely inaccessible to JavaScript. |
+| Exposes security boundaries in 'An attacker just accessed every protected page in your app', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker just accessed every protected page in your app'. |
 
 ---
 

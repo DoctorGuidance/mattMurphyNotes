@@ -18,7 +18,7 @@ An attacker just used a password reset link from four months ago.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Disables TLS certificate verification (`rejectUnauthorized: false`) in database or internal API connections to bypass cert errors. | Provisions valid CA certificate bundles for all internal database and microservice connections with strict TLS verification. |
 
 ---
 

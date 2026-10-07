@@ -18,7 +18,7 @@ Your AI built the app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Rebuilds application interfaces rapidly using AI while ignoring database schema migrations and user data preservation. | Enforces strict database schema migration backward compatibility and persistent user data isolation during rapid AI rebuilds. |
 
 ---
 

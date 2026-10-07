@@ -18,7 +18,7 @@ So, I told you your AI app costs 2 cents per call
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Treats $0.02 per API call as trivial until viral traffic or infinite retry loops generate a $4,000 monthly bill. | Enforces hard token budget ceilings, caching gateways, and circuit-breaker quotas on every model call. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in '2 cents per API call sounds like nothing'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

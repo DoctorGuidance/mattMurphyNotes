@@ -18,7 +18,7 @@ It's the Fourth of July.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Executes unindexed or unconstrained database queries in 'It's the Fourth of July', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'It's the Fourth of July'. |
 
 ---
 

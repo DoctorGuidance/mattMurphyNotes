@@ -18,7 +18,7 @@ You changed a field name.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified AI code assumptions without failure handling or production boundaries in Database & Storage Engineering. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Database & Storage Engineering. |
+| Executes unindexed or unconstrained database queries in 'You changed a field name', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'You changed a field name'. |
 
 ---
 

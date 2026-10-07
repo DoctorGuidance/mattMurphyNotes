@@ -18,7 +18,7 @@ Your app works great.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Executes unindexed or unconstrained database queries in 'Your app works great', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your app works great'. |
 
 ---
 

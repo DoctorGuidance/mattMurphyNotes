@@ -18,7 +18,7 @@ You have paid your payment processor $30,000.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'You have paid your payment processor $30,000'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
 
 ---
 

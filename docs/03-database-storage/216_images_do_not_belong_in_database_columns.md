@@ -18,7 +18,7 @@ Images do not belong in database columns.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
+| Stores image binaries or large base64 blobs directly in database tables, bloating storage and exhausting buffer pool memory. | Offloads media assets to dedicated S3/Object Storage with CDN edge distribution, storing only normalized URLs/keys in the database. |
 
 ---
 

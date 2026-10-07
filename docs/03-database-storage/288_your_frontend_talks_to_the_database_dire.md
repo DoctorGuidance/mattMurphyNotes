@@ -18,7 +18,7 @@ Your frontend talks to the database directly.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Executes database queries directly from client components or frontend code, exposing database credentials and bypassing business logic. | Enforces Layer 2 API isolation with server-side authentication, input validation, rate limiting, and zero direct database access from clients. |
 
 ---
 

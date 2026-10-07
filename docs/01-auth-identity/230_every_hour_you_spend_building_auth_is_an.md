@@ -18,7 +18,7 @@ Every hour you spend building auth is an hour you did not spend on your product.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Implements naive authentication in 'Every hour you spend building auth is an hour you did not', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Every hour you spend building auth is an hour you did not'. |
 
 ---
 

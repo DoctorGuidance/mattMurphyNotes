@@ -18,7 +18,7 @@ You picked your auth provider because it was free.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Selects consumer authentication providers lacking SAML SSO or SCIM provisioning, blocking enterprise security compliance. | Architects auth abstraction supporting enterprise SAML SSO, automated SCIM user lifecycle management, and domain directory syncing. |
 
 ---
 

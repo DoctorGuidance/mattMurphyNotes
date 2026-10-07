@@ -18,7 +18,7 @@ Tech Stack Layer 13 of 13.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Executes unindexed or unconstrained database queries in 'Tech Stack Layer 13 of 13', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Tech Stack Layer 13 of 13'. |
 
 ---
 

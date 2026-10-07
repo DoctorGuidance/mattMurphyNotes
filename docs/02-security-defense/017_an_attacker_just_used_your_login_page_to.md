@@ -18,7 +18,7 @@ An attacker just used your login page to send your users to a phishing site.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Accepts unvalidated URL redirect parameters on login/logout routes (`?redirect=...`), bouncing users to external phishing domains. | Enforces strict destination allowlisting for redirect URLs, rejecting external protocols, double slashes, and path traversal. |
 
 ---
 

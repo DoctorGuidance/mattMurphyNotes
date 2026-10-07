@@ -18,7 +18,7 @@ You shipped your vibecoded app
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Ships demo code directly into production without verifying boundary limits or failure fallback paths. | Hardens systems with circuit breakers, exponential backoff retries, and isolated fault boundaries. |
+| Leaves endpoints vulnerable to traffic spikes or credential stuffing in '50 users sign up at once' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
 
 ---
 

@@ -18,7 +18,7 @@ If your frontend hides the button but your API still accepts the request, you ha
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified AI code assumptions without failure handling or production boundaries in Frontend Architecture & API Hygiene. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Frontend Architecture & API Hygiene. |
+| Assumes successful network responses and relies solely on frontend validation for business state in 'If your frontend hides the button but your API still'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
 
 ---
 

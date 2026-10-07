@@ -18,7 +18,7 @@ The better the AI gets, the worse your code is going to be.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'The better the AI gets, the worse your code is going to be'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
 
 ---
 

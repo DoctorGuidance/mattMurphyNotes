@@ -18,7 +18,7 @@ Two users edit the same document at the same time. One saves, then the other sav
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified AI code assumptions without failure handling or production boundaries in Application Security & Defense. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Application Security & Defense. |
+| Exposes security boundaries in 'Two users', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Two users'. |
 
 ---
 

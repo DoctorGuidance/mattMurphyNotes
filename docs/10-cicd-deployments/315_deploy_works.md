@@ -18,7 +18,7 @@ So you deploy and it works. You deploy it again and it breaks.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Ships demo code directly into production without verifying boundary limits or failure fallback paths. | Hardens systems with circuit breakers, exponential backoff retries, and isolated fault boundaries. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Deploy. Works'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Deploy. Works'. |
 
 ---
 

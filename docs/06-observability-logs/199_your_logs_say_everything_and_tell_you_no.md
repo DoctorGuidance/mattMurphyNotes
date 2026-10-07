@@ -18,7 +18,7 @@ Your logs say everything and tell you nothing.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Logs unstructured text or swallows exceptions silently in 'Your logs say everything and tell you nothing', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
 
 ---
 

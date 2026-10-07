@@ -18,7 +18,7 @@ The future of software development, it's not coding, it's finishing engineering
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Launches AI-generated apps with zero security checks, exposing unpatched CVEs and raw injection paths. | Executes rigorous 47-point enterprise security audit covering auth, headers, rate limits, and encryption. |
+| Exposes security boundaries in 'AI code 2x more issues. 3x more security vulns. $1.5', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'AI code 2x more issues. 3x more security vulns. $1.5'. |
 
 ---
 

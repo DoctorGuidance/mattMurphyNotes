@@ -18,7 +18,7 @@ Your app works, but have you checked if it's lawsuit proof? Here's the pre-launc
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified AI code assumptions without failure handling or production boundaries in Application Security & Defense. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Application Security & Defense. |
+| Exposes security boundaries in 'Your app works', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your app works'. |
 
 ---
 

@@ -18,7 +18,7 @@ An attacker just downloaded your entire API schema.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Leaves GraphQL introspection queries enabled in production, giving attackers a complete structural schema of private entities. | Disables GraphQL schema introspection in production environments and enforces strict query depth and complexity limits. |
 
 ---
 

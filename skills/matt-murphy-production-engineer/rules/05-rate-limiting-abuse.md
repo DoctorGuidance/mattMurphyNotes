@@ -36,10 +36,10 @@ Analysis of 4 incidents and breakdowns from this domain:
 ## ❌ 3. Vibe-Coding Traps vs. Production Reality Matrix
 | # | ❌ The Vibe-Coding Trap (What Naive AI Builds) | ✅ Hardened Production Standard |
 |---|:---|:---|
-| **#103** | Leaves public routes completely open, assuming modern cloud infrastructure will auto-scale to absorb attacks. | Multi-tier Redis rate limiting (IP caps, User quotas, API Key limits) returning HTTP 429 with Retry-After. |
-| **#178** | Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
-| **#274** | Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
-| **#304** | Ships demo code directly into production without verifying boundary limits or failure fallback paths. | Hardens systems with circuit breakers, exponential backoff retries, and isolated fault boundaries. |
+| **#103** | Leaves API routes unprotected by rate limits, allowing bot scrapers or brute-force credential stuffing to crash servers. | Implements Redis-backed Token Bucket rate limiting across IP, user session, and tenant tiers, returning standard HTTP 429. |
+| **#178** | Leaves endpoints vulnerable to traffic spikes or credential stuffing in 'Rate limiting is not about saying no' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
+| **#274** | Leaves endpoints vulnerable to traffic spikes or credential stuffing in 'Layer 9 of 13' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
+| **#304** | Leaves endpoints vulnerable to traffic spikes or credential stuffing in '50 users sign up at once' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
 
 ---
 

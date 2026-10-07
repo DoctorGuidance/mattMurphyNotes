@@ -18,7 +18,7 @@ A $20 self-hosted runner runs unlimited minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified AI code assumptions without failure handling or production boundaries in Testing, Staging & CI/CD. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Testing, Staging & CI/CD. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'A $20 self-hosted runner runs unlimited minutes'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'A $20 self-hosted runner runs unlimited minutes'. |
 
 ---
 

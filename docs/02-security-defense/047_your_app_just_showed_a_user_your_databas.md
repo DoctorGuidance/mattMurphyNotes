@@ -18,7 +18,7 @@ Your app just showed a user your database name, your server file path, and the q
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Exposes security boundaries in 'Your app just showed a user your database name, your server', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your app just showed a user your database name, your server'. |
 
 ---
 

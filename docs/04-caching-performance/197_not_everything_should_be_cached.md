@@ -18,7 +18,7 @@ Not Everything Should Be Cached.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Implements caching without invalidation strategies or tenant namespaces in 'Not Everything Should Be Cached', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
 
 ---
 

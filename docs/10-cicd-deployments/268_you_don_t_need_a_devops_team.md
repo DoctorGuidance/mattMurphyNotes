@@ -18,7 +18,7 @@ You don’t need a DevOps team.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'You don’t need a DevOps team'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'You don’t need a DevOps team'. |
 
 ---
 

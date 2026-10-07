@@ -18,7 +18,7 @@ Your user's full database record is in their browser right now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Passes raw database entity objects directly into React Server Components, serializing sensitive fields to the browser wire. | Transforms database results into explicit Data Transfer Objects (DTOs), stripping internal fields before serializing props. |
 
 ---
 

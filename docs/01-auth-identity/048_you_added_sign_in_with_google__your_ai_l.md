@@ -18,7 +18,7 @@ You added Sign in with Google. Your AI left the redirect wide open.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Leaves OAuth redirect URIs open or wildcarded without validating the cryptographic `state` parameter, enabling login hijacking. | Locks OAuth redirect URIs strictly to registered endpoints, validates CSRF state parameters, and requests minimal required scopes. |
 
 ---
 

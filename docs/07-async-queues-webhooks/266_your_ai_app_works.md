@@ -18,7 +18,7 @@ Someone in my DMs told me they built an AI app that works great. People are usin
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
+| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your AI app works'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
 
 ---
 

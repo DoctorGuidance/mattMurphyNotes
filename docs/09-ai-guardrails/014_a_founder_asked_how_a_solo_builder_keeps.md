@@ -18,7 +18,7 @@ A founder asked how a solo builder keeps up with compliance when the laws change
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Stores credentials in client-side localStorage/sessionStorage vulnerable to XSS and malicious dependencies. | Stores tokens in HttpOnly, Secure, SameSite=Lax cookies completely inaccessible to JavaScript. |
+| Renders unfiltered user-generated HTML in customer emails or web pages, allowing stored Cross-Site Scripting (XSS). | Sanitizes HTML payloads using DOMPurify on input, encodes output entities, and enforces strict Content Security Policy (CSP). |
 
 ---
 

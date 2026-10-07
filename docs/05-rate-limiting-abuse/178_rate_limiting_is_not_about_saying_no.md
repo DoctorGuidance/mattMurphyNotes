@@ -18,7 +18,7 @@ Rate limiting is not about saying no.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Leaves endpoints vulnerable to traffic spikes or credential stuffing in 'Rate limiting is not about saying no' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
 
 ---
 

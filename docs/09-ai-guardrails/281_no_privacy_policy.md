@@ -18,7 +18,7 @@ So, you just shipped the vibecoded app that collects user data. No privacy polic
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'No privacy policy'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
 
 ---
 

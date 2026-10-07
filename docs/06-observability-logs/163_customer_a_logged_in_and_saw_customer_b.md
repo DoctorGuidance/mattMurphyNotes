@@ -18,7 +18,7 @@ Customer A logged in and saw customer B's data.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| Logs unstructured text or swallows exceptions silently in 'Customer A logged in and saw customer B's data', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
 
 ---
 

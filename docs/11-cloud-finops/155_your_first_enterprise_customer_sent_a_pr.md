@@ -18,7 +18,7 @@ Your first enterprise customer sent a procurement checklist.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Your first enterprise customer sent a procurement checklist'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

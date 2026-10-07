@@ -18,7 +18,7 @@ Starting in August…..35 new courses every week for ten weeks.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| Relies on loose application filters for tenant isolation in 'Starting in August…..35 new courses every week for ten weeks', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Starting in August…..35 new courses every week for ten weeks'. |
 
 ---
 

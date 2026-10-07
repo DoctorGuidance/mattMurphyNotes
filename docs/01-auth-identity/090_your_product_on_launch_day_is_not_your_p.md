@@ -18,7 +18,7 @@ Your product on launch day is not your product. It is your hypothesis.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
+| Deploys code directly from developer laptops to production on launch day without automated staging regression pipelines. | Gates all production releases behind automated CI/CD staging verification, database migration smoke tests, and canary rollouts. |
 
 ---
 

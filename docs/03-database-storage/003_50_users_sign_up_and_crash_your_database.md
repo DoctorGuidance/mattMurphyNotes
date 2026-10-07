@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Creates a new database connection per HTTP request without pooling; queries identical data on every render. | Routes traffic through transaction poolers (PgBouncer) allowing 50 requests to share 10 connections; caches hot data in Redis. |
+| Spawns a new direct database connection per HTTP request without pooling; queries identical un-cached data on every page view. | Routes database traffic through transaction poolers (PgBouncer/Supavisor) and caches hot read data in Redis/Upstash. |
 
 ---
 

@@ -18,7 +18,7 @@ Bots are scanning every public repo for API keys right now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
+| Exposes security boundaries in 'Bots are scanning every public repo for API keys right now', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Bots are scanning every public repo for API keys right now'. |
 
 ---
 

@@ -18,7 +18,7 @@ Your mobile app sends every API call in plain text.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Blindly passes entire request body to ORM update methods, allowing attackers to inject `isAdmin: true` or elevated roles. | Enforces strict input allowlists using Zod schemas (`.strict()`), rejecting any non-whitelisted parameters. |
+| Exposes security boundaries in 'Your mobile app sends every API call in plain text', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your mobile app sends every API call in plain text'. |
 
 ---
 

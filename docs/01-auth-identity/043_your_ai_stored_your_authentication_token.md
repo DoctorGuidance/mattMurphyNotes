@@ -18,7 +18,7 @@ Your AI built your authentication system. Server returns a JWT; frontend stores 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Stores JWTs in `localStorage` or `sessionStorage` accessible to any script via `window.localStorage`. | Stores tokens in `HttpOnly; Secure; SameSite=Lax` cookies completely invisible to JavaScript. |
+| Stores JWT authentication tokens in client-side `localStorage` or `sessionStorage` accessible to any malicious script (XSS). | Stores session tokens in `HttpOnly; Secure; SameSite=Lax` cookies completely inaccessible to JavaScript. |
 
 ---
 

@@ -18,7 +18,7 @@ Your AI built the app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Directs AI to deploy user-facing application features without giving the agent observability or support troubleshooting playbooks. | Equips AI agents with structured error telemetry and automated support diagnostic playbooks for production triage. |
 
 ---
 

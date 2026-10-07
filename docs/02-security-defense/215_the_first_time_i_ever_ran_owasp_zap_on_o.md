@@ -18,7 +18,7 @@ The first time I ever ran OWASP ZAP on one of my own apps.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Exposes security boundaries in 'The first time I ever ran OWASP ZAP on one of my own apps', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'The first time I ever ran OWASP ZAP on one of my own apps'. |
 
 ---
 

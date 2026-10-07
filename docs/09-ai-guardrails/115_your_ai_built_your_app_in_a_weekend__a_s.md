@@ -18,7 +18,7 @@ Your AI built your app in a weekend. A security auditor would shut it down by Mo
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI built your app in a weekend. A security auditor'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
 
 ---
 

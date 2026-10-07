@@ -18,7 +18,7 @@ Your API is simultaneously a security surface, a product surface, and a contract
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Exposes security boundaries in 'Your API is simultaneously a security surface, a product', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your API is simultaneously a security surface, a product'. |
 
 ---
 

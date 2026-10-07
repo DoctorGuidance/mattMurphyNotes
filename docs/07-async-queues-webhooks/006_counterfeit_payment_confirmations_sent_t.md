@@ -18,7 +18,7 @@ An attacker sends a forged HTTP POST request mimicking a Stripe `checkout.sessio
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on JSON body parameters directly without cryptographic signature checks; vulnerable to replay attacks. | Verifies signature against the raw request buffer (`constructEvent`); enforces idempotency locks via Redis. |
+| Parses Stripe webhook JSON bodies before verification, allowing forged fake payment events to trigger product fulfillment. | Verifies HMAC signatures using the raw unparsed request Buffer (`express.raw`) and locks event IDs in Redis for idempotency. |
 
 ---
 

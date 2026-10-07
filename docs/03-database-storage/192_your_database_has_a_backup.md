@@ -18,7 +18,7 @@ Your database has a backup.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Relies on unverified backup routines in 'Your database has a backup', risking irreversible data loss upon storage failure. | Enforces continuous point-in-time recovery (PITR) and automated restore drill verification for 'Your database has a backup'. |
 
 ---
 

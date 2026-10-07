@@ -18,7 +18,7 @@ An attacker exploits a known vulnerability in a third-party marketing container.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Runs all services (marketing, admin API, database) inside a single flat network where everything trusts everything. | Strict network segmentation: marketing cannot reach database networks; internal service calls require mTLS or auth tokens. |
+| Allows public-facing marketing or CMS containers to communicate directly with internal production database subnets. | Isolates container networks into private VPC subnets, requiring mutual TLS (mTLS) and read-only roles for peripheral tools. |
 
 ---
 

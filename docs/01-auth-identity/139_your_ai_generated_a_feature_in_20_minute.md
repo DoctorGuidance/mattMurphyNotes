@@ -18,7 +18,7 @@ Your AI generated a feature in 20 minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Implements naive authentication in 'Your AI generated a feature in 20 minutes', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your AI generated a feature in 20 minutes'. |
 
 ---
 

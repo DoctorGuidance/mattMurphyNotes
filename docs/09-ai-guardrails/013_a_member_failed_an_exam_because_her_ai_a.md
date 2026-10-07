@@ -18,7 +18,7 @@ A member failed an exam because her AI argued with the curriculum.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Permits AI coding assistants to override established engineering standards and architectural separation in production files. | Enforces rigorous architectural guidelines and rejects AI suggestions that violate single-responsibility or modular standards. |
 
 ---
 

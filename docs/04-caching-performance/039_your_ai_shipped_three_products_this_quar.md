@@ -18,7 +18,7 @@ Your AI shipped three products this quarter.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Implements caching without invalidation strategies or tenant namespaces in 'Your AI shipped three products this quarter', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
 
 ---
 

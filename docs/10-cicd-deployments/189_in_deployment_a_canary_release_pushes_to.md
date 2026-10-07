@@ -18,7 +18,7 @@ In deployment a canary release pushes to a small group first.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'In deployment a canary release pushes to a small group first'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'In deployment a canary release pushes to a small group first'. |
 
 ---
 

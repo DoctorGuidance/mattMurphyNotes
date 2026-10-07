@@ -18,7 +18,7 @@ Your database has 10 million rows. Queries that took 20 milliseconds now take fo
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| Executes unindexed or unconstrained database queries in 'Ten million rows', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Ten million rows'. |
 
 ---
 

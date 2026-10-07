@@ -18,7 +18,7 @@ You turned on a Web Application Firewall (WAF) and assumed your security was sol
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Treats WAF as a substitute for secure coding; leaves default rule sets uncalibrated for application endpoints. | Defense-in-depth: parameterized queries and strict schema validation in code, combined with tuned WAF blocking rules. |
+| Relies purely on edge WAF rules while concatenating raw strings in application SQL queries, exposing data to injection bypasses. | Enforces parameterized queries via ORM/prepared statements and validates all endpoint inputs using strict Zod schemas. |
 
 ---
 

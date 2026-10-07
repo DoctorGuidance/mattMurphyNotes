@@ -18,7 +18,7 @@ You push to main, the deploy runs. Every user gets a new code simultaneously. If
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Ship to 5% first'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Ship to 5% first'. |
 
 ---
 

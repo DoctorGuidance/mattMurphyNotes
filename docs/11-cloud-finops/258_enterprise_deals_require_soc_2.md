@@ -18,7 +18,7 @@ Enterprise deals require SOC 2.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified AI code assumptions without failure handling or production boundaries in Cloud Infrastructure & FinOps. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Cloud Infrastructure & FinOps. |
+| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Enterprise deals require SOC 2'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
 
 ---
 

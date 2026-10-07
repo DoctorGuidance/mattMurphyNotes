@@ -18,7 +18,7 @@ An attacker intercepted your magic link and landed inside your user's dashboard.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
+| Issues long-lived, un-throttled magic login links with open redirect parameters, enabling token theft and phishing redirection. | Issues short-lived (5-10m) single-use magic tokens, locks redirect URLs to whitelisted domains, and rate limits email dispatch. |
 
 ---
 

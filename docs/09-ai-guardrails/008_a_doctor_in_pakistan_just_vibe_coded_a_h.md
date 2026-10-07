@@ -18,7 +18,7 @@ A doctor in Pakistan just vibe coded a HIPAA-compliant hospital management syste
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
+| Assumes prototype healthcare software is HIPAA-compliant without verifiable audit trails, encryption at rest, or access controls. | Implements end-to-end encryption at rest/transit, role-based access controls, automated session timeouts, and immutable audit logging. |
 
 ---
 

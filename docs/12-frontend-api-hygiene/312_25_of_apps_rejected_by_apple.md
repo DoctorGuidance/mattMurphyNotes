@@ -18,7 +18,7 @@ Would you have guessed that one out of four apps is rejected by the Apple Store
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Ships demo code directly into production without verifying boundary limits or failure fallback paths. | Hardens systems with circuit breakers, exponential backoff retries, and isolated fault boundaries. |
+| Assumes successful network responses and relies solely on frontend validation for business state in '25% of apps rejected by Apple'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
 
 ---
 

@@ -18,7 +18,7 @@ GitHub Actions free tier. 2,000 minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified AI code assumptions without failure handling or production boundaries in Testing, Staging & CI/CD. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Testing, Staging & CI/CD. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'GitHub Actions free tier. 2,000 minutes'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'GitHub Actions free tier. 2,000 minutes'. |
 
 ---
 

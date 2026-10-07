@@ -18,7 +18,7 @@ An attacker just logged in as your user without a password.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Stores credentials in client-side localStorage/sessionStorage vulnerable to XSS and malicious dependencies. | Stores tokens in HttpOnly, Secure, SameSite=Lax cookies completely inaccessible to JavaScript. |
+| Trusts client-reported timestamps and device clocks for time-sensitive business logic and session expiration. | Computes all lease durations, expirations, and financial timestamps strictly using authoritative server-synchronized UTC clocks. |
 
 ---
 

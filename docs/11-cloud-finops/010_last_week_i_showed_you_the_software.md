@@ -18,7 +18,7 @@ Last week I showed you the software.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
+| Sends sensitive proprietary prompts and confidential user inputs to third-party cloud LLMs without latency or privacy SLAs. | Deploys self-hosted local inference nodes (Ollama/vLLM) for sensitive IP and enforces private VPC boundaries. |
 
 ---
 

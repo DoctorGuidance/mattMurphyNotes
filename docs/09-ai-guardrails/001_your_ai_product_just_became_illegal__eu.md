@@ -18,7 +18,7 @@ The EU AI Act went live, legally classifying all model-generated copy, avatars, 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Hides AI involvement or assumes users don't care; buries vague disclaimers in Terms of Service. | Enforces non-removable SGI metadata/watermarks, explicit pre-generation user consent gates, and immutable audit logs. |
+| Deploys generative AI features without synthetic media watermarks (SGI) or consent gates, violating EU AI Act Art. 50. | Embeds non-removable SGI metadata, enforces affirmative user consent gates, and logs prompt hashes to immutable tables. |
 
 ---
 

@@ -18,7 +18,7 @@ Your app hit Vercel’s limits.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your app hit Vercel’s limits'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
 
 ---
 

@@ -18,7 +18,7 @@ When you hit deploy, you refresh and it's broken, and then you hit deploy again 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Pushes 47 unreviewed commits directly to production; gambles without preview environments. | Mandates ephemeral Preview Deployments for every PR and maintains a tested 60-second instant rollback button. |
+| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Hit deploy. It’s broken'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Hit deploy. It’s broken'. |
 
 ---
 

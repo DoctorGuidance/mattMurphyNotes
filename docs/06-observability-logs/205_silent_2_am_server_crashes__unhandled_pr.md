@@ -18,7 +18,7 @@ An asynchronous background task throws an unhandled rejection at 2 AM. The Node.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves async promises without catch blocks; lets unhandled rejections kill the Node.js event loop silently. | Global process handlers capturing errors to Sentry with correlation IDs, followed by clean orchestrator restarts. |
+| Leaves uncaught exceptions and unhandled promise rejections unhandled in Node.js, crashing the server process silently. | Registers global process handlers for uncaughtException and unhandledRejection, logging context to Sentry with graceful restart. |
 
 ---
 

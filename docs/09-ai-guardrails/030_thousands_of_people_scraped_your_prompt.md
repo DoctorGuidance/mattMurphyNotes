@@ -18,7 +18,7 @@ Thousands of people scraped your prompt this week and you have no idea it happen
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
+| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Thousands of people scraped your prompt this week and you'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
 
 ---
 

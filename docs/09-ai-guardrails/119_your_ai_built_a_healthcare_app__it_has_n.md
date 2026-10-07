@@ -18,7 +18,7 @@ Your AI built a healthcare app. It has never heard of HIPAA.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
+| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI built a healthcare app. It has never heard of HIPAA'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
 
 ---
 

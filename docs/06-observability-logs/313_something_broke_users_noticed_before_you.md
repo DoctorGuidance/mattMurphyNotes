@@ -18,7 +18,7 @@ Something broke in production last night
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Discovers application crashes from angry user tweets hours after going down. | Automates Sentry stack-trace capture and Better Stack 30-second uptime pings with instant SMS alerts. |
+| Logs unstructured text or swallows exceptions silently in 'Something broke. Users noticed before you did', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
 
 ---
 
