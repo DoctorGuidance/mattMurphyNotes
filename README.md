@@ -40,18 +40,18 @@ All 320+ lessons are cataloged into 12 distinct engineering domains:
 
 | Module Directory | Engineering Domain | Target Layer | Masterclasses |
 |:---|:---|:---:|:---:|
-| [`01-auth-identity`](./docs/01-auth-identity) | **Authentication, Identity & Session Management** | Layer 04 | 29 Lessons |
-| [`02-security-defense`](./docs/02-security-defense) | **Application Security, Attacks & Multi-Layer Defense** | Layer 08 | 50 Lessons |
-| [`03-database-storage`](./docs/03-database-storage) | **Database Architecture, Indexing & Data Durability** | Layer 03 | 34 Lessons |
+| [`01-auth-identity`](./docs/01-auth-identity) | **Authentication, Identity & Session Management** | Layer 04 | 30 Lessons |
+| [`02-security-defense`](./docs/02-security-defense) | **Application Security, Attacks & Multi-Layer Defense** | Layer 08 | 47 Lessons |
+| [`03-database-storage`](./docs/03-database-storage) | **Database Architecture, Indexing & Data Durability** | Layer 03 | 33 Lessons |
 | [`04-caching-performance`](./docs/04-caching-performance) | **Caching, Edge Distribution & System Performance** | Layer 10 | 12 Lessons |
-| [`05-rate-limiting-abuse`](./docs/05-rate-limiting-abuse) | **Rate Limiting, Denial-of-Service & Bot Defense** | Layer 09 | 3 Lessons |
-| [`06-observability-logs`](./docs/06-observability-logs) | **Observability, Structured Logging & Error Tracing** | Layer 12 | 14 Lessons |
-| [`07-async-queues-webhooks`](./docs/07-async-queues-webhooks) | **Asynchronous Job Queues & Financial Webhooks** | Layer 06 | 18 Lessons |
+| [`05-rate-limiting-abuse`](./docs/05-rate-limiting-abuse) | **Rate Limiting, Denial-of-Service & Bot Defense** | Layer 09 | 4 Lessons |
+| [`06-observability-logs`](./docs/06-observability-logs) | **Observability, Structured Logging & Error Tracing** | Layer 12 | 16 Lessons |
+| [`07-async-queues-webhooks`](./docs/07-async-queues-webhooks) | **Asynchronous Job Queues & Financial Webhooks** | Layer 06 | 19 Lessons |
 | [`08-multi-tenancy`](./docs/08-multi-tenancy) | **Multi-Tenancy & Zero-Leak Data Isolation** | Layer 08 | 6 Lessons |
-| [`09-ai-guardrails`](./docs/09-ai-guardrails) | **LLM Guardrails, Prompt Defense & Legal Compliance** | Layer 02 | 48 Lessons |
-| [`10-cicd-deployments`](./docs/10-cicd-deployments) | **Testing, Staging Parity & Deployment Pipelines** | Layer 07 | 45 Lessons |
-| [`11-cloud-finops`](./docs/11-cloud-finops) | **Cloud Resilience, Serverless & Cost Optimization** | Layer 06 | 30 Lessons |
-| [`12-frontend-api-hygiene`](./docs/12-frontend-api-hygiene) | **Frontend Architecture & API Hygiene** | Layer 01 | 32 Lessons |
+| [`09-ai-guardrails`](./docs/09-ai-guardrails) | **LLM Guardrails, Prompt Defense & Legal Compliance** | Layer 02 | 46 Lessons |
+| [`10-cicd-deployments`](./docs/10-cicd-deployments) | **Testing, Staging Parity & Deployment Pipelines** | Layer 07 | 39 Lessons |
+| [`11-cloud-finops`](./docs/11-cloud-finops) | **Cloud Resilience, Serverless & Cost Optimization** | Layer 06 | 32 Lessons |
+| [`12-frontend-api-hygiene`](./docs/12-frontend-api-hygiene) | **Frontend Architecture & API Hygiene** | Layer 01 | 37 Lessons |
 
 ---
 
