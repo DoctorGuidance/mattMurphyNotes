@@ -4,9 +4,13 @@
 
 # 🧠 Matt Murphy Production Engineering Academy & Agent Skills
 
-> **Bridging the chasm between superficial "Vibe Coding" and hardened, scalable, enterprise-grade production engineering.**
+> **Bridging the chasm between superficial "Vibe Coding" and hardened, scalable, enterprise-grade production engineering.**  
+> **Created & Curated by [DoctorGuidance](https://github.com/DoctorGuidance)**
 
-[![Live Web Platform](https://img.shields.io/badge/Live%20Platform-GitHub%20Pages-22c55e?style=for-the-badge&logo=github&logoColor=white)](https://doctorguidance.github.io/mattMurphyNotes/)
+🌐 **Live Web Academy:** 👉 **[https://doctorguidance.github.io/mattMurphyNotes/](https://doctorguidance.github.io/mattMurphyNotes/)** 👈
+
+[![Live Web Platform](https://img.shields.io/badge/Live%20Platform-doctorguidance.github.io%2FmattMurphyNotes-22c55e?style=for-the-badge&logo=github&logoColor=white)](https://doctorguidance.github.io/mattMurphyNotes/)
+[![Created By DoctorGuidance](https://img.shields.io/badge/Created%20By-DoctorGuidance-8b5cf6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DoctorGuidance)
 [![Masterclasses](https://img.shields.io/badge/Masterclasses-320%2B%20Lessons-00d2ff?style=for-the-badge)](#)
 [![Stack](https://img.shields.io/badge/Platform-13%20Production%20Layers-2ed573?style=for-the-badge)](#)
 [![Target](https://img.shields.io/badge/AI%20Agents-Antigravity%20%7C%20Cursor%20%7C%20Claude-ff4757?style=for-the-badge)](#)

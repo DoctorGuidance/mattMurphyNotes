@@ -15,7 +15,7 @@ SITE_APP_JS_PATH = os.path.join(ROOT_DIR, 'site', 'app.js')
 INDEX_HTML_PATH = os.path.join(ROOT_DIR, 'index.html')
 SITE_INDEX_HTML_PATH = os.path.join(ROOT_DIR, 'site', 'index.html')
 
-VERSION = "3.2.1"
+VERSION = "3.2.2"
 
 with open(SKILL_MD_PATH, 'r', encoding='utf-8') as f:
     skill_content = f.read()
