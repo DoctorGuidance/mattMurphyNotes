@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Authentication & Identity
-**زیرسیستم:** احراز هویت و مدیریت نشست‌ها | **Domain ID:** `01-auth-identity` | **Target Layer:** Layer 4
+**Architectural Domain:** Authentication & Identity | **Domain ID:** `01-auth-identity` | **Target Layer:** Layer 4
 > **Corpus Evidence:** Synthesized from 30 Matt Murphy Production Engineering Masterclasses (11 Critical, 3 High, 16 Medium).
 
 ---

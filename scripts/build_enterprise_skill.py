@@ -77,7 +77,7 @@ def build_skill():
 
         md_content = []
         md_content.append(f"# 🛡️ Rulebook: {mod_name_en}")
-        md_content.append(f"**زیرسیستم:** {mod_name_fa} | **Domain ID:** `{mod_id}` | **Target Layer:** Layer {primary_layer}")
+        md_content.append(f"**Architectural Domain:** {mod_name_en} | **Domain ID:** `{mod_id}` | **Target Layer:** Layer {primary_layer}")
         md_content.append(f"> **Corpus Evidence:** Synthesized from {len(mod_eps)} Matt Murphy Production Engineering Masterclasses ({len(crit_eps)} Critical, {len(high_eps)} High, {len(med_eps)} Medium).")
         md_content.append("")
         md_content.append("---")
@@ -838,7 +838,7 @@ if __name__ == '__main__':
         "- **No Silent Server Crashes:** Register global Node.js process handlers for `uncaughtException` and `unhandledRejection`. Capture stack traces to Sentry and perform graceful process restart via PM2/Docker.",
         "- **Four UI States Requirement:** Every data-fetching frontend component MUST implement:",
         "  1. `Loading State`: Non-blocking skeleton/spinner.",
-        "  2. `Error State`: User-friendly Persian/English error notice with an interactive \"تلاش مجدد (Retry)\" action.",
+        "  2. `Error State`: User-friendly error notice with an interactive \"Retry\" action and recovery guidance.",
         "  3. `Empty State`: Meaningful guidance when zero records exist (no broken tables).",
         "  4. `Success State`: Hardened, typed rendering.",
         "",

@@ -3,7 +3,7 @@
 | Parameter | Specification |
 |:---|:---|
 | **Production Risk Severity** | 🚨 `CRITICAL` |
-| **Architectural Domain** | Rate Limiting & Abuse Prevention (`محدودسازی نرخ، مقابله با DoS و بات‌ها`) |
+| **Architectural Domain** | Rate Limiting & Abuse Prevention |
 | **Target Production Layer** | Layer 9 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbjN2IVCeEm/) |
 

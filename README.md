@@ -22,7 +22,7 @@ The full interactive documentation, omnibox search engine, 13 production layers 
 
 ### Key Platform Features:
 - 🔍 **Real-Time Omnibox Search (`⌘K`):** Instantly filter across all 320+ masterclasses by episode number (`#043`), topics, vulnerability names (`IDOR`, `XSS`, `CSRF`, `DoS`), or keywords.
-- 🌍 **Multilingual & RTL Support:** Switch seamlessly between **English (Default)**, **فارسی (Persian / RTL)**, **Deutsch**, **Español**, and **中文**.
+- 🌍 **Multilingual & RTL Support:** Switch seamlessly between **English (Default)**, **Persian (Farsi / RTL)**, **Deutsch**, **Español**, and **中文**.
 - 🏛️ **13 Production Layers Matrix:** Visual navigation mapping software architecture layers directly to battle-tested failure modes and hardening guides.
 - 📋 **Production Audit Scorecard:** Interactive 15-point checklist calculating your system's hardening score in real-time, with direct markdown report export.
 - 💻 **Standardized Engineering Deep-Dives:** Every lesson features:

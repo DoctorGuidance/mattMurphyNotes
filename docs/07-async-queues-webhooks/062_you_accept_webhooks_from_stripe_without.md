@@ -3,7 +3,7 @@
 | Parameter | Specification |
 |:---|:---|
 | **Production Risk Severity** | 🚨 `CRITICAL` |
-| **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
+| **Architectural Domain** | Async Queues & Webhooks |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcbzcfyioD9/) |
 

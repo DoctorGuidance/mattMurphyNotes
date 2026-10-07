@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Testing, Staging & CI/CD
-**زیرسیستم:** تست، محیط‌های کاری، CI/CD و خط لوله استقرار | **Domain ID:** `10-cicd-deployments` | **Target Layer:** Layer 7
+**Architectural Domain:** Testing, Staging & CI/CD | **Domain ID:** `10-cicd-deployments` | **Target Layer:** Layer 7
 > **Corpus Evidence:** Synthesized from 39 Matt Murphy Production Engineering Masterclasses (9 Critical, 6 High, 24 Medium).
 
 ---

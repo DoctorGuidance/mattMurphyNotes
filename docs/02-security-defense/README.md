@@ -1,4 +1,4 @@
-# 📁 Application Security & Defense (امنیت نرم‌افزار، حملات و دفاع لایه‌ای)
+# 📁 Application Security & Defense
 
 > **Catalog:** 44 masterclasses  
 > **Production Layer:** Layer 8

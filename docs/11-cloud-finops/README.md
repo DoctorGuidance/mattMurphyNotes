@@ -1,4 +1,4 @@
-# 📁 Cloud Infrastructure & FinOps (معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه)
+# 📁 Cloud Infrastructure & FinOps
 
 > **Catalog:** 29 masterclasses  
 > **Production Layer:** Layer 6

@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Cloud Infrastructure & FinOps
-**زیرسیستم:** معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه | **Domain ID:** `11-cloud-finops` | **Target Layer:** Layer 6
+**Architectural Domain:** Cloud Infrastructure & FinOps | **Domain ID:** `11-cloud-finops` | **Target Layer:** Layer 6
 > **Corpus Evidence:** Synthesized from 32 Matt Murphy Production Engineering Masterclasses (3 Critical, 9 High, 20 Medium).
 
 ---

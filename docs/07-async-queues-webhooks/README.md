@@ -1,4 +1,4 @@
-# 📁 Async Queues & Webhooks (صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی)
+# 📁 Async Queues & Webhooks
 
 > **Catalog:** 19 masterclasses  
 > **Production Layer:** Layer 6

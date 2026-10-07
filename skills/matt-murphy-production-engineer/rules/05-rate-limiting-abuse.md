@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Rate Limiting & Abuse Prevention
-**زیرسیستم:** محدودسازی نرخ، مقابله با DoS و بات‌ها | **Domain ID:** `05-rate-limiting-abuse` | **Target Layer:** Layer 9
+**Architectural Domain:** Rate Limiting & Abuse Prevention | **Domain ID:** `05-rate-limiting-abuse` | **Target Layer:** Layer 9
 > **Corpus Evidence:** Synthesized from 4 Matt Murphy Production Engineering Masterclasses (1 Critical, 2 High, 1 Medium).
 
 ---

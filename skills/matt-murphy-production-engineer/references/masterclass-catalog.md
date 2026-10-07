@@ -263,7 +263,7 @@
 | **#235** | `CRITICAL` | L7 | `10-cicd-deployments` | Nine checks before you hit deploy | Fifteen minutes saves you days.... |
 | **#236** | `MEDIUM` | L2 | `09-ai-guardrails` | Stop eyeballing your AI outputs | Model-as-judge scoring, in your CI pipeline, makes quality measurable.... |
 | **#237** | `HIGH` | L3 | `03-database-storage` | Your database is doing the same work on every request | Three caching layers fix that without changing business logic.... |
-| **#238** | `MEDIUM` | L2 | `09-ai-guardrails` | Raw AI output should never touch your users | در نهایت، اگر اصلاح خودکار نتیجه ندهد، سیستم باید تنزل تدریجی و امن را اجرا کند و با استفاده از روش‌... |
+| **#238** | `MEDIUM` | L2 | `09-ai-guardrails` | Raw AI output should never touch your users | If automated schema correction fails, execute graceful degradation with fallbacks or human-in-the-lo... |
 | **#239** | `MEDIUM` | L7 | `10-cicd-deployments` | Supabase gets you to production | Knowing when to unbundle auth, database, and storage gets you through it.... |
 | **#240** | `MEDIUM` | L2 | `09-ai-guardrails` | Agent memory is not one big context dump | Two systems. One win.... |
 | **#241** | `MEDIUM` | L2 | `09-ai-guardrails` | Two multi-agent patterns | Earn conductor with data.... |

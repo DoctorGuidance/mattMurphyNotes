@@ -470,7 +470,7 @@ The complete knowledge base is modularized into 12 authoritative rulebooks:
 - **No Silent Server Crashes:** Register global Node.js process handlers for \`uncaughtException\` and \`unhandledRejection\`. Capture stack traces to Sentry and perform graceful process restart via PM2/Docker.
 - **Four UI States Requirement:** Every data-fetching frontend component MUST implement:
   1. \`Loading State\`: Non-blocking skeleton/spinner.
-  2. \`Error State\`: User-friendly Persian/English error notice with an interactive "تلاش مجدد (Retry)" action.
+  2. \`Error State\`: User-friendly error notice with an interactive "Retry" action and recovery guidance.
   3. \`Empty State\`: Meaningful guidance when zero records exist (no broken tables).
   4. \`Success State\`: Hardened, typed rendering.
 

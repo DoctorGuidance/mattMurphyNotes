@@ -3,7 +3,7 @@
 | Parameter | Specification |
 |:---|:---|
 | **Production Risk Severity** | 🚨 `CRITICAL` |
-| **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
+| **Architectural Domain** | Database & Storage Engineering |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZisZ_9v0RW/) |
 

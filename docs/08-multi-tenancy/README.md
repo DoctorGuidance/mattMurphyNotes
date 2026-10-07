@@ -1,4 +1,4 @@
-# 📁 Multi-Tenancy & Data Isolation (معماری چندمستأجره و جداسازی قطعی داده‌ها)
+# 📁 Multi-Tenancy & Data Isolation
 
 > **Catalog:** 6 masterclasses  
 > **Production Layer:** Layer 8

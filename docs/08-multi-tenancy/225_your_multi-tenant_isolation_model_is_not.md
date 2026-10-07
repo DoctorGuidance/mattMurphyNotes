@@ -3,7 +3,7 @@
 | Parameter | Specification |
 |:---|:---|
 | **Production Risk Severity** | 🚨 `MEDIUM` |
-| **Architectural Domain** | Multi-Tenancy & Data Isolation (`معماری چندمستأجره و جداسازی قطعی داده‌ها`) |
+| **Architectural Domain** | Multi-Tenancy & Data Isolation |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZphyuUgS1A/) |
 

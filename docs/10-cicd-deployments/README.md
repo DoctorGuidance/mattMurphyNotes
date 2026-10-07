@@ -1,4 +1,4 @@
-# 📁 Testing, Staging & CI/CD (تست، محیط‌های کاری، CI/CD و خط لوله استقرار)
+# 📁 Testing, Staging & CI/CD
 
 > **Catalog:** 34 masterclasses  
 > **Production Layer:** Layer 7

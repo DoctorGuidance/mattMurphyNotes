@@ -1,4 +1,4 @@
-# 📁 Rate Limiting & Abuse Prevention (محدودسازی نرخ، مقابله با DoS و بات‌ها)
+# 📁 Rate Limiting & Abuse Prevention
 
 > **Catalog:** 3 masterclasses  
 > **Production Layer:** Layer 9

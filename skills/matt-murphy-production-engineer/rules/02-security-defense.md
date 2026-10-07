@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Application Security & Defense
-**زیرسیستم:** امنیت نرم‌افزار، حملات و دفاع لایه‌ای | **Domain ID:** `02-security-defense` | **Target Layer:** Layer 8
+**Architectural Domain:** Application Security & Defense | **Domain ID:** `02-security-defense` | **Target Layer:** Layer 8
 > **Corpus Evidence:** Synthesized from 47 Matt Murphy Production Engineering Masterclasses (28 Critical, 6 High, 13 Medium).
 
 ---

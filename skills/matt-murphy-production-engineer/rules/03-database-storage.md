@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Database & Storage Engineering
-**زیرسیستم:** پایگاه‌داده، روابط، ایندکس و پایداری داده | **Domain ID:** `03-database-storage` | **Target Layer:** Layer 3
+**Architectural Domain:** Database & Storage Engineering | **Domain ID:** `03-database-storage` | **Target Layer:** Layer 3
 > **Corpus Evidence:** Synthesized from 33 Matt Murphy Production Engineering Masterclasses (7 Critical, 9 High, 17 Medium).
 
 ---

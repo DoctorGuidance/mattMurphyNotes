@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Frontend Architecture & API Hygiene
-**زیرسیستم:** معماری فرانت‌اند، طراحی واسط و بهداشت API | **Domain ID:** `12-frontend-api-hygiene` | **Target Layer:** Layer 1
+**Architectural Domain:** Frontend Architecture & API Hygiene | **Domain ID:** `12-frontend-api-hygiene` | **Target Layer:** Layer 1
 > **Corpus Evidence:** Synthesized from 37 Matt Murphy Production Engineering Masterclasses (14 Critical, 1 High, 22 Medium).
 
 ---

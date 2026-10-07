@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: AI Guardrails, LLM Security & Compliance
-**زیرسیستم:** مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی | **Domain ID:** `09-ai-guardrails` | **Target Layer:** Layer 2
+**Architectural Domain:** AI Guardrails, LLM Security & Compliance | **Domain ID:** `09-ai-guardrails` | **Target Layer:** Layer 2
 > **Corpus Evidence:** Synthesized from 46 Matt Murphy Production Engineering Masterclasses (6 Critical, 7 High, 33 Medium).
 
 ---

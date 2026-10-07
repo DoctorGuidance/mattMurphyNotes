@@ -1,4 +1,4 @@
-# 📁 Caching & Edge Performance (کشینگ، توزیع لبه و پرفورمنس سیستمی)
+# 📁 Caching & Edge Performance
 
 > **Catalog:** 12 masterclasses  
 > **Production Layer:** Layer 10

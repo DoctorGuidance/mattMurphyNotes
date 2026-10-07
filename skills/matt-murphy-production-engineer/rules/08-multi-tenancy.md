@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Multi-Tenancy & Data Isolation
-**زیرسیستم:** معماری چندمستأجره و جداسازی قطعی داده‌ها | **Domain ID:** `08-multi-tenancy` | **Target Layer:** Layer 8
+**Architectural Domain:** Multi-Tenancy & Data Isolation | **Domain ID:** `08-multi-tenancy` | **Target Layer:** Layer 8
 > **Corpus Evidence:** Synthesized from 6 Matt Murphy Production Engineering Masterclasses (3 Critical, 0 High, 3 Medium).
 
 ---

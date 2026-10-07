@@ -1,4 +1,4 @@
-# 📁 Observability & Error Tracking (مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا)
+# 📁 Observability & Error Tracking
 
 > **Catalog:** 13 masterclasses  
 > **Production Layer:** Layer 12

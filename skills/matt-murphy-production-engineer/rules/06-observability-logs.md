@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Observability & Error Tracking
-**زیرسیستم:** مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا | **Domain ID:** `06-observability-logs` | **Target Layer:** Layer 12
+**Architectural Domain:** Observability & Error Tracking | **Domain ID:** `06-observability-logs` | **Target Layer:** Layer 12
 > **Corpus Evidence:** Synthesized from 16 Matt Murphy Production Engineering Masterclasses (7 Critical, 1 High, 8 Medium).
 
 ---

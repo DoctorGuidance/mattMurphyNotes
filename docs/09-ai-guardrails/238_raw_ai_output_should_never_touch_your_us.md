@@ -3,7 +3,7 @@
 | Parameter | Specification |
 |:---|:---|
 | **Production Risk Severity** | 🚨 `MEDIUM` |
-| **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
+| **Architectural Domain** | AI Guardrails, LLM Security & Compliance |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZdbRXmv_lb/) |
 
@@ -58,7 +58,7 @@ export async function recordAIGeneration(userId: string, model: string, prompt: 
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** در نهایت، اگر اصلاح خودکار نتیجه ندهد، سیستم باید تنزل تدریجی و امن را اجرا کند و با استفاده از روش‌هایی مثل پاسخ‌های از پیش‌ذخیره‌شده یا کمک گرفتن از انسان، از ارائه صفحه خالی یا خطای خام به کاربر جلوگیری کند
+> **Production Heuristic:** If automated schema correction fails, execute graceful degradation with fallbacks or human-in-the-loop escalation rather than serving empty screens or unhandled exceptions.
 
 ---
 
@@ -69,6 +69,6 @@ Oh no, your AI model is returning garbage to the users and it will. But your use
 
 --------------------------------------------------
 [NOTEBOOKLM GUIDE & TOPICS]
-متن ارائه‌شده بر ضرورت محافظت از کاربران در برابر خروجی‌های نامشخص و آشفته هوش مصنوعی تأکید می‌کند و سه گام عملی برای این منظور پیشنهاد می‌دهد. نخستین گام، اعتبارسنجی دقیق پاسخ‌ها پیش از نمایش به کاربر است تا اطمینان حاصل شود که محتوا با ساختار و محدودیت‌های مورد انتظار مطابقت دارد. در صورت بروز خطا، دومین گام یعنی تلاش مجدد هوشمند به کار گرفته می‌شود که با بازگرداندن دلیل خطا به مدل، فرصتی برای اصلاح اشتباه به آن می‌دهد. در نهایت، اگر اصلاح خودکار نتیجه ندهد، سیستم باید تنزل تدریجی و امن را اجرا کند و با استفاده از روش‌هایی مثل پاسخ‌های از پیش‌ذخیره‌شده یا کمک گرفتن از انسان، از ارائه صفحه خالی یا خطای خام به کاربر جلوگیری کند.
+The analysis underscores the critical mandate of shielding end users from raw, unvalidated model output through three concrete steps: 1) Strict pre-render validation against target schema and length boundaries, 2) Feedback-driven retry loops that inject specific validation failures back into the model prompt for automated self-correction, and 3) Deterministic fallbacks (cached responses, simpler models, or human handoff) to ensure the user never encounters a blank screen or raw crash stack trace.
 
 </div>

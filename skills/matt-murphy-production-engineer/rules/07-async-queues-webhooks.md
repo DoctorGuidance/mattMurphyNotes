@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Async Queues & Webhooks
-**زیرسیستم:** صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی | **Domain ID:** `07-async-queues-webhooks` | **Target Layer:** Layer 6
+**Architectural Domain:** Async Queues & Webhooks | **Domain ID:** `07-async-queues-webhooks` | **Target Layer:** Layer 6
 > **Corpus Evidence:** Synthesized from 19 Matt Murphy Production Engineering Masterclasses (2 Critical, 7 High, 10 Medium).
 
 ---

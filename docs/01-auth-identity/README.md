@@ -1,4 +1,4 @@
-# 📁 Authentication & Identity (احراز هویت و مدیریت نشست‌ها)
+# 📁 Authentication & Identity
 
 > **Catalog:** 28 masterclasses  
 > **Production Layer:** Layer 4

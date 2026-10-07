@@ -1,4 +1,4 @@
-# 📁 Frontend Architecture & API Hygiene (معماری فرانت‌اند، طراحی واسط و بهداشت API)
+# 📁 Frontend Architecture & API Hygiene
 
 > **Catalog:** 36 masterclasses  
 > **Production Layer:** Layer 1

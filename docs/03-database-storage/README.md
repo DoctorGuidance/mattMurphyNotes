@@ -1,4 +1,4 @@
-# 📁 Database & Storage Engineering (پایگاه‌داده، روابط، ایندکس و پایداری داده)
+# 📁 Database & Storage Engineering
 
 > **Catalog:** 32 masterclasses  
 > **Production Layer:** Layer 3

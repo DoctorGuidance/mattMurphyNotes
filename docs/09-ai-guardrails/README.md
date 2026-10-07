@@ -1,4 +1,4 @@
-# 📁 AI Guardrails, LLM Security & Compliance (مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی)
+# 📁 AI Guardrails, LLM Security & Compliance
 
 > **Catalog:** 43 masterclasses  
 > **Production Layer:** Layer 2

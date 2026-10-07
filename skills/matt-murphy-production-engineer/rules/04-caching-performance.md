@@ -1,5 +1,5 @@
 # 🛡️ Rulebook: Caching & Edge Performance
-**زیرسیستم:** کشینگ، توزیع لبه و پرفورمنس سیستمی | **Domain ID:** `04-caching-performance` | **Target Layer:** Layer 10
+**Architectural Domain:** Caching & Edge Performance | **Domain ID:** `04-caching-performance` | **Target Layer:** Layer 10
 > **Corpus Evidence:** Synthesized from 12 Matt Murphy Production Engineering Masterclasses (3 Critical, 1 High, 8 Medium).
 
 ---
