@@ -7,22 +7,26 @@
 > **Bridging the chasm between superficial "Vibe Coding" and hardened, scalable, enterprise-grade production engineering.**  
 > **Created & Curated by [DoctorGuidance](https://github.com/DoctorGuidance)**
 
-🌐 **Live Web Academy:** 👉 **[https://doctorguidance.github.io/mattMurphyNotes/](https://doctorguidance.github.io/mattMurphyNotes/)** 👈
+<div align="center">
 
-[![Live Web Platform](https://img.shields.io/badge/Live%20Platform-doctorguidance.github.io%2FmattMurphyNotes-22c55e?style=for-the-badge&logo=github&logoColor=white)](https://doctorguidance.github.io/mattMurphyNotes/)
-[![Created By DoctorGuidance](https://img.shields.io/badge/Created%20By-DoctorGuidance-8b5cf6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DoctorGuidance)
-[![Masterclasses](https://img.shields.io/badge/Masterclasses-320%2B%20Lessons-00d2ff?style=for-the-badge)](#)
-[![Stack](https://img.shields.io/badge/Platform-13%20Production%20Layers-2ed573?style=for-the-badge)](#)
-[![Target](https://img.shields.io/badge/AI%20Agents-Antigravity%20%7C%20Cursor%20%7C%20Claude-ff4757?style=for-the-badge)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](#)
+[![Live Web Platform](https://img.shields.io/badge/🚀_LAUNCH_LIVE_ACADEMY-doctorguidance.github.io%2FmattMurphyNotes-22c55e?style=for-the-badge&logo=rocket&logoColor=white)](https://doctorguidance.github.io/mattMurphyNotes/)
+[![AI Agent Skill](https://img.shields.io/badge/🤖_ENTERPRISE_SKILL-Install_&_Rulebooks-00d2ff?style=for-the-badge&logo=probot&logoColor=white)](#-autonomous-ai-agent-skill-suite-matt-murphy-production-engineer)
+[![Author](https://img.shields.io/badge/Created%20By-DoctorGuidance-8b5cf6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DoctorGuidance)
+[![Masterclasses](https://img.shields.io/badge/Catalog-320%2B%20Masterclasses-f59e0b?style=for-the-badge)](#)
+[![Architecture](https://img.shields.io/badge/Architecture-13%20Production%20Layers-10b981?style=for-the-badge)](#)
+[![License](https://img.shields.io/badge/License-MIT-64748b?style=for-the-badge)](#)
+
+</div>
+
+> [!TIP]
+> ### 🌐 [Launch Interactive Academy Platform: doctorguidance.github.io/mattMurphyNotes](https://doctorguidance.github.io/mattMurphyNotes/)
+> **Instant Omnibox Search (`⌘K`) • 13 Production Layers Architecture Matrix • Interactive 15-Point Hardening Audit Scorecard • Multilingual Support (English, Persian, German, Spanish, Chinese)**
 
 ---
 
-## 🌐 Live Interactive Academy (GitHub Pages)
+## 🌐 Live Interactive Academy Platform
 
 The full interactive documentation, omnibox search engine, 13 production layers matrix, and **Production Audit Scorecard** are live on GitHub Pages:
-
-👉 **[Enter the Live Matt Murphy Academy](https://doctorguidance.github.io/mattMurphyNotes/)**
 
 ### Key Platform Features:
 - 🔍 **Real-Time Omnibox Search (`⌘K`):** Instantly filter across all 320+ masterclasses by episode number (`#043`), topics, vulnerability names (`IDOR`, `XSS`, `CSRF`, `DoS`), or keywords.
@@ -59,36 +63,77 @@ All 320+ lessons are cataloged into 12 distinct engineering domains:
 
 ---
 
-## 🤖 AI Agent Skill Suite (`matt-murphy-production-engineer`)
+## 🤖 Autonomous AI Agent Skill Suite (`matt-murphy-production-engineer`)
 
-This repository provides an autonomous **Agent Skill** that injects Matt Murphy's production guardrails into AI programming environments to prevent vulnerable code generation.
+This repository provides an enterprise-grade **AI Agent Skill** that hardens code generators, LLMs, and agentic pair-programmers against subtle "vibe-coding" catastrophes. It enforces strict architectural invariants across all 13 production layers directly within your IDE.
 
-### 1. In Google Antigravity
-Copy the skill into your project's `.gemini/skills/` directory:
-```bash
-cp -r skills/matt-murphy-production-engineer/ ~/.gemini/skills/
-```
+👉 **[View Master Skill Definition (SKILL.md)](./skills/matt-murphy-production-engineer/SKILL.md)**
 
-### 2. In Cursor IDE
-Append the production rules to your project's `.cursorrules`:
-```bash
-cat skills/matt-murphy-production-engineer/SKILL.md >> .cursorrules
-```
+### 📦 Skill Architecture & Core Artifacts
 
-### 3. In Claude Code & Windsurf
-Reference [`SKILL.md`](./skills/matt-murphy-production-engineer/SKILL.md) directly in your project prompt or workspace instructions (`CLAUDE.md` / `AGENT.md`).
+| Component | Repository Path | Engineering Purpose |
+|:---|:---|:---|
+| 👑 **Master SKILL.md** | [`skills/.../SKILL.md`](./skills/matt-murphy-production-engineer/SKILL.md) | Agent directives, autonomous run-to-completion engine, 4 UI states requirement, and pre-deploy audit gates. |
+| 🛡️ **12 Modular Rulebooks** | [`skills/.../rules/`](./skills/matt-murphy-production-engineer/rules/) | Dedicated hardening rulebooks (Auth, Security, Databases, Caching, Rate Limiting, Queues, FinOps, etc.). |
+| 📋 **Masterclass Catalog** | [`references/masterclass-catalog.md`](./skills/matt-murphy-production-engineer/references/masterclass-catalog.md) | Exhaustive 321-episode indexed directory mapping every lesson to layer, severity, and takeaway. |
+| ❌ **Anti-Vibe Traps Matrix** | [`references/anti-vibe-traps.md`](./skills/matt-murphy-production-engineer/references/anti-vibe-traps.md) | 321 bespoke comparisons contrasting naive AI code against hardened production standards. |
+| 🔍 **13-Layer Heuristics** | [`references/production-verification-heuristics.md`](./skills/matt-murphy-production-engineer/references/production-verification-heuristics.md) | Concrete diagnostic tests, questions, and physical inspection gates across the full tech stack. |
+| ⚡ **Static Guardrails Auditor** | [`scripts/audit_guardrails.py`](./scripts/audit_guardrails.py) | Automated AST and regex scanner executing 25+ production checks with Markdown and JSON reporting. |
 
 ---
 
-## 🛠️ CLI Static Codebase Auditor (`audit_codebase.py`)
+### 🚀 Installation & Setup Across AI Coding Environments
 
-Quickly scan any existing project before deployment for critical Matt Murphy anti-patterns (such as tokens in `localStorage`, unverified payment webhooks, or exposed secrets):
-
+#### 1. In Google Antigravity (AGY)
+Install globally across all workspaces:
 ```bash
-python scripts/audit_codebase.py /path/to/your/project
+# Global configuration (Recommended)
+mkdir -p ~/.gemini/config/skills/matt-murphy-production-engineer
+cp -r skills/matt-murphy-production-engineer/* ~/.gemini/config/skills/matt-murphy-production-engineer/
+```
+Or install in a specific project:
+```bash
+mkdir -p .gemini/skills/matt-murphy-production-engineer
+cp -r skills/matt-murphy-production-engineer/* .gemini/skills/matt-murphy-production-engineer/
+```
+*Antigravity automatically discovers and activates the skill whenever designing architectures, implementing auth/security, refactoring databases, or reviewing full-stack code.*
+
+#### 2. In Cursor IDE
+Add to modern Cursor rules or classic `.cursorrules`:
+```bash
+# Modern Cursor (.cursor/rules)
+mkdir -p .cursor/rules
+cp skills/matt-murphy-production-engineer/SKILL.md .cursor/rules/matt-murphy.mdc
+
+# Classic .cursorrules
+cat skills/matt-murphy-production-engineer/SKILL.md >> .cursorrules
 ```
 
-Sample output:
+#### 3. In Claude Code, Windsurf & Cline
+Integrate with your project instructions:
+```bash
+# Claude Code (CLAUDE.md)
+cat skills/matt-murphy-production-engineer/SKILL.md >> CLAUDE.md
+
+# Windsurf (.windsurfrules)
+cp skills/matt-murphy-production-engineer/SKILL.md .windsurfrules
+```
+
+---
+
+### 🛠️ CLI Automated Guardrails Auditor (`audit_guardrails.py`)
+
+Run the automated static code analyzer before every release or commit to catch vulnerable patterns (tokens in `localStorage`, unverified payment webhooks, missing RLS, unbounded rate limits):
+
+```bash
+# Scan any local project codebase
+python scripts/audit_guardrails.py /path/to/your/project
+
+# Generate automated Markdown audit report
+python scripts/audit_guardrails.py /path/to/your/project --report audit-report.md
+```
+
+Sample audit output:
 ```text
 🚨 FOUND 2 POTENTIAL PRODUCTION RISKS:
 
