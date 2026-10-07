@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Caching & Edge Performance (`کشینگ، توزیع لبه و پرفورمنس سیستمی`) |
 | **Target Production Layer** | Layer 10 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZz3QjsAx7r/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You added redis and your app got a lot faster. But now you have two sources of truth and you don't know which one is right. Here are the three things you deal with right now to figure it out.
+You added Redis and your app got faster.
 
 ---
 
@@ -18,7 +18,7 @@ You added redis and your app got a lot faster. But now you have two sources of t
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,28 @@ Here are the three things you deal with right now to figure it out. Step one, ca
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] cache invalidation. Your user updates their profile.
-- [ ] cash stampede. Your cash expires.
-- [ ] mult Multi-layer coherence CDN at the very edge redis in the middle application memory on the server three layers three lifetimes three versions of the truth when a price changes which layer knows
+- [ ] cache invalidation.
+- [ ] cash stampede.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #214
-// Domain: 04-caching-performance
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #214 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #214');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Now you have two sources of truth.
 
 ---
 

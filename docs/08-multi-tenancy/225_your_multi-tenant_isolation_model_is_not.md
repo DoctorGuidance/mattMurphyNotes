@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Multi-Tenancy & Data Isolation (`معماری چندمستأجره و جداسازی قطعی داده‌ها`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZphyuUgS1A/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You built a multi-tenant off. Users log in, tenants are fully separated, but your isolation strategy was never really a strategy. It was whatever your ORM defaulted to.
+Your multi-tenant isolation model is not a technical decision.
 
 ---
 
@@ -18,7 +18,7 @@ You built a multi-tenant off. Users log in, tenants are fully separated, but you
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
 
 ---
 
@@ -28,29 +28,28 @@ It was whatever your ORM defaulted to. So, here are the three things you need to
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] shared schema with rowle security. Every tenants's data lives in the same tables.
-- [ ] schema per tenant. Each tenant gets their own schema inside of the database.
-- [ ] database per tenant. complete isolation, separate connection streams, separate backup plans, separate scaling plans.
+- [ ] shared schema with rowle security.
+- [ ] schema per tenant.
+- [ ] database per tenant.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+```sql
+-- migrations/001_row_level_security.sql
+ALTER TABLE user_documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_policy ON user_documents
+  FOR ALL
+  USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid)
+  WITH CHECK (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So, you need to match the walls to the contract that pays
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbBCtEGiaMM/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your first customer dispute will freeze your Stripe account. Not some of your funds, all of your funds, your rent money, your server cost, your next payroll frozen. And you're sitting there with no refund policy, no dispute response template, no chargeback threshold alerts because your AI never built any of it for you.
+Your AI built a product. It did not register a business.
 
 ---
 
@@ -18,7 +18,7 @@ Your first customer dispute will freeze your Stripe account. Not some of your fu
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
 
 ---
 
@@ -28,26 +28,40 @@ And you're sitting there with no refund policy, no dispute response template, no
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] a published refund policy that matches your actual terms, not the Stripe default, not some template that you downloaded. You got to get your terms written out specific for you, linked from your checkout page, visible before the customer pays because when a customer disputes a charge and you have no published refund policy, Stripe sides with that customer every single time.
-- [ ] charge back threshold alerts. Stripe will let your dispute rate climb silently until it crosses their threshold.
+- [ ] a published refund policy that matches your actual terms, not the Stripe default, not some template that you downloaded.
+- [ ] charge back threshold alerts.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Raw Buffer Webhook Signature Verification
-const sig = req.headers['stripe-signature'] as string;
-const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-// Idempotency check:
-const isNew = await redis.set(`evt:${event.id}`, '1', 'NX', 'EX', 86400 * 3);
-if (!isNew) return res.status(200).json({ received: true });
+// routes/webhook.ts
+import express from 'express';
+import Stripe from 'stripe';
+import { redis } from '../lib/redis';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export async function handleWebhook(req: express.Request, res: express.Response) {
+  const sig = req.headers['stripe-signature'] as string;
+  try {
+    const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+    const isNew = await redis.set(`evt:${event.id}`, 'processed', 'NX', 'EX', 86400 * 3);
+    if (!isNew) return res.status(200).json({ received: true, note: 'Duplicate event discarded' });
+    
+    // Process business logic idempotently...
+    res.status(200).json({ received: true });
+  } catch (err: any) {
+    res.status(400).send(`Webhook Signature Verification Failed: ${err.message}`);
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Murphy's law
 
 ---
 

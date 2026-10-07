@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DboLRcsl9ag/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Half of you said you do not care what's happening in the EU. I totally get it. You're based in the United States or somewhere other than the EU and you built your product in your living room on your laptop.
+Half of you said you do not care about the EU. Got it.
 
 ---
 
@@ -18,7 +18,7 @@ Half of you said you do not care what's happening in the EU. I totally get it. Y
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,21 +28,28 @@ You're based in the United States or somewhere other than the EU and you built y
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] this is not new, people. It's not new.
-- [ ] putting regional boundaries on a web-based product is much harder than you think. Geo fencing, IP filtering, misses VPNs, country dropdowns get ignored.
+- [ ] this is not new, people.
+- [ ] putting regional boundaries on a web-based product is much harder than you think.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #100
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #100 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #100');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -50,7 +57,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your compliance obligations are determined by where your users are, not where you are. The internet does not have borders. Neither does your product.
 
 ---
 

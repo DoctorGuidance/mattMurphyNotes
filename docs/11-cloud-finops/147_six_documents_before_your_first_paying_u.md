@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Davh5IQjRBY/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your product's ready, your first customers are ready to pay, but before you accept a single payment, you want these six documents in place in your business or you're going to end up exposed. Doc number one, terms of service. You know that one that no one reads.
+Six documents before your first paying user.
 
 ---
 
@@ -18,7 +18,7 @@ Your product's ready, your first customers are ready to pay, but before you acce
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,24 +28,29 @@ You know that one that no one reads. Well, that's the one that defines what your
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] terms of service. You know that one that no one reads.
-- [ ] privacy policy. This tells users what data you collect and how you use it and how they request deletion from it.
-- [ ] data processing agreement, a DPA. If you process data on behalf of another business, a DPA defines who is responsible for what.
-- [ ] is a refund policy. What happens when a customer wants their money back?
-- [ ] this one's big. Master service agreement.
+- [ ] terms of service.
+- [ ] privacy policy.
+- [ ] data processing agreement, a DPA.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #147
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #147 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #147');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -53,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your AI can draft every one. But only if you know to ask.
 
 ---
 

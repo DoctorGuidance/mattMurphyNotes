@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZ521pHjp1q/) |
@@ -18,7 +18,7 @@ your enterprise app works and your first enterprise customer is calling you up. 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,20 +28,29 @@ Here are the three things you're facing right now with that customer. Number one
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] Sock 2 is not a product feature. It's a trust document.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #207
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #207 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #207');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -49,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** And that's what you need to be working towards
 
 ---
 

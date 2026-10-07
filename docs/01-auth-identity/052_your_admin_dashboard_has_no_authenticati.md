@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcrQPBHG0_I/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your admin dashboard has no authentication because your AI assumed it was internal only. Well, it's not. It is on the public internet.
+Your admin dashboard has no authentication.
 
 ---
 
@@ -18,7 +18,7 @@ Your admin dashboard has no authentication because your AI assumed it was intern
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
 
 ---
 
@@ -28,29 +28,42 @@ It is on the public internet. So, your AI built an admin panel so you could mana
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your admin panel is accessible to anyone who can guess the URL. There's no authentication between the public internet and most of your sensitive controls.
-- [ ] your admin routes are predictable paths, right? Every scanner on Earth is checking for back slashadmin back slash dashboard back slashmanage or back slashbackend or admin, right?
-- [ ] your admin panel has no audit trail. You do not know who's accessed it, when they accessed it, or what they changed.
+- [ ] your admin panel is accessible to anyone who can guess the URL.
+- [ ] your admin routes are predictable paths, right?
+- [ ] your admin panel has no audit trail.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
+// middleware/rateLimiter.ts
 import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
   storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
 });
-await rateLimiter.consume(req.ip);
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your admin panel is the keys to your business. Right now those keys are on the sidewalk.
 
 ---
 

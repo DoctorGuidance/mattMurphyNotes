@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdB32a5lOZF/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-An attacker just grabbed your Google login authorization code on a mobile network you're on and logged in as a user before your app did. So your AI locked the redirect URL and added the state parameter. That stops forgery, sure, but it does not stop a mobile interception.
+An attacker just grabbed your Google Login authorization code on a mobile network and logged in as your user.
 
 ---
 
@@ -18,7 +18,7 @@ An attacker just grabbed your Google login authorization code on a mobile networ
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,30 +28,36 @@ That stops forgery, sure, but it does not stop a mobile interception. The author
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] generate a code verifier before the login redirect. A random string your app store server side that never appears in a URL and never leaves your server.
-- [ ] hash the verifier and send the hash as the code challenge. You see, Google receives the hash.
+- [ ] generate a code verifier before the login redirect.
+- [ ] hash the verifier and send the hash as the code challenge.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So, direct your AI to implement both for the win
 
 ---
 

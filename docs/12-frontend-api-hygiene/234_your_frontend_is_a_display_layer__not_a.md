@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZhxVg2xu-u/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your front end, it's making decisions it should not be making. Pricing logic and JavaScript, roll checks and React components, API keys and environment variables that ship to the browser. Just one user opens any basic dev tool and they can see anything.
+Your frontend is a display layer, not a trust layer.
 
 ---
 
@@ -18,7 +18,7 @@ Your front end, it's making decisions it should not be making. Pricing logic and
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,21 +28,24 @@ Just one user opens any basic dev tool and they can see anything. Here are the t
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] move every business rule to the back end. Discount calculations, feature gating, permission checks.
-- [ ] stop trusting client side validation. Validate inputs on the front end for user experience.
+- [ ] move every business rule to the back end.
+- [ ] stop trusting client side validation.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #234
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #234 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #234');
-  }
-  return true;
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
 }
 ```
 
@@ -50,7 +53,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Move business logic, validation, and secrets to the backend.
 
 ---
 

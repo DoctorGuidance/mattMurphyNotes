@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaN7bWAm8Qm/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-your supply chain. It's not just your package manager anymore. It is every single prompt, every downloaded skill file from Instagram, every community resource, every shared configuration that your AI touches.
+Your supply chain is not just npm packages anymore.
 
 ---
 
@@ -18,7 +18,7 @@ your supply chain. It's not just your package manager anymore. It is every singl
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ It is every single prompt, every downloaded skill file from Instagram, every com
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] But the blast radius is contained because you are the one watching it.
-- [ ] MPM audit, sneak socket, dependabot, the ecosystem built tooling because the problem was obvious and is wellmaintained.
-- [ ] If you used an external resource and later discovered it was compromised, your secrets rotation plan activates immediately.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #187
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #187 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #187');
-  }
-  return true;
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** You got to fix that
 
 ---
 

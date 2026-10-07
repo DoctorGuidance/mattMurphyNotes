@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdMK_2Cj09R/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Two new Frontier models shipped last week and most builders never checked the price. Your agent bill changed overnight. Whether it went up or down depends on whether you noticed at all.
+Two frontier models shipped last week and most builders never checked the price.
 
 ---
 
@@ -18,7 +18,7 @@ Two new Frontier models shipped last week and most builders never checked the pr
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,34 @@ Whether it went up or down depends on whether you noticed at all. Right. Fable 5
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] One, your cost dropped this week whether you noticed it or not. If your agents reuse context across sessions, the cash pricing change means your bill shrank without you touching a single line of code.
-- [ ] AT&T just proved the model does not matter for most tasks. They routed the majority of queries away from Frontier and only lost 2% quality across their support system.
-- [ ] the gap is not which model to use. It is who decides when to use which one, right?
+- [ ] One, your cost dropped this week whether you noticed it or not.
+- [ ] AT&T just proved the model does not matter for most tasks.
+- [ ] the gap is not which model to use.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #029
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #029 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #029');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** HASHTAGS: #aidirectedengineering #claude #gpt #agents #production
 
 ---
 

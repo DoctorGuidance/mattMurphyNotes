@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZVg8UXv1rA/) |
@@ -18,7 +18,7 @@ Two cost protection levers are hiding in every major AI provider's documentation
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ Here are three things you can do right now to leverage them. Step one, enable pr
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] enable prompt caching. If your system, prompt, or context window repeats across requests, and they almost always do, you're paying full price for redundant tokens on every single call.
-- [ ] route non-urgent workloads to batch endpoints, data processing, content pipelines, nightly analysis, all of that. Batch API gives you up to 50% off your request.
-- [ ] stack both levers with model tiering. Cash your repeated context.
+- [ ] enable prompt caching.
+- [ ] route non-urgent workloads to batch endpoints, data processing, content pipelines, nightly analysis, all of that.
+- [ ] stack both levers with model tiering.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #244
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #244 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #244');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** I want to know about it cuz this is a pretty good one
 
 ---
 

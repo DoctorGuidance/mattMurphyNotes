@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaEXXLvEf6L/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your database is answering the same question thousand times a day. But only 10 of those answers are ever different. The other 990 return the exact same data it never changed.
+Your database answers the same question a thousand times a day.
 
 ---
 
@@ -18,7 +18,7 @@ Your database is answering the same question thousand times a day. But only 10 o
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,31 +28,29 @@ The other 990 return the exact same data it never changed. So here are three thi
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] identify any repeat offenders. Your dashboard is querying the database every page load.
-- [ ] cache at the right layer. Application memory is fast but lives on one server.
-- [ ] measure after you cache. Caching without measurement is just hoping.
+- [ ] identify any repeat offenders.
+- [ ] cache at the right layer.
+- [ ] measure after you cache.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Ten of those answers are different.
 
 ---
 

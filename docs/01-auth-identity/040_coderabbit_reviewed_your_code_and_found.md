@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dc808nfFdi-/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Code Rabbit reviewed your code and found zero issues. That's a win perhaps. But your API is accepting every field in a request body and a user sent a is admin true and your server wrote it back.
+CodeRabbit reviewed your code and found zero issues.
 
 ---
 
@@ -18,7 +18,7 @@ Code Rabbit reviewed your code and found zero issues. That's a win perhaps. But 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Blindly passes entire request body to ORM update methods, allowing attackers to inject `isAdmin: true` or elevated roles. | Enforces strict input allowlists using Zod schemas (`.strict()`), rejecting any non-whitelisted parameters. |
 
 ---
 
@@ -28,29 +28,29 @@ But your API is accepting every field in a request body and a user sent a is adm
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] whitelist allowed fields on every right endpoint. That means name, email, avatar, but it never means roll, plan, permissions, or account status.
-- [ ] separate user endpoints from admin endpoints. A user updating their profile and an admin changing a role should never crash into each other on the same route.
+- [ ] whitelist allowed fields on every right endpoint.
+- [ ] separate user endpoints from admin endpoints.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #040
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #040 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #040');
-  }
-  return true;
-}
+// schemas/userUpdate.ts
+import { z } from 'zod';
+
+// Explicitly whitelist allowed user fields - NEVER allow role, isAdmin, or accountStatus
+export const updateUserProfileSchema = z.object({
+  name: z.string().min(2).max(50),
+  avatarUrl: z.string().url().optional(),
+  bio: z.string().max(250).optional()
+}).strict(); // Rejects any unknown or injected administrative properties
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Test by sending fields that should be rejected. CodeRabbit reviews code. Not attack surface.
 
 ---
 

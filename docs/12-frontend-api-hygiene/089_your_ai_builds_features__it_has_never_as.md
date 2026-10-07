@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Db3wYK6AZKx/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI builds features, but it's never asked who they're for. You said build a dashboard and it built a dashboard. You said add notifications and it added notifications.
+Your AI builds features. It has never asked you who they are for.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI builds features, but it's never asked who they're for. You said build a 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ You said add notifications and it added notifications. You said build analytics 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] stop building for the sake of building. Go find a business owner.
-- [ ] those 50 features are now your product. Not a concept, not a guess.
-- [ ] your AI will build unlimited features. That's not an advantage.
+- [ ] stop building for the sake of building.
+- [ ] those 50 features are now your product.
+- [ ] your AI will build unlimited features.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #089
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #089 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #089');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Stop guessing what to build.
 
 ---
 

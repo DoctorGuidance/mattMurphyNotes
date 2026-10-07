@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Multi-Tenancy & Data Isolation (`معماری چندمستأجره و جداسازی قطعی داده‌ها`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaLDSqRgaBG/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You just spent two long hours writing rowle security policies, beautiful rules, tenant isolation, role-based access on every single table. And then you built an API route that queries the database with the service ro key. The service ro key bypasses every RS policy you just wrote.
+You wrote RLS policies.
 
 ---
 
@@ -18,7 +18,7 @@ You just spent two long hours writing rowle security policies, beautiful rules, 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
 
 ---
 
@@ -28,27 +28,28 @@ The service ro key bypasses every RS policy you just wrote. Every single one of 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] A database policy that protects nothing because the application code walks right around around it every time.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+```sql
+-- migrations/001_row_level_security.sql
+ALTER TABLE user_documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_policy ON user_documents
+  FOR ALL
+  USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid)
+  WITH CHECK (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Not just the front door.
 
 ---
 

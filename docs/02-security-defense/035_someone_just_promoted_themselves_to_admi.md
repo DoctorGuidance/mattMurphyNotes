@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdEcldEktWP/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Someone just promoted themselves to admin in your AI app by editing one field in a jot. Your server granted access because your AI never verified the signature. So your AI integrated clerk and reads the jot file to check the roles, but it never verifies the signature and it never checks the expiration.
+Someone just promoted themselves to admin in your app by editing one field in a JWT.
 
 ---
 
@@ -18,7 +18,7 @@ Someone just promoted themselves to admin in your AI app by editing one field in
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ So your AI integrated clerk and reads the jot file to check the roles, but it ne
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] verify the signature on every request. Clerk signs every token with a key pair.
-- [ ] validate expiration and the issuer. An expired token should never grant any access.
-- [ ] use Clerk's serverside SDK instead of parsing manually. The SDK can handle signature verification, claim validation, and key rotation automatically.
+- [ ] verify the signature on every request.
+- [ ] validate expiration and the issuer.
+- [ ] use Clerk's serverside SDK instead of parsing manually.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #035
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #035 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #035');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your auth provider did its job. Your AI never verified its work.
 
 ---
 

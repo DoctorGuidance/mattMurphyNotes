@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdKJvRxjm6M/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Thousands of people scraped your prompts this week, ran them in their builds, and you have no idea that it even happened. So, let's say you publish a prompt, right? Someone copies it, runs it, uses your work without credit or payment to you.
+Thousands of people scraped your prompt this week and you have no idea it happened.
 
 ---
 
@@ -18,7 +18,7 @@ Thousands of people scraped your prompts this week, ran them in their builds, an
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,29 +28,36 @@ Someone copies it, runs it, uses your work without credit or payment to you. So,
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] embed an outofband call back URL in every prompt. A unique URL that only resolves when an AI processes that prompt.
-- [ ] one call back URL per prompt when it fires you know exactly which prompt was copied when it was used and roughly where from right so You are not guessing who is using your work. You have a full log of it over time.
+- [ ] embed an outofband call back URL in every prompt.
+- [ ] one call back URL per prompt when it fires you know exactly which prompt was copied when it was used and roughly where from right so You are not guessing who is using your work.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #030
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #030 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #030');
-  }
-  return true;
-}
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your prompts are your product. Treat them like it.
 
 ---
 

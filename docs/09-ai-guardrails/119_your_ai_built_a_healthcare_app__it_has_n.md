@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbOGY9aEY0-/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI built a healthcare app, but it's never heard of HIPPA. One complaint to the Office for Civil Rights triggers an investigation that starts at $100 per violation and scales all the way up to $2 million. Your AI doesn't know that.
+Your AI built a healthcare app. It has never heard of HIPAA.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI built a healthcare app, but it's never heard of HIPPA. One complaint to 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ Your AI doesn't know that. It will literally store patient data wherever it want
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] encryption at rest and in transit on every field that contains protected health information, not just your database, your backups, your logs, your exports. Your AI may have encrypted that database, but left PHI sitting in plain text in your application log.
-- [ ] access controls with audit logging on every record that contains PHI. Who accessed it?
-- [ ] a business associate agreement with every
+- [ ] encryption at rest and in transit on every field that contains protected health information, not just your database, your backups, your logs, your exports.
+- [ ] access controls with audit logging on every record that contains PHI.
+- [ ] a business associate agreement with every third-party service that touches that data.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #119
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #119 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #119');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Direct your AI to fix that before your first patient walks through the door
 
 ---
 

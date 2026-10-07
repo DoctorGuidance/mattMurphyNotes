@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdeMk-bFdui/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Did an attacker just use a password reset link from four months ago to hack your app? That token still works. Uh-oh.
+An attacker just used a password reset link from four months ago.
 
 ---
 
@@ -18,7 +18,7 @@ Did an attacker just use a password reset link from four months ago to hack your
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
 
 ---
 
@@ -28,29 +28,33 @@ Uh-oh. Your user change their password twice since then, but the old link still 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] an attacker who accesses an old email, a forwarded message, a breached inbox finds every reset link ever sent. Each one still works because your AI never set a time limit.
-- [ ] a reset token that works more than once lets an attacker use it after the legitimate user already has. So, the user clicks the link, resets the password, and moves on, right?
-- [ ] an attacker who finds the reset endpoint can request thousands of tokens per minute. Each one is a valid entry point.
+- [ ] an attacker who accesses an old email, a forwarded message, a breached inbox finds every reset link ever sent.
+- [ ] a reset token that works more than once lets an attacker use it after the legitimate user already has.
+- [ ] an attacker who finds the reset endpoint can request thousands of tokens per minute.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
-import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
-});
-await rateLimiter.consume(req.ip);
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your password reset is a door. Your AI built it without a lock.
 
 ---
 

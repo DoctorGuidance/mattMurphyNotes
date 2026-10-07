@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DYiSfwGP2D9/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your app calls the database from the front end. That's not an architecture strategy. That's a security hole with UI.
+Your frontend talks to the database directly.
 
 ---
 
@@ -18,7 +18,7 @@ Your app calls the database from the front end. That's not an architecture strat
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
 
 ---
 
@@ -28,29 +28,33 @@ That's a security hole with UI. Layer two of 13 is where your app's brain lives.
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] A user can send a thousand requests in a second, your app is going to process all of them.
-- [ ] A user sends malformed data, your app's just going to store it.
-- [ ] And a user manipulates the client side code, your app trusts it.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
-import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
-});
-await rateLimiter.consume(req.ip);
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** It's time to lock it up so you can ship
 
 ---
 

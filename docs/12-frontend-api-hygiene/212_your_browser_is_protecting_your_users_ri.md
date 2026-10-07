@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZ2Z8uKRMw8/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your browser is protecting your users right now and you probably have no idea how. Here are the three things you need to understand right now about browser protection. Step one, cores cross origin resource sharing.
+Your browser is protecting your users right now.
 
 ---
 
@@ -18,7 +18,7 @@ Your browser is protecting your users right now and you probably have no idea ho
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,21 +28,29 @@ Step one, cores cross origin resource sharing. When your front end calls your AP
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] cores cross origin resource sharing. When your front end calls your API on a different domain, the browser blocks it by default.
-- [ ] CSP, content security policies. This tells the browser what is allowed to run on your page.
-- [ ] set both. Most builders skip security headers because the app works without them.
+- [ ] cores cross origin resource sharing.
+- [ ] CSP, content security policies.
+- [ ] set both.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Secure HttpOnly Cookie Issuance
-res.cookie('session_token', token, {
-  httpOnly: true,                               // Inaccessible to client JS
-  secure: process.env.NODE_ENV === 'production', // HTTPS only
-  sameSite: 'lax',                              // CSRF protection
-  path: '/',
-  maxAge: 15 * 60 * 1000                        // 15-minute short-lived
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 });
 ```
 
@@ -50,7 +58,7 @@ res.cookie('session_token', token, {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Trust the browser.
 
 ---
 

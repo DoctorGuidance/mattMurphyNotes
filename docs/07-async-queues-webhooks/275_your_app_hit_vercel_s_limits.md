@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DYzc-WUAOlA/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Someone this week commented on here and said that their app keeps hitting the 10second function timeout on Versel's basic hobby plan. Right? That's not a bug.
+Your app hit Vercel’s limits.
 
 ---
 
@@ -18,7 +18,7 @@ Someone this week commented on here and said that their app keeps hitting the 10
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ That's not a bug. That's your app telling you it's time for a bigger house. So h
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] know the limits you're hitting. Versel gives you 10
-- [ ] know what the next tools in line are. Railway is great and it gives you persistent servers, longunning background jobs, cron tasks, and websockets.
-- [ ] split your stack. Keep your front end on Versel.
+- [ ] know the limits you're hitting.
+- [ ] know what the next tools in line are.
+- [ ] split your stack.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #275
-// Domain: 07-async-queues-webhooks
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #275 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #275');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** That’s a graduation. Railway, Render, and Fly exist for exactly this moment.
 
 ---
 

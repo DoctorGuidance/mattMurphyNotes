@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Da2uC94Da2K/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI generated a complete feature in 22 minutes. Login flow, dashboard, payment processing, all functional. It's gorgeous.
+Your AI generated a feature in 20 minutes.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI generated a complete feature in 22 minutes. Login flow, dashboard, payme
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ It's gorgeous. But nobody tested any of it. Here are the three things you're goi
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] write tests alongside the feature, not after the fact. You direct your AI to generate tests for every feature it builds as you're building those features.
-- [ ] set a coverage threshold. Direct your AI to run the test suite on every commit.
-- [ ] separate unit from integration. Unit tests verify individual functions.
+- [ ] write tests alongside the feature, not after the fact.
+- [ ] set a coverage threshold.
+- [ ] separate unit from integration.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #139
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #139 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #139');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The quality gate is yours.
 
 ---
 

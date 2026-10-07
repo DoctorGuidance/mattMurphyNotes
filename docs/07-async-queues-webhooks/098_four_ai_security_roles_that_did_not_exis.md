@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dbs8D1xAMnX/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-There are four AI security roles that did not exist two years ago that are jumping off the page. All of them pay six plus figures. Every one of them requires the skills you think you don't have yet.
+Four AI security roles that did not exist two years ago. All of them pay six figures. AI Supply Chain Security Engineer. AI SOC Orchestrator. AI Security Specialist. AI Incident Response Orchestrator. GitHub, CrowdStrike, Capital One, Palo Alto Networks, Microsoft are all hiring for them right now. These roles require security, orchestration, and production judgment. You are building those skills today.
 
 ---
 
@@ -18,7 +18,7 @@ There are four AI security roles that did not exist two years ago that are jumpi
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,32 +28,33 @@ Every one of them requires the skills you think you don't have yet. Here are the
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] AI supply chain security engineers. Pay runs between 130 and 180 grand.
-- [ ] AI sock orchestrator. They run from about 100 to 150 grand.
-- [ ] is an AI security specialist. They run anywhere from 130 to 200 grand.
-- [ ] is an AI incident response orchestrator. They're getting paid between 120 and 180 grand.
+- [ ] AI supply chain security engineers.
+- [ ] AI sock orchestrator.
+- [ ] is an AI security specialist.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Four AI security roles that did not exist two years ago. All of them pay six figures. AI Supply Chain Security Engineer. AI SOC Orchestrator. AI Security Specialist. AI Incident Response Orchestrator. GitHub, CrowdStrike, Capital One, Palo Alto Networks, Microsoft are all hiring for them right now. These roles require security, orchestration, and production judgment. You are building those skills today.
 
 ---
 

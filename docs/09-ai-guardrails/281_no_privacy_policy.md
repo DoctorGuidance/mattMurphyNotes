@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DYrvI-fAPC2/) |
@@ -18,7 +18,7 @@ So, you just shipped the vibecoded app that collects user data. No privacy polic
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,34 @@ Uh-oh. Congratulations. You're one complaint away from a lawsuit.
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] privacy policy generator. You can use termly privacypolicies.com.
-- [ ] terms of service, liability limitation, user conduct rules, dispute resolution. Use a template.
-- [ ] CCPA and GDPR basics. If you're collecting any data from California or EU residents, which you probably are, you need an opt- out mechanis.
+- [ ] privacy policy generator.
+- [ ] terms of service, liability limitation, user conduct rules, dispute resolution.
+- [ ] CCPA and GDPR basics.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #281
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #281 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #281');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** We've got you handled
 
 ---
 

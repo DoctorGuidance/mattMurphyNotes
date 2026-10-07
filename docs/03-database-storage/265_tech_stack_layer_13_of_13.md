@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DY-UCtORgDS/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Layer 13, availability and recovery. This is the one you don't think about till 2:00 a.m. Availability means your app is up when users need it, which is 24/7 365.
+Tech Stack Layer 13 of 13.
 
 ---
 
@@ -18,7 +18,7 @@ Layer 13, availability and recovery. This is the one you don't think about till 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,28 +28,29 @@ Availability means your app is up when users need it, which is 24/7 365. Recover
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] automated database backups. Superbase has this on by default.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #265
-// Domain: 03-database-storage
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #265 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #265');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Here’s what I built the next morning to fix it!
 
 ---
 

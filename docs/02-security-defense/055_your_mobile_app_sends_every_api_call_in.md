@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcoH5avEj3J/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your mobile app sends every API call in plain text. So someone on the same coffee shop Wi-Fi just watched all of your users log in. So your user opens your app at a coffee shop.
+Your mobile app sends every API call in plain text.
 
 ---
 
@@ -18,7 +18,7 @@ Your mobile app sends every API call in plain text. So someone on the same coffe
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Blindly passes entire request body to ORM update methods, allowing attackers to inject `isAdmin: true` or elevated roles. | Enforces strict input allowlists using Zod schemas (`.strict()`), rejecting any non-whitelisted parameters. |
 
 ---
 
@@ -28,31 +28,30 @@ So your user opens your app at a coffee shop. Every request between the app and 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your app is not verifying the server it's talking to. So, your AI set up the API connection but never pinned the certificate.
-- [ ] sensitive data is traveling in the request body with no additional protection. Even with a secure connection, tokens and credentials sitting in plain text in the request body are one misconfiguration away from full exposure.
-- [ ] your app stores credentials on the device in plain text. So your AI saved the authentication token in local storage where any other app or anyone with physical access to the device can read it.
+- [ ] your app is not verifying the server it's talking to.
+- [ ] sensitive data is traveling in the request body with no additional protection.
+- [ ] your app stores credentials on the device in plain text.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+// schemas/userUpdate.ts
+import { z } from 'zod';
+
+// Explicitly whitelist allowed user fields - NEVER allow role, isAdmin, or accountStatus
+export const updateUserProfileSchema = z.object({
+  name: z.string().min(2).max(50),
+  avatarUrl: z.string().url().optional(),
+  bio: z.string().max(250).optional()
+}).strict(); // Rejects any unknown or injected administrative properties
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Fix the transport before your users pay for it.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Db1LiS4E_sI/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You built your product, but nobody came. You spent months engineering the perfect AI product. Every layer hardened, security locked down, database optimized, O is bulletproof, and on launch day, you posted a link and then you waited, but then nothing happened.
+You built it. Nobody came.
 
 ---
 
@@ -18,7 +18,7 @@ You built your product, but nobody came. You spent months engineering the perfec
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,28 +28,41 @@ Every layer hardened, security locked down, database optimized, O is bulletproof
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] while you were engineering the product, you should have also been engineering your audience. a content engine running in parallel while you're building, not after launch, during the build.
-- [ ] the internet is oversaturated and your customers are overdosed on data in the scroll. They see hundred hundreds of offers every single day.
+- [ ] while you were engineering the product, you should have also been engineering your audience.
+- [ ] the internet is oversaturated and your customers are overdosed on data in the scroll.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
+// middleware/rateLimiter.ts
 import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
   storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
 });
-await rateLimiter.consume(req.ip);
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The product was the easy part.
 
 ---
 

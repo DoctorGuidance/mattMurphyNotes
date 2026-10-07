@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Multi-Tenancy & Data Isolation (`معماری چندمستأجره و جداسازی قطعی داده‌ها`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dcd0uMTCHsl/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-There are 10,000 business owners within 50 miles of you right now bleeding money on thirdparty delivery fees. A bakery owner gives Uber and Door Dash over 22% of her profits on every delivery order all year long. Hundreds of orders a month at 22% going to someone else.
+There are 10,000 business owners within 50 miles of you bleeding money on third-party fees.
 
 ---
 
@@ -18,7 +18,7 @@ There are 10,000 business owners within 50 miles of you right now bleeding money
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
 
 ---
 
@@ -28,29 +28,28 @@ Hundreds of orders a month at 22% going to someone else. So, she added up the an
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] the math is in the sales pitch. Add up the annual
-- [ ] build one and sell it to every bakery in town. Individ Not as a multi-tenant SAS subscription.
-- [ ] the operator owns the asset. That's the win.
+- [ ] the math is in the sales pitch.
+- [ ] build one and sell it to every bakery in town.
+- [ ] the operator owns the asset.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+```sql
+-- migrations/001_row_level_security.sql
+ALTER TABLE user_documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_policy ON user_documents
+  FOR ALL
+  USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid)
+  WITH CHECK (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Stop building platforms nobody asked for. Start solving problems people are already paying to have solved.
 
 ---
 

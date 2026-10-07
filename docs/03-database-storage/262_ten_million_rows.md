@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZDUWLJRpZ8/) |
@@ -18,7 +18,7 @@ Your database has 10 million rows. Queries that took 20 milliseconds now take fo
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
 
 ---
 
@@ -28,25 +28,30 @@ Adding indexes is not fixing it anymore. Your single Postgress instance has hit 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] shard by tenant. If you built multi-tenency with an org ID column, you already have natural shard key.
-- [ ] use Situs for transparent sharding. Situs extends Postgress with distributed tables.
-- [ ] start with logical partitioning before physical. Postgress native partitioning splits one table into partitions by range or list.
+- [ ] shard by tenant.
+- [ ] use Situs for transparent sharding.
+- [ ] start with logical partitioning before physical.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// PostgreSQL Connection Pooling Configuration
-// DATABASE_URL routed through PgBouncer / Supavisor:
-DATABASE_URL="postgresql://user:pass@db.pooler.supabase.com:6543/postgres?pgbouncer=true"
-DIRECT_URL="postgresql://user:pass@db.supabase.com:5432/postgres" // For schema migrations
+// lib/dbPool.ts
+import { Pool } from 'pg';
+
+export const dbPool = new Pool({
+  connectionString: process.env.DATABASE_POOL_URL, // PgBouncer transaction pool
+  max: 20,                                         // Strict ceiling per serverless container
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** When single Postgres is not enough.
 
 ---
 

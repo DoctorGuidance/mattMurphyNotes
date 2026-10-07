@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Testing, Staging & CI/CD (`تست، محیط‌های کاری، CI/CD و خط لوله استقرار`) |
 | **Target Production Layer** | Layer 7 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DayW9qUEVyF/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Congrats. You got that first meeting to pitch your product. Your demo is polished.
+You got that big meeting. Your product works. Your demo is polished.
 
 ---
 
@@ -18,7 +18,7 @@ Congrats. You got that first meeting to pitch your product. Your demo is polishe
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ Your demo is polished. Your pricing is competitive. And the enterprise buyer on 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] the questionnaire arrives before the contract. Every single time before any buyer signs, Their security or IT team evaluates your product.
-- [ ] the audit to pentest pipeline. You do not start with a penetration test ever.
-- [ ] the security page on your website. Yeah, I know you don't have one.
+- [ ] the questionnaire arrives before the contract.
+- [ ] the audit to pentest pipeline.
+- [ ] the security page on your website.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #143
-// Domain: 10-cicd-deployments
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #143 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #143');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** A 13-layer audit plus a pen test report answers more procurement questions than a sales deck ever will.
 
 ---
 

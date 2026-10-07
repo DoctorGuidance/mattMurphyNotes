@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Observability & Error Tracking (`مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا`) |
 | **Target Production Layer** | Layer 12 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZP2LwegIXN/) |
@@ -18,7 +18,7 @@ Your app is free. People are using it. You need to charge money for it, but have
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
 
 ---
 
@@ -28,27 +28,41 @@ You need to charge money for it, but have no idea how to structure it. Well, fla
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] pick your pricing metric based on what correlates to the most value. If your app saves time, charge per user.
-- [ ] implement a credit system. Credits abstract away from the complexity.
-- [ ] build usage tracking into your architecture from day one. Every billable action gets an event.
+- [ ] pick your pricing metric based on what correlates to the most value.
+- [ ] implement a credit system.
+- [ ] build usage tracking into your architecture from day one.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Raw Buffer Webhook Signature Verification
-const sig = req.headers['stripe-signature'] as string;
-const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-// Idempotency check:
-const isNew = await redis.set(`evt:${event.id}`, '1', 'NX', 'EX', 86400 * 3);
-if (!isNew) return res.status(200).json({ received: true });
+// routes/webhook.ts
+import express from 'express';
+import Stripe from 'stripe';
+import { redis } from '../lib/redis';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export async function handleWebhook(req: express.Request, res: express.Response) {
+  const sig = req.headers['stripe-signature'] as string;
+  try {
+    const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+    const isNew = await redis.set(`evt:${event.id}`, 'processed', 'NX', 'EX', 86400 * 3);
+    if (!isNew) return res.status(200).json({ received: true, note: 'Duplicate event discarded' });
+    
+    // Process business logic idempotently...
+    res.status(200).json({ received: true });
+  } catch (err: any) {
+    res.status(400).send(`Webhook Signature Verification Failed: ${err.message}`);
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Which pricing model actually works for your product.
 
 ---
 

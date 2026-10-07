@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DYmoTKBgQjt/) |
@@ -18,7 +18,7 @@ Last week I told you you don't need a sock 2 security audit, but you do need to 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Queries database solely by resource ID from URL parameter without verifying tenant or user ownership. | Mandates ownership checks on every query (`where: { id, tenantId, userId }`) blocking unauthorized object access. |
 
 ---
 
@@ -28,22 +28,29 @@ So here's your 30inut security audit you can run by yourself. Step one, run npm 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] run npm audit. One command shows every known vulnerability in every package you've installed.
-- [ ] test your O boundaries. Login is user A.
-- [ ] review your environmental variables. Are secrets in your codebase?
+- [ ] run npm audit.
+- [ ] test your O boundaries.
+- [ ] review your environmental variables.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #286
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #286 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #286');
-  }
-  return true;
+// controllers/resourceController.ts
+import { Request, Response } from 'express';
+import { db } from '../lib/db';
+
+export async function getProtectedResource(req: Request, res: Response) {
+  // CRITICAL: Scope by authenticated user/tenant identity, never by URL parameter alone
+  const resource = await db.document.findFirst({
+    where: {
+      id: req.params.id,
+      tenantId: req.user.tenantId, // Mandatory multi-tenant boundary
+      ownerId: req.user.id         // Ownership verification
+    }
+  });
+  if (!resource) return res.status(404).json({ error: 'Resource not found' });
+  return res.json(resource);
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** 30 minutes and you’re good to go.
 
 ---
 

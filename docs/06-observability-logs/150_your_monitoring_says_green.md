@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Observability & Error Tracking (`مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا`) |
 | **Target Production Layer** | Layer 12 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Das4Jx8glN_/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Every founder I work with reads their support inbox daily, religiously, and almost none of them are reading it like it's a monitoring tool, but it is the most honest signal your production system generates from users. And so here's step one to understanding it better. Let's start with the patterns your monitoring is missing.
+Your monitoring says green.
 
 ---
 
@@ -18,7 +18,7 @@ Every founder I work with reads their support inbox daily, religiously, and almo
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,25 +28,29 @@ Let's start with the patterns your monitoring is missing. Your dashboards say 99
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] to understanding it better. Let's start with the patterns your monitoring is missing.
+- [ ] to understanding it better.
 - [ ] every support ticket maps to one of these three buckets.
-- [ ] is user error. The product works correctly, but the user did not understand it.
-- [ ] is platform errors. The product failed in a way the user sees but monitoring can't.
-- [ ] is business logic errors. The product did exactly what the code told it to do, but the code must have been wrong, right?
-- [ ] that I talk to customers about is the weekly review. Once a week, 30 minutes, pull every ticket from the last 7 days.
+- [ ] is user error.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #150
-// Domain: 06-observability-logs
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #150 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #150');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -54,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Read it like a dashboard.
 
 ---
 

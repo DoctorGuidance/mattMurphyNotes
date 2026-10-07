@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DadwoMajh8E/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Every single founder finds out about their first major production failure the exact same way. A customer emails and says your app is broken. Not your monitoring, not your alerts, not your dashboard, but a paying customer.
+Your Stripe webhook failed silently for six hours.
 
 ---
 
@@ -18,7 +18,7 @@ Every single founder finds out about their first major production failure the ex
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
 
 ---
 
@@ -28,25 +28,41 @@ Not your monitoring, not your alerts, not your dashboard, but a paying customer.
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] the direct costs. Every minute between when the failure started and when you discovered it is revenue you cannot recover.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Raw Buffer Webhook Signature Verification
-const sig = req.headers['stripe-signature'] as string;
-const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-// Idempotency check:
-const isNew = await redis.set(`evt:${event.id}`, '1', 'NX', 'EX', 86400 * 3);
-if (!isNew) return res.status(200).json({ received: true });
+// routes/webhook.ts
+import express from 'express';
+import Stripe from 'stripe';
+import { redis } from '../lib/redis';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export async function handleWebhook(req: express.Request, res: express.Response) {
+  const sig = req.headers['stripe-signature'] as string;
+  try {
+    const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+    const isNew = await redis.set(`evt:${event.id}`, 'processed', 'NX', 'EX', 86400 * 3);
+    if (!isNew) return res.status(200).json({ received: true, note: 'Duplicate event discarded' });
+    
+    // Process business logic idempotently...
+    res.status(200).json({ received: true });
+  } catch (err: any) {
+    res.status(400).send(`Webhook Signature Verification Failed: ${err.message}`);
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Close the discovery gap or your customers close their accounts.
 
 ---
 

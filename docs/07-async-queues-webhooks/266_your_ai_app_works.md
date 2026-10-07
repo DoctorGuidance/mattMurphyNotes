@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DY90q5PAPHa/) |
@@ -18,7 +18,7 @@ Someone in my DMs told me they built an AI app that works great. People are usin
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
 
 ---
 
@@ -28,27 +28,41 @@ Well, they built the right product. Now, they want to get paid for their busines
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] decide what you're charging for. Are you charging a flat fee for monthly usage?
-- [ ] use Stripe Checkout instead of building your own payment page. It's not worth it.
-- [ ] use Stripe's billing portal for everything after the sale. Customers need to update their credit card, cancel their plan, switch plans, download invoices.
+- [ ] decide what you're charging for.
+- [ ] use Stripe Checkout instead of building your own payment page.
+- [ ] use Stripe's billing portal for everything after the sale.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Raw Buffer Webhook Signature Verification
-const sig = req.headers['stripe-signature'] as string;
-const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-// Idempotency check:
-const isNew = await redis.set(`evt:${event.id}`, '1', 'NX', 'EX', 86400 * 3);
-if (!isNew) return res.status(200).json({ received: true });
+// routes/webhook.ts
+import express from 'express';
+import Stripe from 'stripe';
+import { redis } from '../lib/redis';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export async function handleWebhook(req: express.Request, res: express.Response) {
+  const sig = req.headers['stripe-signature'] as string;
+  try {
+    const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+    const isNew = await redis.set(`evt:${event.id}`, 'processed', 'NX', 'EX', 86400 * 3);
+    if (!isNew) return res.status(200).json({ received: true, note: 'Duplicate event discarded' });
+    
+    // Process business logic idempotently...
+    res.status(200).json({ received: true });
+  } catch (err: any) {
+    res.status(400).send(`Webhook Signature Verification Failed: ${err.message}`);
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Stripe makes billing way simpler than you think.
 
 ---
 

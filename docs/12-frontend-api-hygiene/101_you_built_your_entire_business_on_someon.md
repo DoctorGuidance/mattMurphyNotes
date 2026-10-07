@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dbnv-2VCnl-/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-All right, business owners and operators, you built your entire business on someone else's SAS software and they just raised those prices at renewal. There's nothing you can do about it. You're only using 20% of their features, but you're paying 100% of their subscription and the increase.
+You built your entire business on someone else's software. They just raised your price and there is nothing you can do about it.
 
 ---
 
@@ -18,7 +18,7 @@ All right, business owners and operators, you built your entire business on some
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,20 +28,29 @@ You're only using 20% of their features, but you're paying 100% of their subscri
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] you know your business better than any SAS provider. ever will.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #101
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #101 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #101');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -49,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Operators are figuring out they can build the 20% they actually need, own it, and stop paying rent on someone else's platform.
 
 ---
 

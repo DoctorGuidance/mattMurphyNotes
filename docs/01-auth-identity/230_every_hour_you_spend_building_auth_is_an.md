@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZk6Q0yRF7h/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Stop building Oth from scratch. I'm serious. You got to stop.
+Every hour you spend building auth is an hour you did not spend on your product.
 
 ---
 
@@ -18,7 +18,7 @@ Stop building Oth from scratch. I'm serious. You got to stop.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ You got to stop. Here are the three things you need to hear right now about Oth.
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] O is not a feature. It is infrastructure.
-- [ ] the security surface is enormous. One mistake in how you store passwords and you're on the news.
-- [ ] the builders who ship the fastest all have one thing in common. They did not build off.
+- [ ] O is not a feature.
+- [ ] the security surface is enormous.
+- [ ] the builders who ship the fastest all have one thing in common.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #230
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #230 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #230');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** But your job, is to ship the product.
 
 ---
 

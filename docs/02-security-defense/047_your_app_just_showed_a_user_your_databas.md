@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcybEeAEhP8/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI built app just showed a user your database name, your server file path, and their query that failed. And they were not trying to hack you. They accidentally clicked on a broken link.
+Your app just showed a user your database name, your server file path, and the query that failed.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI built app just showed a user your database name, your server file path, 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ They accidentally clicked on a broken link. Your AI built error handling. Great.
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] separate your error responses by environment. Development shows the full stack trace.
-- [ ] route every error to centralized logging, not to the user screen. Every error your app throws should be captured, timestamped, and searchable in your monitoring system.
-- [ ] build custom error pages that reveal nothing. So your 404 or your 500 or your timeout page, every one of them should be branded, helpful, and architecturally silent.
+- [ ] separate your error responses by environment.
+- [ ] route every error to centralized logging, not to the user screen.
+- [ ] build custom error pages that reveal nothing.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #047
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #047 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #047');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your users found a bug. Do not let the bug report write itself.
 
 ---
 

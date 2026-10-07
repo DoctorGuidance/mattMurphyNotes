@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZ20J4SRMkE/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Prisma or Drizzle, two arms that every builder is evaluating right now. Same problem, completely different philosophies. Here are the three things you should be thinking about before you pick one.
+Prisma protects you from the database.
 
 ---
 
@@ -18,7 +18,7 @@ Prisma or Drizzle, two arms that every builder is evaluating right now. Same pro
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,34 @@ Here are the three things you should be thinking about before you pick one. Step
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] Prisma was built for safety. A schema file defines your entire data model.
-- [ ] Drizzle was built for control. Your queries look like SQL because they are SQL.
-- [ ] Prisma protects teams from the database. Drizzle trusts teams with the database.
+- [ ] Prisma was built for safety.
+- [ ] Drizzle was built for control.
+- [ ] Prisma protects teams from the database.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #211
-// Domain: 03-database-storage
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #211 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #211');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Match the ORM to the team.
 
 ---
 

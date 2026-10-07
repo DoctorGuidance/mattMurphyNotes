@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcbzcfyioD9/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You accept web hooks from Stripe without verifying the signature. Now anyone can send your server a fake payment confirmation. That's a payment post request that hits your web hook endpoint.
+You accept webhooks from Stripe without verifying the signature.
 
 ---
 
@@ -18,7 +18,7 @@ You accept web hooks from Stripe without verifying the signature. Now anyone can
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Directly trusts incoming POST payload parameters without verifying cryptographic signatures. | Validates digital HMAC signature against raw request buffer and locks event IDs in Redis for idempotency. |
 
 ---
 
@@ -28,27 +28,41 @@ That's a payment post request that hits your web hook endpoint. The body says pa
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] signature verification on every incoming web hook. Stripe includes a signature header on every event.
-- [ ] event item potency to prevent replay attack. An attacker can capture a legitimate web hook and replay it.
-- [ ] endpoint URL protection and IP allow listing. Your web hook URL should not be guessable.
+- [ ] signature verification on every incoming web hook.
+- [ ] event item potency to prevent replay attack.
+- [ ] endpoint URL protection and IP allow listing.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Raw Buffer Webhook Signature Verification
-const sig = req.headers['stripe-signature'] as string;
-const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-// Idempotency check:
-const isNew = await redis.set(`evt:${event.id}`, '1', 'NX', 'EX', 86400 * 3);
-if (!isNew) return res.status(200).json({ received: true });
+// routes/webhook.ts
+import express from 'express';
+import Stripe from 'stripe';
+import { redis } from '../lib/redis';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export async function handleWebhook(req: express.Request, res: express.Response) {
+  const sig = req.headers['stripe-signature'] as string;
+  try {
+    const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+    const isNew = await redis.set(`evt:${event.id}`, 'processed', 'NX', 'EX', 86400 * 3);
+    if (!isNew) return res.status(200).json({ received: true, note: 'Duplicate event discarded' });
+    
+    // Process business logic idempotently...
+    res.status(200).json({ received: true });
+  } catch (err: any) {
+    res.status(400).send(`Webhook Signature Verification Failed: ${err.message}`);
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Stripe already secured their side. Secure yours.
 
 ---
 

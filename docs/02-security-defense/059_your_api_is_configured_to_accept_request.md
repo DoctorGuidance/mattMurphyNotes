@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcgZbSGgZ9z/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your API is accepting requests from any origin. So, an attacker's website just made an authenticated request to your backend using your users's session cookies. You see, your user visited a malicious website and that website made a request to your API.
+Your API is configured to accept requests from any origin with credentials.
 
 ---
 
@@ -18,7 +18,7 @@ Your API is accepting requests from any origin. So, an attacker's website just m
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,21 +28,29 @@ You see, your user visited a malicious website and that website made a request t
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your server is trusting every website on the internet. That is crazy.
-- [ ] cookies are riding along on requests your users never even made. So, your session cookies have no restrictions on which sites can send them, right?
-- [ ] your API response to methods and headers it doesn't even need. Every unnecessary method is another way into your platform.
+- [ ] your server is trusting every website on the internet.
+- [ ] cookies are riding along on requests your users never even made.
+- [ ] your API response to methods and headers it doesn't even need.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Secure HttpOnly Cookie Issuance
-res.cookie('session_token', token, {
-  httpOnly: true,                               // Inaccessible to client JS
-  secure: process.env.NODE_ENV === 'production', // HTTPS only
-  sameSite: 'lax',                              // CSRF protection
-  path: '/',
-  maxAge: 15 * 60 * 1000                        // 15-minute short-lived
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 });
 ```
 
@@ -50,7 +58,7 @@ res.cookie('session_token', token, {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your users trust your domain. Your server is handing that trust to anyone who asks.
 
 ---
 

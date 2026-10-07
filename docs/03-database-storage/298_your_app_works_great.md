@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DYXGdH4AtnZ/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You think your vibe coded app works great, right? Until the API changes or the rate limit kicks in or that free tier you're using disappears and your entire app stops working right then. Well, here's how you're going to fix it.
+Your app works great.
 
 ---
 
@@ -18,7 +18,7 @@ You think your vibe coded app works great, right? Until the API changes or the r
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
 
 ---
 
@@ -28,29 +28,42 @@ Well, here's how you're going to fix it. Number one, abstract your API calls. Ne
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] abstract your API calls. Never call an API directly from your main code.
-- [ ] build a fallback plan. What happens when the API is down?
-- [ ] own your data layer. Your database should be yours, not theirs.
+- [ ] abstract your API calls.
+- [ ] build a fallback plan.
+- [ ] own your data layer.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
+// middleware/rateLimiter.ts
 import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
   storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
 });
-await rateLimiter.consume(req.ip);
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Don’t build your house on rented land. Own the foundation, rent the features.
 
 ---
 

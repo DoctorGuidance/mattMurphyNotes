@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Ddj5rEuCSpf/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-A founder in the faction community asks how a solo builder keeps up with compliance when all the laws change faster than the product is shipping. The answer is not a lawyer. It's a system that you have to have in place.
+A founder asked how a solo builder keeps up with compliance when the laws change faster than the product ships.
 
 ---
 
@@ -18,7 +18,7 @@ A founder in the faction community asks how a solo builder keeps up with complia
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Stores credentials in client-side localStorage/sessionStorage vulnerable to XSS and malicious dependencies. | Stores tokens in HttpOnly, Secure, SameSite=Lax cookies completely inaccessible to JavaScript. |
 
 ---
 
@@ -28,29 +28,33 @@ It's a system that you have to have in place. So if you are building a product t
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] three documents cannot wait until you have revenue. A privacy policy that describes what you collect and why, terms of service that define the relationship between you and your users, and the data processing agreement if any
-- [ ] AI compliance platforms have collapsed the cost of ongoing monitoring. What used to require $25,000 engagement now starts at 200 bucks a month.
-- [ ] set a 90-day compliance calendar. Privacy laws always change.
+- [ ] three documents cannot wait until you have revenue.
+- [ ] AI compliance platforms have collapsed the cost of ongoing monitoring.
+- [ ] set a 90-day compliance calendar.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Secure HttpOnly Cookie Issuance
-res.cookie('session_token', token, {
-  httpOnly: true,                               // Inaccessible to client JS
-  secure: process.env.NODE_ENV === 'production', // HTTPS only
-  sameSite: 'lax',                              // CSRF protection
-  path: '/',
-  maxAge: 15 * 60 * 1000                        // 15-minute short-lived
-});
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** A quarterly review takes two hours. A regulatory fine takes two years. The law does not care that you are small.
 
 ---
 

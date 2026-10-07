@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dcv2OyCiGkc/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-This is for you if you're using the same AI to build and review your code. This is a followup to last week's cross-platform testing reel because every single platform has a training bias and every model out there defaults to a pattern and has a blind spot it cannot see in its own output. So the builders that are getting the best results know exactly which platform to match to which job.
+You are using the same AI to build and review your code. Here is what each platform actually catches that the others miss.
 
 ---
 
@@ -18,7 +18,7 @@ This is for you if you're using the same AI to build and review your code. This 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,30 +28,37 @@ So the builders that are getting the best results know exactly which platform to
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] is Claude. It excels at adversarial reasoning, security reviews, and deep architectural analysis.
-- [ ] is Codeex and Gemini are strongest at catching implementation errors and reviewing code they did not write. So, Codeex reads your codebase cold and flags what does not belong.
-- [ ] lovable bolt and cursor. They are super strong at full stack builds and rapid prototyping.
+- [ ] is Claude.
+- [ ] is Codeex and Gemini are strongest at catching implementation errors and reviewing code they did not write.
+- [ ] lovable bolt and cursor.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #049
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #049 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #049');
-  }
-  return true;
-}
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The ones getting the best results know which platform to assign to which job. Same build. Different eyes. Better product.
 
 ---
 

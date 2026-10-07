@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZU438dxu9_/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your app runs every AI prompt through the same model. Customer support, code generation, data extraction, all hitting your most expensive endpoints. That is not an AI strategy, folks.
+Your AI app does not need one model.
 
 ---
 
@@ -18,7 +18,7 @@ Your app runs every AI prompt through the same model. Customer support, code gen
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ That is not an AI strategy, folks. That is a billing problem. Here are three thi
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] build a complexity classifier. Score incoming requests on token count, task type, and reasoning depth.
-- [ ] route at the API gateway layer. Your application sends every API request to one endpoint.
-- [ ] measure output quality per tier. Run your evaluation suite against each model every week.
+- [ ] build a complexity classifier.
+- [ ] route at the API gateway layer.
+- [ ] measure output quality per tier.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #246
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #246 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #246');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** It needs a routing layer that matches task complexity to model cost.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DamFvyUj3U0/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI assistant built your app and shipped it to production. Customers, they're now paying for it. And at 2 in the morning, a customer can't log in.
+Your AI built the app.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI assistant built your app and shipped it to production. Customers, they'r
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ And at 2 in the morning, a customer can't log in. So tell me, who handles that? 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your agent builds a support playbook during development, not after launch. Every feature your AI builds should generate a support playbook right alongside it.
-- [ ] connect your agent to your production APIs. When a notification fires, your agent receives it in real time.
-- [ ] build the support tier. before you ever need them.
+- [ ] your agent builds a support playbook during development, not after launch.
+- [ ] connect your agent to your production APIs.
+- [ ] build the support tier.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #159
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #159 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #159');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your agent is not just your builder. It is your first support engineer.
 
 ---
 

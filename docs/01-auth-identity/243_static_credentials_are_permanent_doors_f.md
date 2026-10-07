@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZXhEL2RVRu/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your database credentials are completely static. Same username and password for the last 6 months. If they leak, every query in your system is compromised until you change them manually.
+Static credentials are permanent doors for attackers.
 
 ---
 
@@ -18,7 +18,7 @@ Your database credentials are completely static. Same username and password for 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,25 @@ If they leak, every query in your system is compromised until you change them ma
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] deploy a secrets engine that generates credentials on demand. Hashy Corpse Vault or Infysical or your cloud provider's native manager.
-- [ ] configure per service credential scoping. Your API server gets readr access to the tables it needs.
-- [ ] enable audit logging on every secret access. Who requested credentials?
+- [ ] deploy a secrets engine that generates credentials on demand.
+- [ ] configure per service credential scoping.
+- [ ] enable audit logging on every secret access.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #243
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #243 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #243');
-  }
-  return true;
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Dynamic secrets expire before anyone can live there.
 
 ---
 

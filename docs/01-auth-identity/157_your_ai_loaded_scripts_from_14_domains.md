@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Danl3ysjuQ8/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your app is loading scripts from 14 different domains and you only approved three of them. Your AI pulled in analytics, font libraries, thirdparty widgets, and tracking pixels. Every one of them runs code in your users browsers.
+Your AI loaded scripts from 14 domains.
 
 ---
 
@@ -18,7 +18,7 @@ Your app is loading scripts from 14 different domains and you only approved thre
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ Every one of them runs code in your users browsers. So, here are the three thing
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] content security policy headers. Direct your AI to add CSP headers that whitelist ex exactly which domains can load scripts in your application.
-- [ ] audit what your AI installed. Direct your AI to list every external resource your application is loading.
-- [ ] report before you enforce. CSP has a report only mode.
+- [ ] content security policy headers.
+- [ ] audit what your AI installed.
+- [ ] report before you enforce.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #157
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #157 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #157');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So now it's time to lock it down
 
 ---
 

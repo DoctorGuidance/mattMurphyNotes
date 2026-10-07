@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdCbUuPFMA9/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Most AI agents in production environments are running on borrowed human credentials with no clear audit trail. And that that's really dangerous. And it's not an argument against AI agents.
+NIST says most agents run on borrowed credentials.
 
 ---
 
@@ -18,7 +18,7 @@ Most AI agents in production environments are running on borrowed human credenti
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ And it's not an argument against AI agents. I think they're awesome. It's an arg
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] every AI agent you deploy needs its own identity, not your API key and not your login credentials. A unique credential scoped for that agent and to that task.
-- [ ] short-lived keys and approval gates before production. An agent's credentials should expire.
-- [ ] separate logs for every agent session. Your agents are making decisions you're not watching in real time.
+- [ ] every AI agent you deploy needs its own identity, not your API key and not your login credentials.
+- [ ] short-lived keys and approval gates before production.
+- [ ] separate logs for every agent session.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #036
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #036 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #036');
-  }
-  return true;
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Direct your agents or they direct themselves.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcqspRtHPGB/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your database has been doing a full table scan on every single request since you launched it. You didn't even notice until your hosting provider throttled you for excessive resource usage on their platform. So your AI wrote the queries, right?
+Your database has been doing a full table scan on every request since launch.
 
 ---
 
@@ -18,7 +18,7 @@ Your database has been doing a full table scan on every single request since you
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,31 +28,29 @@ So your AI wrote the queries, right? They worked, pages loaded, data showed up. 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your AI never added indexes to your database. An index tells the database exactly where to find the data instead of scanning every single row.
-- [ ] your queries are pulling more data than your pages actually need. Your AI wrote queries that return every column on every matching row, even when the page only displays three fields.
-- [ ] you have no visibility into which queries are slow. Your database has been running expensive queries since day one and you have no way to see them, right?
+- [ ] your AI never added indexes to your database.
+- [ ] your queries are pulling more data than your pages actually need.
+- [ ] you have no visibility into which queries are slow.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Fix it before your hosting provider fixes it for you.
 
 ---
 

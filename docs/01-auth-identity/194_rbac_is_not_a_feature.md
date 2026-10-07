@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaGcgHaiq3i/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-RBAC, RO based access control. Everyone says they have it. Most people have a boolean called underscore admin.
+RBAC is not a feature.
 
 ---
 
@@ -18,7 +18,7 @@ RBAC, RO based access control. Everyone says they have it. Most people have a bo
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Blindly passes entire request body to ORM update methods, allowing attackers to inject `isAdmin: true` or elevated roles. | Enforces strict input allowlists using Zod schemas (`.strict()`), rejecting any non-whitelisted parameters. |
 
 ---
 
@@ -28,30 +28,30 @@ Most people have a boolean called underscore admin. Here are the three things yo
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] roles versus permissions. A role is a label.
-- [ ] where enforcement happens. Your front end hides the button.
-- [ ] scope. Can this user edit any document or only documents they created?
+- [ ] roles versus permissions.
+- [ ] where enforcement happens.
+- [ ] scope.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #194
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #194 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #194');
-  }
-  return true;
-}
+// schemas/userUpdate.ts
+import { z } from 'zod';
+
+// Explicitly whitelist allowed user fields - NEVER allow role, isAdmin, or accountStatus
+export const updateUserProfileSchema = z.object({
+  name: z.string().min(2).max(50),
+  avatarUrl: z.string().url().optional(),
+  bio: z.string().max(250).optional()
+}).strict(); // Rejects any unknown or injected administrative properties
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** It is an architecture decision that touches every layer of your stack.
 
 ---
 

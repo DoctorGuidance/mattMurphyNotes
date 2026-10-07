@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZxfOW9xsFD/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your users are uploading images. You store them in the database. Your database is now doing two jobs it was never designed to do at the exact same time.
+Images do not belong in database columns.
 
 ---
 
@@ -18,7 +18,7 @@ Your users are uploading images. You store them in the database. Your database i
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,30 +28,37 @@ Your database is now doing two jobs it was never designed to do at the exact sam
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] move files out of the database. Images, PDFs, videos.
-- [ ] serve files from a CDN. When someone loads a profile picture, that request should never hit your origin server.
-- [ ] separate your data model completely. Your database stores a URL that points to the file, not the file itself.
+- [ ] move files out of the database.
+- [ ] serve files from a CDN.
+- [ ] separate your data model completely.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #216
-// Domain: 03-database-storage
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #216 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #216');
-  }
-  return true;
-}
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Object storage exists for a reason.
 
 ---
 

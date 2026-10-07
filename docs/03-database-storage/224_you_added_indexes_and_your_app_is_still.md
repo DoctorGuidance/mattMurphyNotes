@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZp7APuRdvP/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your app is running slow. You added indexes. It's still slow because you're guessing where the problem is.
+You added indexes and your app is still slow.
 
 ---
 
@@ -18,7 +18,7 @@ Your app is running slow. You added indexes. It's still slow because you're gues
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,24 +28,29 @@ It's still slow because you're guessing where the problem is. Here are the three
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] explain, analyze. Stop assuming which query is the bottleneck.
-- [ ] pg_stat_ statements. This tracks every query your application runs.
+- [ ] explain, analyze.
+- [ ] pg_stat_ statements.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// PostgreSQL Connection Pooling Configuration
-// DATABASE_URL routed through PgBouncer / Supavisor:
-DATABASE_URL="postgresql://user:pass@db.pooler.supabase.com:6543/postgres?pgbouncer=true"
-DIRECT_URL="postgresql://user:pass@db.supabase.com:5432/postgres" // For schema migrations
+// lib/dbPool.ts
+import { Pool } from 'pg';
+
+export const dbPool = new Pool({
+  connectionString: process.env.DATABASE_POOL_URL, // PgBouncer transaction pool
+  max: 20,                                         // Strict ceiling per serverless container
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Start measuring.
 
 ---
 

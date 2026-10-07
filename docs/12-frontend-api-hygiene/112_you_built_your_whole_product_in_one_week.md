@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbWQ4mwAIgx/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You used AI and built your whole product in one weekend, but you've been debugging it for the last 3 months. And every time I drop a new video, you realize there's something else you've not done yet. And the 3 months starts over.
+You built your whole product in one weekend. You have been debugging it for three months.
 
 ---
 
@@ -18,7 +18,7 @@ You used AI and built your whole product in one weekend, but you've been debuggi
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ And the 3 months starts over. So, here's why this keeps happening and what you d
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] the weekend was the prototype, not the product at all. Your AI built fast because you asked it to build.
-- [ ] my videos are not making it worse. They are showing you how deep it already was.
-- [ ] the debugging loop breaks when you stop reacting and start directing. Right now you are fixing whatever is loudest.
+- [ ] the weekend was the prototype, not the product at all.
+- [ ] my videos are not making it worse.
+- [ ] the debugging loop breaks when you stop reacting and start directing.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #112
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #112 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #112');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The weekend was the prototype. The three months is the product. Stop chasing individual fixes. Direct your AI to map the whole picture first.
 
 ---
 

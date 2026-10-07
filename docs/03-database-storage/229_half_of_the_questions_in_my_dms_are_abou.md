@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZlTwapPlLC/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Superbase or Firebase? Five out of 10 questions in my DMs are about this topic. Most of them are asking it wrong.
+Half of the questions in my DMs are about this topic.
 
 ---
 
@@ -18,7 +18,7 @@ Superbase or Firebase? Five out of 10 questions in my DMs are about this topic. 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,34 @@ Most of them are asking it wrong. So, here are the three things you can do right
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] stop comparing the features, right? Both have off, both have storage, both have a database.
-- [ ] think about your query layer. Firebase is a document store and it is fast for simple reads.
-- [ ] ask yourself this one question. Are you building a prototype or a production system?
+- [ ] stop comparing the features, right?
+- [ ] think about your query layer.
+- [ ] ask yourself this one question.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #229
-// Domain: 03-database-storage
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #229 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #229');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Start comparing futures.
 
 ---
 

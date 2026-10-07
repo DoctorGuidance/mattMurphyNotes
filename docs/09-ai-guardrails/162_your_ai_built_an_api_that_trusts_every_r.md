@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dai-n_LjPMS/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI built an API that processes every single request it receives. No validation, no sanitization, no rejection. A request with a missing field gets processed.
+Your AI built an API that trusts every request it receives.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI built an API that processes every single request it receives. No validat
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ A request with a missing field gets processed. A request with a malicious payloa
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] input validation on every route. Direct your AI to validate the shape of every request before it touches your business logic.
-- [ ] sanitization. Direct your AI to clean every string input before processing.
-- [ ] rate awareness at the middleware level. Direct your AI to track request patterns per user per endpoint.
+- [ ] input validation on every route.
+- [ ] sanitization.
+- [ ] rate awareness at the middleware level.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #162
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #162 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #162');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** That is AI-Directed orchestration.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdPTYpBAiuY/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-An attacker just sent a fishing email from your domain. SPF passed, DKIM passed, Demar passed. It was your own email system, but your AI let them in through a name field.
+An attacker sent a phishing email from your domain.
 
 ---
 
@@ -18,7 +18,7 @@ An attacker just sent a fishing email from your domain. SPF passed, DKIM passed,
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,34 @@ It was your own email system, but your AI let them in through a name field. So, 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] a name field should contain a name, not a login button that links to an attacker's fishing page. The fishing email that results is indistinguishable from your legitimate ones because your infrastructure sent it to them.
-- [ ] your template engine allows raw HTML insertion. User content should never use that path.
-- [ ] send an email with angle brackets, link tags, and script tags in every input field. If any of them render as a clickable link instead of a plain text, your template is fully injectable.
+- [ ] a name field should contain a name, not a login button that links to an attacker's fishing page.
+- [ ] your template engine allows raw HTML insertion.
+- [ ] send an email with angle brackets, link tags, and script tags in every input field.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #026
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #026 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #026');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your domain reputation is your business reputation.
 
 ---
 

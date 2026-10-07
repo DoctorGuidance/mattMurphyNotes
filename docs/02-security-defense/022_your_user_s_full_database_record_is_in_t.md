@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdZDAYDkr3A/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI put your user's full database record in the browser right now. Your React server component displays three fields. The payload contains all 20.
+Your user's full database record is in their browser right now.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI put your user's full database record in the browser right now. Your Reac
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,31 +28,33 @@ The payload contains all 20. Your AI fetched an entire row and let next.js seria
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] React server components serialize every prop into a wire format the browser parses to build the page. So your AI passed the full database row because the query was simpler.
-- [ ] nested components inherit the same props. So, your AI passes the full user object to a parent and three child components each take what they need.
-- [ ] the RSC payload. It's not HTML.
+- [ ] React server components serialize every prop into a wire format the browser parses to build the page.
+- [ ] nested components inherit the same props.
+- [ ] the RSC payload.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Audit every Server Component that receives database results. Your UI is a window. The payload is the wall behind it.
 
 ---
 

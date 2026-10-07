@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Testing, Staging & CI/CD (`تست، محیط‌های کاری، CI/CD و خط لوله استقرار`) |
 | **Target Production Layer** | Layer 7 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DabfLrfF-OA/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your CI/CD pipeline just exceeded the free tier midsprint. Here are three things you're going to change right now to fix it. Step one, self-hosted runners.
+A $20 self-hosted runner runs unlimited minutes.
 
 ---
 
@@ -18,7 +18,7 @@ Your CI/CD pipeline just exceeded the free tier midsprint. Here are three things
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on unverified AI code assumptions without failure handling or production boundaries in Testing, Staging & CI/CD. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Testing, Staging & CI/CD. |
 
 ---
 
@@ -28,30 +28,31 @@ Step one, self-hosted runners. GitHub actions let you bring your own compute. It
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] self-hosted runners. GitHub actions let you bring your own compute.
-- [ ] conditional pipelines. Not every commit needs every single test.
-- [ ] monitor your usage before it surprises you. GitHub shows you your minute consumption and settings.
+- [ ] self-hosted runners.
+- [ ] conditional pipelines.
+- [ ] monitor your usage before it surprises you.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #169
-// Domain: 10-cicd-deployments
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #169 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #169');
+// config/productionHardening.ts
+export const productionConfig = {
+  timeoutMs: 8000,
+  maxPayloadBytes: 1024 * 1024, // 1MB payload ceiling
+  headers: {
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
   }
-  return true;
-}
+};
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** CI that scales does not surprise you on day 19.
 
 ---
 

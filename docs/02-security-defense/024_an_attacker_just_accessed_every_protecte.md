@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdWeKvGDz5k/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI set up next.js middleware to check authentication, right? But an attacker just accessed every protected page in your app without logging in at all because the attacker's request never hit next.js. So your AI added authentication in middleware, one file, every route protected, right?
+An attacker just accessed every protected page in your app without logging in.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI set up next.js middleware to check authentication, right? But an attacke
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Stores credentials in client-side localStorage/sessionStorage vulnerable to XSS and malicious dependencies. | Stores tokens in HttpOnly, Secure, SameSite=Lax cookies completely inaccessible to JavaScript. |
 
 ---
 
@@ -28,29 +28,33 @@ So your AI added authentication in middleware, one file, every route protected, 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] next.js middleware matches routes using your matcher config. If API routes are excluded from the matcher, every API endpoint is unprotected.
-- [ ] a trailing slash a double encoded character or a path prefix changes how the matcher evaluates in a request. Right?
-- [ ] middleware runs at the edge before your server. Your AI may check that a cookie exists without validating it against your session store.
+- [ ] next.
+- [ ] a trailing slash a double encoded character or a path prefix changes how the matcher evaluates in a request.
+- [ ] middleware runs at the edge before your server.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Secure HttpOnly Cookie Issuance
-res.cookie('session_token', token, {
-  httpOnly: true,                               // Inaccessible to client JS
-  secure: process.env.NODE_ENV === 'production', // HTTPS only
-  sameSite: 'lax',                              // CSRF protection
-  path: '/',
-  maxAge: 15 * 60 * 1000                        // 15-minute short-lived
-});
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Middleware is a convenience layer. If it is your only check, it is your weakest one.
 
 ---
 

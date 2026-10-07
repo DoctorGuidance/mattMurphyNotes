@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbtdHYklNf3/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI product has no moat at all. Your ability to actually execute it is the new moat. Every single week, builders ask us to sign NDAs before we audit their code.
+Your idea is not your moat. Your ability to execute is.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI product has no moat at all. Your ability to actually execute it is the n
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,21 +28,28 @@ Every single week, builders ask us to sign NDAs before we audit their code. We g
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] engineering teams are not the threat to your idea that you think they are. Engineers don't take your product and reproduce them because your product is also a full-blown business plan.
-- [ ] AI removed the moat around ideas completely. Anyone can prototype anything in a weekend.
+- [ ] engineering teams are not the threat to your idea that you think they are.
+- [ ] AI removed the moat around ideas completely.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #097
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #097 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #097');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -50,7 +57,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The business gets funded, not the idea. Protect your code. But understand what actually needs protecting.
 
 ---
 

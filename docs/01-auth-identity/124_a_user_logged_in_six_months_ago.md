@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbGolYUFbnV/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-A user who logged in 6 months ago still has full access to your entire application right now. They lost their laptop at a coffee shop 3 months ago. Someone opened it and your app was still logged in.
+A user logged in six months ago.
 
 ---
 
@@ -18,7 +18,7 @@ A user who logged in 6 months ago still has full access to your entire applicati
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,25 @@ Someone opened it and your app was still logged in. So your database is wide ope
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] session expiration with a defined timeline. Right now, your sessions live forever because most frameworks ship that way and your AI use the default.
-- [ ] concurrent session limits. Right now, one user can be logged in on 15 devices and you would just never know because when credentials get stolen, the attacker rides an existing session while the real user has no idea someone else is in their account.
-- [ ] is instant session revocation. When a user changes their password, every active session for that user needs to die right then.
+- [ ] session expiration with a defined timeline.
+- [ ] concurrent session limits.
+- [ ] is instant session revocation.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #124
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #124 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #124');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So, you need to direct your AI to close them tonight
 
 ---
 

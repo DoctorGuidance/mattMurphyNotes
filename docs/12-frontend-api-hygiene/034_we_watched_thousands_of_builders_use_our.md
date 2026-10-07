@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdFAKgdgqc3/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-We watched thousands of builders use our products for the last 60 days straight and the data told us what to build next and it was not what we were currently selling. Not surprised. So we dropped 181 courses and a free builder community as a honeypot.
+We watched thousands of builders use our products for sixty days.
 
 ---
 
@@ -18,7 +18,7 @@ We watched thousands of builders use our products for the last 60 days straight 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,21 +28,24 @@ So we dropped 181 courses and a free builder community as a honeypot. 60 days of
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] the system is a closed loop, not curriculum. The rapid platform audit identifies the issue.
-- [ ] the economics had to match the pace of the builders. Builders are shipping code every single week from our community.
+- [ ] the system is a closed loop, not curriculum.
+- [ ] the economics had to match the pace of the builders.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #034
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #034 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #034');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -50,7 +53,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The data told us what to build. We built it.
 
 ---
 

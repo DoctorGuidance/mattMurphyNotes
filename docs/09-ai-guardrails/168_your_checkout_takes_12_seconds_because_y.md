@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dac-EGTAq7Q/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your checkout's taking 12 seconds to complete, not because your payment is slow, but because your AI built the entire process as one synchronous chain. The user stares at a spinner while your app is sending an email. Here are the three things you're going to direct your AI to do right now to fix it.
+Your checkout takes 12 seconds because your AI built the whole process as one chain.
 
 ---
 
@@ -18,7 +18,7 @@ Your checkout's taking 12 seconds to complete, not because your payment is slow,
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ Here are the three things you're going to direct your AI to do right now to fix 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] separate the response from the actual work. Direct your AI to return the confirmation the moment the payment succeeds.
-- [ ] add a job cue. Direct your AI to process background tasks independently of the request.
-- [ ] monitor that queue. A job that fails silently in a queue is worse than one that fails in the request.
+- [ ] separate the response from the actual work.
+- [ ] add a job cue.
+- [ ] monitor that queue.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #168
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #168 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #168');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Start orchestrating.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdrEewmD01_/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI implemented magic link authentication, but an attacker just intercepted your magic link and landed inside your users's dashboard. So, your passwordless login just became a passwordless breakin and your AI built the flow without validating where the link resolves. So, the user enters their email, your server, generates a signed token, embeds it in a URL, and emails it out.
+An attacker intercepted your magic link and landed inside your user's dashboard.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI implemented magic link authentication, but an attacker just intercepted 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
 
 ---
 
@@ -28,29 +28,33 @@ So, the user enters their email, your server, generates a signed token, embeds i
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your magic link URL includes a redirect parameter that tells the application where to send the user after authentication. An attacker crafts a link with the redirect set to their server.
-- [ ] magic link tokens that do not expire remain valid indefinitely in users email. So an attacker who gains access to a mailbox 6 months later finds every magic link still fully active.
-- [ ] an attacker who discovers the Magic Link endpoint can request thousands of links per minute for any email address. So, each request sends a real email from your domain.
+- [ ] your magic link URL includes a redirect parameter that tells the application where to send the user after authentication.
+- [ ] magic link tokens that do not expire remain valid indefinitely in users email.
+- [ ] an attacker who discovers the Magic Link endpoint can request thousands of links per minute for any email address.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
-import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
-});
-await rateLimiter.consume(req.ip);
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your magic link removes the password. It should not remove the security.
 
 ---
 

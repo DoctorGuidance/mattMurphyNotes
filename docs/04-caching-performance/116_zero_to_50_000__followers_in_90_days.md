@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Caching & Edge Performance (`کشینگ، توزیع لبه و پرفورمنس سیستمی`) |
 | **Target Production Layer** | Layer 10 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbQzWwMlS-F/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-0 to 50,000 followers in 90 days, 5 million views, and I haven't spent a single dollar. Not an ad, no promotions, no paid boosts, no cute edits or yapping. 50,000 followers, 5 million views, 300,000 follower interactions, and half a million accounts reached and interacted with from zero in 90 days.
+Zero to 50,000+ followers in 90 days.
 
 ---
 
@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,21 +28,29 @@
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] a weekly content audit system that tells you exactly what's working and what to kill. Every week I review what performs, what flops, what the audience has saved, what they shared, and what they skipped altogether.
-- [ ] a community response system. Because every reply you send is a signal.
+- [ ] a weekly content audit system that tells you exactly what's working and what to kill.
+- [ ] a value first content strategy where you give away your best work for free.
+- [ ] a community response system.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #116
-// Domain: 04-caching-performance
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #116 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #116');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -50,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Here is exactly how I built it and three things you direct your AI to build so your content machine runs the same way.
 
 ---
 

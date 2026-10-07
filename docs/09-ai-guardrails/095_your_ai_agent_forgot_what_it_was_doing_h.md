@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbwB5V_EvJS/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Did your AI agent forget what it was doing halfway through the job? It started strong. Step one was great.
+Your AI agent forgot what it was doing halfway through the job.
 
 ---
 
@@ -18,7 +18,7 @@ Did your AI agent forget what it was doing halfway through the job? It started s
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,23 +28,29 @@ Step one was great. Step five was pretty solid. By step 15, it was contradicting
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] was pretty solid. By
-- [ ] a structured context document that travels with every task. Your AI agent does not remember what it did 10 steps ago unless you tell it.
-- [ ] task decomposition before execution. A 30-step job should never run as one continuous conversation.
-- [ ] a validation checkpoint between every chunk. Before the agent moves from chunk one to chunk two, something has to verify that output.
+- [ ] was great.
+- [ ] it was contradicting step three.
+- [ ] it had forgotten the project altogether.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #095
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #095 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #095');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -52,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Directed in pieces verify in between that is orchestration and that is the win
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbOpQ2mDrD1/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Remember when you picked your off provider because it was free? Well, an enterprise deal just walked through the door and it's time for a reckoning. They're going to ask you these four questions.
+You picked your auth provider because it was free.
 
 ---
 
@@ -18,7 +18,7 @@ Remember when you picked your off provider because it was free? Well, an enterpr
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ They're going to ask you these four questions. Do you support SAML? Do you suppo
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] SAML and SSO support. Enterprise buyers do not create accounts on your platform ever.
-- [ ] sock 2 and compliance documentation from your provider. Your enterprise buyer security team will audit your entire vendor stack.
-- [ ] a migration path for when you outgrew your current provider. The free tier got you through launch.
+- [ ] SAML and SSO support.
+- [ ] sock 2 and compliance documentation from your provider.
+- [ ] a migration path for when you outgrew your current provider.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #118
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #118 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #118');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So direct your AI to evaluate that gap before your next enterprise conversation or don't sell any enterprise deals
 
 ---
 

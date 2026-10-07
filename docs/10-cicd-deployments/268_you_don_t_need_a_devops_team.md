@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Testing, Staging & CI/CD (`تست، محیط‌های کاری، CI/CD و خط لوله استقرار`) |
 | **Target Production Layer** | Layer 7 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DY7OKr4xruV/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Here's how you set up monitoring, caching, and deployment without hiring a DevOps engineer. You need these three tools in about an hour. Step one, Sentry for error tracking.
+You don’t need a DevOps team.
 
 ---
 
@@ -18,7 +18,7 @@ Here's how you set up monitoring, caching, and deployment without hiring a DevOp
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
 
 ---
 
@@ -28,29 +28,42 @@ Step one, Sentry for error tracking. We've said it a million times. Right now, w
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] Sentry for error tracking. We've said it a million times.
-- [ ] upstash for caching and rate limiting. Great package, cheap.
-- [ ] rail way for deployment. If your app needs background jobs, scheduled tasks, or anything beyond serving just basic web pages, Railway is the way to go.
+- [ ] Sentry for error tracking.
+- [ ] upstash for caching and rate limiting.
+- [ ] rail way for deployment.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
+// middleware/rateLimiter.ts
 import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
   storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
 });
-await rateLimiter.consume(req.ip);
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Production-grade infrastructure.
 
 ---
 

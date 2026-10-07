@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Caching & Edge Performance (`کشینگ، توزیع لبه و پرفورمنس سیستمی`) |
 | **Target Production Layer** | Layer 10 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaOZMI2CCGx/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You need to pick your next database platform. You came to the right spot. Here are three things you're going to evaluate right now before you make that decision.
+Read-write ratio determines the architecture.
 
 ---
 
@@ -18,7 +18,7 @@ You need to pick your next database platform. You came to the right spot. Here a
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,34 @@ Here are three things you're going to evaluate right now before you make that de
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your read write ratio. If your application is 90% reads, an edge database like Cloudflare D1 gives you submilli
-- [ ] schema change strategy under traffic. Your production database has active users.
-- [ ] ecosystem commitment versus portability. Cloudflare D1 is the most powerful inside the Cloudflare stack.
+- [ ] your read write ratio.
+- [ ] schema change strategy under traffic.
+- [ ] ecosystem commitment versus portability.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #186
-// Domain: 04-caching-performance
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #186 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #186');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Choose the database by the workload. Not the tutorial.
 
 ---
 

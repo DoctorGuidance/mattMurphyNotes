@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcEEyocD8II/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-A hacker logged into your app at 3:00 a.m. from another country. Your app said, "Welcome back." Stolen credentials, foreign IP, middle of the night.
+An attacker logged into your app at 3 AM from another country.
 
 ---
 
@@ -18,7 +18,7 @@ A hacker logged into your app at 3:00 a.m. from another country. Your app said, 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,31 +28,42 @@ Your app said, "Welcome back." Stolen credentials, foreign IP, middle of the nig
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] attribute-based access control. Permissions that evaluate context, not just the role.
-- [ ] zero trust enforcement on every internal request, not just the login gate, every API call, every database query. So every service to service request that reverifies identity and authorization.
-- [ ] continue. continuous session risk scoring, not a one-time check at login, a running evaluation that monitors behavior throughout their session.
+- [ ] attribute-based access control.
+- [ ] zero trust enforcement on every internal request, not just the login gate, every API call, every database query.
+- [ ] continue.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Static roles tell you who someone is. Context tells you whether to trust them right now.
 
 ---
 

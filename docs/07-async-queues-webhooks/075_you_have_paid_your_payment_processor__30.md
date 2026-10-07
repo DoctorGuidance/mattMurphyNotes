@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcJx3MyDnHE/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Over the last 6 months, you've paid your payment processor $30,000. It's processed 0 for you. So, 6 months of monthly minimums with your payment processor with zero customers, zero transactions, and zero revenue.
+You have paid your payment processor $30,000.
 
 ---
 
@@ -18,7 +18,7 @@ Over the last 6 months, you've paid your payment processor $30,000. It's process
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ So, 6 months of monthly minimums with your payment processor with zero customers
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] Separate what you need to demonstrate from what you need to operate. Build the integration layer.
-- [ ] negotiate the hell out of a partner agreement. Come on now.
-- [ ] architect every
+- [ ] Separate what you need to demonstrate from what you need to operate.
+- [ ] negotiate the hell out of a partner agreement.
+- [ ] architect every third party behind the abstraction layer.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #075
-// Domain: 07-async-queues-webhooks
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #075 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #075');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Stop activating expensive infrastructure before demand forces you to. Sandbox it. Demo it. Sell it. Then turn it on. Validate. Sell. Activate. Scale. In that order.
 
 ---
 

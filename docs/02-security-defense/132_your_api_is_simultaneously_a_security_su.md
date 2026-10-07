@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Da-xLx0GH9f/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-This is what I've been thinking about. So, every API endpoint your product exposes is a door to your product and your business. Right now, most of those doors are wide open and you do not know what's walking out.
+Your API is simultaneously a security surface, a product surface, and a contract surface.
 
 ---
 
@@ -18,7 +18,7 @@ This is what I've been thinking about. So, every API endpoint your product expos
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ Right now, most of those doors are wide open and you do not know what's walking 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] what data are you giving away? Well, your AI built an API that returns everything, right?
-- [ ] your API is also a product. If you ever want integrations, partnerships, or enterprise API access, your API is what technical buyers are going to evaluate
-- [ ] versioning from day one. Your API has customers also.
+- [ ] what data are you giving away?
+- [ ] your API is also a product.
+- [ ] versioning from day one.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #132
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #132 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #132');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Perform a complete API security and design audit. For each endpoint: list returned fields, flag over-exposed data, identify sequential ID usage, check for missing auth. Implement API versioning with /v1/ prefix. Create an API changelog and public documentation page.
 
 ---
 

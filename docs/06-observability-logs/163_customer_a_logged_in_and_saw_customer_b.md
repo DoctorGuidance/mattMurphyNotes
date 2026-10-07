@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Observability & Error Tracking (`مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا`) |
 | **Target Production Layer** | Layer 12 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaiaXxhGx1Z/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-So, let me tell you how a Wednesday morning goes wrong. Your support inbox has a ticket that says, "I'm seeing someone else's dashboard. Customer A has logged into your multi-tenant SAS and saw customer B's data, their revenue numbers, their customer list, their private messages.
+Customer A logged in and saw customer B's data.
 
 ---
 
@@ -18,7 +18,7 @@ So, let me tell you how a Wednesday morning goes wrong. Your support inbox has a
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
 
 ---
 
@@ -28,30 +28,28 @@ Customer A has logged into your multi-tenant SAS and saw customer B's data, thei
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] the technical damage. Your tenant isolation has a gap in the system.
-- [ ] the legal damage. Customer B's data was exposed to customer A.
-- [ ] what are you going to do about it? If you cannot answer the
-- [ ] the trust damage. Customer B leaves.
+- [ ] the technical damage.
+- [ ] the legal damage.
+- [ ] what are you going to do about it?
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+```sql
+-- migrations/001_row_level_security.sql
+ALTER TABLE user_documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_policy ON user_documents
+  FOR ALL
+  USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid)
+  WITH CHECK (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Not after the support ticket arrives.
 
 ---
 

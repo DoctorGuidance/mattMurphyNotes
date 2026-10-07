@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZm7yPZxxlC/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-When your users log in, a token gets created and that token lives forever. That is not Oth, folks. That is a wide open door for trouble.
+A token that never expires is not auth.
 
 ---
 
@@ -18,7 +18,7 @@ When your users log in, a token gets created and that token lives forever. That 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Stores credentials in client-side localStorage/sessionStorage vulnerable to XSS and malicious dependencies. | Stores tokens in HttpOnly, Secure, SameSite=Lax cookies completely inaccessible to JavaScript. |
 
 ---
 
@@ -28,29 +28,33 @@ That is a wide open door for trouble. So, here are the three things you're going
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] understand what a session actually is. When a user logs in, your system creates a unique token.
-- [ ] set expiration and rotation. Access tokens should be short-lived.
-- [ ] implement logout properly. Logout does not mean delete.
+- [ ] understand what a session actually is.
+- [ ] set expiration and rotation.
+- [ ] implement logout properly.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Secure HttpOnly Cookie Issuance
-res.cookie('session_token', token, {
-  httpOnly: true,                               // Inaccessible to client JS
-  secure: process.env.NODE_ENV === 'production', // HTTPS only
-  sameSite: 'lax',                              // CSRF protection
-  path: '/',
-  maxAge: 15 * 60 * 1000                        // 15-minute short-lived
-});
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** It is an open door.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Db6VI3WFqKD/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI is running on sixmon old instructions. And that's why it's getting worse, not better. Every MCP file you loaded, every MD file you wrote, every skill you installed, every automation you've configured, all of it still running right now, right?
+Your AI is running on six-month-old instructions. That is why it is getting worse, not better.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI is running on sixmon old instructions. And that's why it's getting worse
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ Every MCP file you loaded, every MD file you wrote, every skill you installed, e
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] stale files compete with current instructions. Your AI is trying to follow what you told it 6 months ago and what you're telling it right now at the exact same time.
-- [ ] the LLM systems are getting better every single day. The model you are running today is materially more capable than the one you configured your stack for 6 months ago, but you're still forcing it to work through the same rappers, the same connectors, the same instructions you wrote when it was less capable.
-- [ ] you got to clear your stack. The head engineer at Anthropic will tell you straight up, all of his MD files, skills, and system configurations are cleared every 90 days at a minimum.
+- [ ] stale files compete with current instructions.
+- [ ] the LLM systems are getting better every single day.
+- [ ] you got to clear your stack.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #087
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #087 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #087');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** We rebuild every 100 days. Version 9.0. Clear the stack. Rebuild clean.
 
 ---
 

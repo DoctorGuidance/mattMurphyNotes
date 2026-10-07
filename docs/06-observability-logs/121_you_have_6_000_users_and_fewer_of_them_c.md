@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Observability & Error Tracking (`مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا`) |
 | **Target Production Layer** | Layer 12 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbLW867jzzG/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You have 6,000 users and fewer of them keep coming back every week. So, your app is dying in slow motion and your dashboard is completely lying to you about it. So, if total users are going up, but active users are going down, these are the three things you're going to direct your AI to build before your user base quietly disappears.
+You have 6,000 users and fewer of them come back every week.
 
 ---
 
@@ -18,7 +18,7 @@ You have 6,000 users and fewer of them keep coming back every week. So, your app
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ So, if total users are going up, but active users are going down, these are the 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] cohort analysis. That shows you exactly where users drop off.
-- [ ] usage event tracking on your core features. You need to know which features your users are actually touching and which ones they totally ignore.
-- [ ] an automated dropoff alert. When a user who was active for three straight weeks suddenly goes silent, that's a signal and you need to know it that day.
+- [ ] cohort analysis.
+- [ ] usage event tracking on your core features.
+- [ ] an automated dropoff alert.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #121
-// Domain: 06-observability-logs
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #121 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #121');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So, direct your eye to build it before your next monthly report tells you what you could have fixed weeks ago
 
 ---
 

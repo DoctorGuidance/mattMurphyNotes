@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZQU76-x-1G/) |
@@ -18,7 +18,7 @@ You built all the right security features. RLS is on. O is configured.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
 
 ---
 
@@ -28,29 +28,33 @@ O is configured. HTTPS is everywhere. But have you ever actually tried to hack y
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] run OWASP Zap on your app. Zap is free.
-- [ ] test your own API in Burp Suite. You can intercept your own requests, change the user ID in the Jot payload, and then you need to know, can you access another user's data?
-- [ ] automate security scanning and CI. Sneak or GitHub's built-in code scanning.
+- [ ] run OWASP Zap on your app.
+- [ ] test your own API in Burp Suite.
+- [ ] automate security scanning and CI.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Hack yourself before someone else does.
 
 ---
 

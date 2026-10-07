@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dc0_yCoHNXv/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI put your database credentials in a next.js server action. So the build process shipped them to every user's browser. Your AI built your Nex.js.
+Your AI put your database credentials in a Next.js Server Action.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI put your database credentials in a next.js server action. So the build p
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,25 @@ Your AI built your Nex.js. It wrote server functions that query your database di
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] install the serveronly package and mark every sensitive file. This package creates a build error if any server code is accidentally included in what ships to the browser.
-- [ ] separate server logic and client components into different files. A single file that exports both server functions and browserfacing components is a boundary your AI should have never crossed.
-- [ ] scan your deployed code for leaked secrets. Every JavaScript file your app delivers is totally public.
+- [ ] install the serveronly package and mark every sensitive file.
+- [ ] separate server logic and client components into different files.
+- [ ] scan your deployed code for leaked secrets.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #045
-// Domain: 03-database-storage
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #045 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #045');
-  }
-  return true;
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your server functions run on the server. Your credentials should stay there.
 
 ---
 

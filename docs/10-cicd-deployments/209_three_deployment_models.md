@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Testing, Staging & CI/CD (`تست، محیط‌های کاری، CI/CD و خط لوله استقرار`) |
 | **Target Production Layer** | Layer 7 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZ44VWrxdvI/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Verscell, Railway, maybe VPS. These are three deployment models that every builder's evaluating. Same goal, but completely different cost curves.
+Three deployment models.
 
 ---
 
@@ -18,7 +18,7 @@ Verscell, Railway, maybe VPS. These are three deployment models that every build
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,30 @@ Same goal, but completely different cost curves. Here are the three things you n
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] Verscell was built for front-end frameworks. Push your code, it deploys.
-- [ ] railway was built for full stack builders who want infrastructure without managing it. Containers, databases, background workers, all in a single dashboard.
-- [ ] a VPS gives you everything and manages nothing. You own the server, you own the uptime, you own the security patches patches at 2 in the morning.
+- [ ] Verscell was built for front-end frameworks.
+- [ ] railway was built for full stack builders who want infrastructure without managing it.
+- [ ] a VPS gives you everything and manages nothing.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #209
-// Domain: 10-cicd-deployments
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #209 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #209');
-  }
-  return true;
-}
+// lib/dbPool.ts
+import { Pool } from 'pg';
+
+export const dbPool = new Pool({
+  connectionString: process.env.DATABASE_POOL_URL, // PgBouncer transaction pool
+  max: 20,                                         // Strict ceiling per serverless container
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Match the hosting to the stage.
 
 ---
 

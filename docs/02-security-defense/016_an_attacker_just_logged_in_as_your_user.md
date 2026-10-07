@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdgxTr7AcvO/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI just let an attacker log into your user account without a password. They set a session ID before the user authenticated. Then the user logged in.
+An attacker just logged in as your user without a password.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI just let an attacker log into your user account without a password. They
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Stores credentials in client-side localStorage/sessionStorage vulnerable to XSS and malicious dependencies. | Stores tokens in HttpOnly, Secure, SameSite=Lax cookies completely inaccessible to JavaScript. |
 
 ---
 
@@ -28,29 +28,33 @@ Then the user logged in. So the attacker now shares that user session with them.
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] an attacker sends your user link with a session ID embedded. The user clicks it, arrives at your site, and authenticates.
-- [ ] session fixation is not limited to login. Any privilege change that does not regenerate the session is fully exploitable.
-- [ ] your session cookie may not be set without secure HTTPON and same site flags. Without secure, the cookie transmits over unencrypted connections.
+- [ ] an attacker sends your user link with a session ID embedded.
+- [ ] session fixation is not limited to login.
+- [ ] your session cookie may not be set without secure HTTPON and same site flags.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Secure HttpOnly Cookie Issuance
-res.cookie('session_token', token, {
-  httpOnly: true,                               // Inaccessible to client JS
-  secure: process.env.NODE_ENV === 'production', // HTTPS only
-  sameSite: 'lax',                              // CSRF protection
-  path: '/',
-  maxAge: 15 * 60 * 1000                        // 15-minute short-lived
-});
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your session is your user's identity. If it does not change when their identity changes, it belongs to the last person who touched it.
 
 ---
 

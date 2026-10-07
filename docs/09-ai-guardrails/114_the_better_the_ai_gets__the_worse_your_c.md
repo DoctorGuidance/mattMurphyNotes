@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbTtQrCiJZz/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-So, everyone is telling me that the Frontier models are going to fix everything. Well, just wait and see. Opus 5 is better.
+The better the AI gets, the worse your code is going to be.
 
 ---
 
@@ -18,7 +18,7 @@ So, everyone is telling me that the Frontier models are going to fix everything.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,21 +28,28 @@ Opus 5 is better. GPT56 is smarter. Fable is unbeatable.
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] everybody gets the same model at At the same time, the idea that you're going to wait for a better model and gain any advantage at all, it's total nonsense. Every builder on the planet gets access to the same Frontier model on the same day you do, which means every application being built right now is generating the same level of complex tech debt simultaneously.
-- [ ] nobody is running frontier models on anything anyway. The fact is the economics don't work.
+- [ ] everybody gets the same model at At the same time, the idea that you're going to wait for a better model and gain any advantage at all, it's total nonsense.
+- [ ] nobody is running frontier models on anything anyway.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #114
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #114 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #114');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -50,7 +57,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Here is why better models are making this worse.
 
 ---
 

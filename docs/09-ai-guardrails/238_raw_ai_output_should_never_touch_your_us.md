@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZdbRXmv_lb/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Oh no, your AI model is returning garbage to the users and it will. But your users, they should never have to see it. Here are the three things you can do right now to fix it.
+Raw AI output should never touch your users.
 
 ---
 
@@ -18,7 +18,7 @@ Oh no, your AI model is returning garbage to the users and it will. But your use
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ Here are the three things you can do right now to fix it. Step one, validate eve
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] validate every AI response before it reaches the users. Does it match your expected schema?
-- [ ] retry feedback when validation fails. Do not just error out.
-- [ ] degrade gracefully when retries fail. Fall back to a simpler model, a cached response, or a human handoff.
+- [ ] validate every AI response before it reaches the users.
+- [ ] retry feedback when validation fails.
+- [ ] degrade gracefully when retries fail.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #238
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #238 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #238');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** در نهایت، اگر اصلاح خودکار نتیجه ندهد، سیستم باید تنزل تدریجی و امن را اجرا کند و با استفاده از روش‌هایی مثل پاسخ‌های از پیش‌ذخیره‌شده یا کمک گرفتن از انسان، از ارائه صفحه خالی یا خطای خام به کاربر جلوگیری کند
 
 ---
 

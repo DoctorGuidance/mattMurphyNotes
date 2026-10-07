@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcOX9AdERD2/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your database has two versions of every record right now. And your app is showing users the wrong one. So your right went to primary, but your read came back from a replica that's 3 seconds behind it.
+Your database has two versions of every record right now.
 
 ---
 
@@ -18,7 +18,7 @@ Your database has two versions of every record right now. And your app is showin
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,34 @@ So your right went to primary, but your read came back from a replica that's 3 s
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] read after write consistency routing. When a user writes data, the next read from that same user must come from a primary, not a replica.
-- [ ] replica lag monitoring with automatic failover thresholds. So, replication lag spikes under load, during large transactions, and during schema changes.
-- [ ] conflict resolution on concurrent rights across regions. Two users editing the same record in two regions.
+- [ ] read after write consistency routing.
+- [ ] replica lag monitoring with automatic failover thresholds.
+- [ ] conflict resolution on concurrent rights across regions.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #072
-// Domain: 03-database-storage
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #072 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #072');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your database scaled. Your consistency did not.
 
 ---
 

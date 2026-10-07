@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dci-Qq_j9EL/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You moved to a VPS for more control, and I can't blame you, but you accidentally left the front door wide open when you did it. Your managed platform is handling security invisibly. So, firewall rules, SSH hardening, automatic patching.
+You moved to a VPS for more control.
 
 ---
 
@@ -18,7 +18,7 @@ You moved to a VPS for more control, and I can't blame you, but you accidentally
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,34 @@ So, firewall rules, SSH hardening, automatic patching. You never thought about a
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] SSH hardening. Right now, your server is accepting password authentication on a default port.
-- [ ] a firewall that blocks everything you did not explicitly allow. Your managed platform had invisible firewall rules.
-- [ ] automatic security updates. Your managed platform patched itself.
+- [ ] SSH hardening.
+- [ ] a firewall that blocks everything you did not explicitly allow.
+- [ ] automatic security updates.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #057
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #057 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #057');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Three fixes. Five minutes each. Direct your AI to lock it down before someone else walks in.
 
 ---
 

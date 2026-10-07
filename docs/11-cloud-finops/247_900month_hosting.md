@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZSzeK0RgCd/) |
@@ -18,7 +18,7 @@ Your app has 200 users. Your infrastructure bill, it's $900 a month. If you char
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ If you charge $10 a month per user, half your revenue, it's going to AWS. Here a
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] audit your always on resources. That database that's running 247 on a pro plan might be able to make changes there.
-- [ ] set spend alerts at every layer. Versel, Superbase, OpenAI, AWS, all of them have billing alerts.
-- [ ] right size your database. Superbase Pro is $25 a month for 8 gigs of RAM, but if you're only using one gig, you're overpaying.
+- [ ] audit your always on resources.
+- [ ] set spend alerts at every layer.
+- [ ] right size your database.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #247
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #247 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #247');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** That math kills businesses.
 
 ---
 

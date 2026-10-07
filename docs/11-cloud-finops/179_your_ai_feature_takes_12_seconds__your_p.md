@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaVWiw4l_JY/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your platform has limits that you never checked. Here are three things you verify right now to check them. Step one, concurrent execution ceiling.
+Your AI feature takes 12 seconds. Your platform times out at 10.
 
 ---
 
@@ -18,7 +18,7 @@ Your platform has limits that you never checked. Here are three things you verif
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ Step one, concurrent execution ceiling. Your serverless platform allows a fixed 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] concurrent execution ceiling. Your serverless platform allows a fixed number of functions running at the exact same time.
-- [ ] execution time versus feature runtime. Your AI feature takes 12
-- [ ] payload and bandwidth limits. Your file upload endpoint accepts 50 megabyte files.
+- [ ] concurrent execution ceiling.
+- [ ] execution time versus feature runtime.
+- [ ] payload and bandwidth limits.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #179
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #179 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #179');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Read the limits page. Not the marketing page. That is where the truth lives.
 
 ---
 

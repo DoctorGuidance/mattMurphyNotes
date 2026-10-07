@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Testing, Staging & CI/CD (`تست، محیط‌های کاری، CI/CD و خط لوله استقرار`) |
 | **Target Production Layer** | Layer 7 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcLzI-pFJlM/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI pushed 47 files to production in one commit and one of them broke your payment flow, but you cannot figure out which one it was. So all 47 files changed, no pull request, no review, no test, just straight to Maine. So payment stopped processing at 6 p.m.
+Your AI pushed 47 files to production in one commit.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI pushed 47 files to production in one commit and one of them broke your p
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ So payment stopped processing at 6 p.m. on Friday, and you are staring at 47 fil
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] branch protection on main. Nobody pushes directly to production.
-- [ ] automated checks that run before any merge. Your CI pipeline should run your test suite, your llinter, your build verification, and your security scan on every pull request before it's allowed to merge.
-- [ ] small scoped commits that you can trace and reverse. 47 files in one commit.
+- [ ] branch protection on main.
+- [ ] automated checks that run before any merge.
+- [ ] small scoped commits that you can trace and reverse.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #074
-// Domain: 10-cicd-deployments
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #074 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #074');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Branch protection. Automated checks. Scoped commits. Direct your AI to build the gate.
 
 ---
 

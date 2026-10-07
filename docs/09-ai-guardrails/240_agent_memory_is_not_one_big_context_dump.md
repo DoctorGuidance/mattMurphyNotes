@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZa1S1mAYCI/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI agent forgets everything between calls. The user said their name, their preferences, their location, their project context. That next call, it's all gone.
+Agent memory is not one big context dump.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI agent forgets everything between calls. The user said their name, their 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,22 +28,25 @@ That next call, it's all gone. Bolting on memory wrong will break faster than no
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] implement short-term memory as a conversation buffer. Rolling context window for all current sessions.
-- [ ] add long-term memory as a persistent store. User preferences, past decisions, learned patterns.
-- [ ] only store what changes the agents behavior. A user's deployment preferences, store it.
+- [ ] implement short-term memory as a conversation buffer.
+- [ ] add long-term memory as a persistent store.
+- [ ] only store what changes the agents behavior.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #240
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #240 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #240');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Two systems. One win.
 
 ---
 

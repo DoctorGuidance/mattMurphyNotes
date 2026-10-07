@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZisZ_9v0RW/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Everyone is shopping for a vector database lately. Pine cone, wevi8, chroma, and postgrass just quietly became all of them. Here are the three things you need to know right now.
+Everyone is shopping for a vector database.
 
 ---
 
@@ -18,7 +18,7 @@ Everyone is shopping for a vector database lately. Pine cone, wevi8, chroma, and
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ Here are the three things you need to know right now. Step one, PG vector exists
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] PG vector exists. One extension turns your existing Postgress database into a vector store.
-- [ ] the dedicated vector databases are incredible at one thing, similarity search at massive scale. Billions of vectors, milli
-- [ ] the real question is operational complexity. Every database you add is another thing to back up, another thing to monitor, another connection string, another point of failure at 3 in the morning.
+- [ ] PG vector exists.
+- [ ] the dedicated vector databases are incredible at one thing, similarity search at massive scale.
+- [ ] the real question is operational complexity.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #232
-// Domain: 03-database-storage
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #232 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #232');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Postgres just quietly became all of them.
 
 ---
 

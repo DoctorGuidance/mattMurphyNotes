@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Caching & Edge Performance (`کشینگ، توزیع لبه و پرفورمنس سیستمی`) |
 | **Target Production Layer** | Layer 10 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcHNH00EZ1T/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You put Cloudflare in front of your app, but an attacker found your server's real IP and went right around it. All your W rules, all your DDoS protection, your bot filtering, your rate limiting, all of it bypassed completely because your origin server's IP address is discoverable and your attacker just hit it directly. Cloudflare only protects you if all traffic is flowing through it.
+You put Cloudflare in front of your app.
 
 ---
 
@@ -18,7 +18,7 @@ You put Cloudflare in front of your app, but an attacker found your server's rea
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,29 +28,37 @@ Cloudflare only protects you if all traffic is flowing through it. The moment so
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your origin IP is leaking. DNS history tools store every IP your domain has ever pointed to.
-- [ ] your origin server still accepts connections from the entire internet. It should only accept connections from Cloudflare's IP range.
-- [ ] your SSL is probably set to flexible. That means traffic between your user and Cloudflare is encrypted, but traffic between Cloudflare and your server is not encrypted.
+- [ ] your origin IP is leaking.
+- [ ] your origin server still accepts connections from the entire internet.
+- [ ] your SSL is probably set to flexible.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
-import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 });
-await rateLimiter.consume(req.ip);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Cloudflare is not a switch you flip. It is an architecture you configure.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaTGbRGFSM0/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Every single client tells me they have monitoring up and running. Then I ask these three questions in a room full of people and it usually gets quiet. Question number one, if your app goes down right now while we're in this meeting, how would you find out about it?
+Every client says they have monitoring.
 
 ---
 
@@ -18,7 +18,7 @@ Every single client tells me they have monitoring up and running. Then I ask the
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,21 +28,28 @@ Question number one, if your app goes down right now while we're in this meeting
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] if your app goes down right now while we're in this meeting, how would you find out about it? If the answer is from a customer email or someone running by the window waving their arms, I'm sorry, but you have alert theater, not monitoring.
-- [ ] do you have SLOs's? Service level objectives define what good before something breaks looks like.
+- [ ] if your app goes down right now while we're in this meeting, how would you find out about it?
+- [ ] do you have SLOs's?
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #181
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #181 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #181');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -50,7 +57,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Monitoring is not a dashboard. It is a system that calls you.
 
 ---
 

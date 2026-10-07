@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Rate Limiting & Abuse Prevention (`محدودسازی نرخ، مقابله با DoS و بات‌ها`) |
 | **Target Production Layer** | Layer 9 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaVrNEXD-tc/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-All right, let's talk about rate limiting. Rate limiting is not just about stopping abuse. It is about building a pricing model that totally scales.
+Rate limiting is not about saying no.
 
 ---
 
@@ -18,7 +18,7 @@ All right, let's talk about rate limiting. Rate limiting is not just about stopp
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
 
 ---
 
@@ -28,29 +28,33 @@ It is about building a pricing model that totally scales. So here's how I think 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] There are three layers, but most builders are only implementing one.
-- [ ] This protects you from abuse, but it does not create a good user experience.
-- [ ] A user who hits the wall at 10:00 a.m.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
-import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
-});
-await rateLimiter.consume(req.ip);
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Hard limits protect the system. Adaptive limits protect the experience. Tiered limits protect the business.
 
 ---
 

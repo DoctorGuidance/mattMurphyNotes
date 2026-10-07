@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Caching & Edge Performance (`کشینگ، توزیع لبه و پرفورمنس سیستمی`) |
 | **Target Production Layer** | Layer 10 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbimVuCkZqi/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-A customer just called you. They're looking at someone else's revenue dashboard on your system, their invoices, their customer list, their monthly revenue on your customer's screen right now. So, your AI set up caching to speed up your app, but it never scoped the cache to the appropriate tenant.
+A customer just called you. They are looking at someone else's revenue dashboard. Their invoices. Their customer list. Their monthly revenue. Your AI cached a query result without scoping it to the tenant.
 
 ---
 
@@ -18,7 +18,7 @@ A customer just called you. They're looking at someone else's revenue dashboard 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
 
 ---
 
@@ -28,29 +28,28 @@ So, your AI set up caching to speed up your app, but it never scoped the cache t
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your database security is irrelevant if your cache layer completely bypasses it. So you might have perfect rowle security on your databases.
-- [ ] caching is not the only shared layer leaking. Search indexes, background job cues, file storage pads and logging pipelines, right?
-- [ ] test this before your customer figures it out. Direct your AI to build a cross-tenant access test.
+- [ ] your database security is irrelevant if your cache layer completely bypasses it.
+- [ ] caching is not the only shared layer leaking.
+- [ ] test this before your customer figures it out.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+```sql
+-- migrations/001_row_level_security.sql
+ALTER TABLE user_documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_policy ON user_documents
+  FOR ALL
+  USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid)
+  WITH CHECK (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** One cached query. Two customers. Zero trust left in your product. Your database security is irrelevant if your cache layer bypasses it.
 
 ---
 

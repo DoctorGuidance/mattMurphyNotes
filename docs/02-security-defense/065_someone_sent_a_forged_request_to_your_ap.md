@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcYrFHSAOhJ/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Someone sent a forged request to your API last Tuesday. Your server processed it. No questions asked.
+Someone sent a forged request to your API last Tuesday.
 
 ---
 
@@ -18,7 +18,7 @@ Someone sent a forged request to your API last Tuesday. Your server processed it
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Blindly passes entire request body to ORM update methods, allowing attackers to inject `isAdmin: true` or elevated roles. | Enforces strict input allowlists using Zod schemas (`.strict()`), rejecting any non-whitelisted parameters. |
 
 ---
 
@@ -28,30 +28,30 @@ No questions asked. No request signing, no verification that the request came fr
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] request signing on every mutating endpoint. Every post, put, patch, and delete should carry a signature.
-- [ ] API versioning. From day one, your API path includes a version.
-- [ ] Deprecation policy with sunset headers. When an endpoint is scheduled for removal, the response includes a sunset header with retirement date.
+- [ ] request signing on every mutating endpoint.
+- [ ] API versioning.
+- [ ] Deprecation policy with sunset headers.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #065
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #065 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #065');
-  }
-  return true;
-}
+// schemas/userUpdate.ts
+import { z } from 'zod';
+
+// Explicitly whitelist allowed user fields - NEVER allow role, isAdmin, or accountStatus
+export const updateUserProfileSchema = z.object({
+  name: z.string().min(2).max(50),
+  avatarUrl: z.string().url().optional(),
+  bio: z.string().max(250).optional()
+}).strict(); // Rejects any unknown or injected administrative properties
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your API is your contract. Harden it.
 
 ---
 

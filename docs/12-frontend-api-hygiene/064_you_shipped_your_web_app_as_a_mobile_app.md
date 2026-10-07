@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcZOrpQCcZW/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You just shipped your web app as a mobile app and every API key is visible in the devices local storage. Capacitor wraps your web app in a native shell. So everything that was in the browser is now on the device.
+You shipped your web app as a mobile app.
 
 ---
 
@@ -18,7 +18,7 @@ You just shipped your web app as a mobile app and every API key is visible in th
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,31 +28,37 @@ So everything that was in the browser is now on the device. Local storage sessio
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] move secrets out of client side storage and I mean API keys, tokens, and credentials. They do not belong in local storage on any mobile device.
-- [ ] certificate pinning on every API call. Without certificate pinning, any proxy can intercept your app's traffic.
-- [ ] deep link validation. Your app registers URL schemes.
+- [ ] move secrets out of client side storage and I mean API keys, tokens, and credentials.
+- [ ] certificate pinning on every API call.
+- [ ] deep link validation.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your web app had a browser protecting it. Your mobile app does not.
 
 ---
 

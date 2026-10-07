@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZYPNahPmpz/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI endpoint is totally public and anyone with a URL can send it requests and every request costs you real money. One bot, one loop, and one weekend you're not paying attention could be a four figure bill on Monday morning. Here are the three things you do right now to fix it.
+No gateway…..means your AI endpoint is an open wallet with a public URL.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI endpoint is totally public and anyone with a URL can send it requests an
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ Here are the three things you do right now to fix it. Step one, put an API gatew
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] put an API gateway in front of every AI endpoint. Kong, AWS API gateway, or Cloudflare's API shield all work great.
-- [ ] add request validation at the gateway layer. Check payload size.
-- [ ] implement per user spend tracking. Tag every request with the user ID and log token consumption by user.
+- [ ] put an API gateway in front of every AI endpoint.
+- [ ] add request validation at the gateway layer.
+- [ ] implement per user spend tracking.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #242
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #242 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #242');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Three layers fix that.
 
 ---
 

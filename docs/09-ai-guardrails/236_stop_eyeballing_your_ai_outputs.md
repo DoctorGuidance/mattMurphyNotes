@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZf8_d7PpQZ/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You are building with AI, but you're testing manually, eyeballing outputs, raw dogging it completely. That works till it doesn't. And Murphy's law says it usually stops working at the worst possible time.
+Stop eyeballing your AI outputs.
 
 ---
 
@@ -18,7 +18,7 @@ You are building with AI, but you're testing manually, eyeballing outputs, raw d
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ And Murphy's law says it usually stops working at the worst possible time. So, h
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] use a model to evaluate another model's output. Cross-pollination.
-- [ ] build your test suite from your worst outputs. Every time a user reports a bad response, add that input to your test suite with the expected quality score.
-- [ ] compare across models and prompt versions. Run evaluations on the same inputs across different models and prompt iterations.
+- [ ] use a model to evaluate another model's output.
+- [ ] build your test suite from your worst outputs.
+- [ ] compare across models and prompt versions.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #236
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #236 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #236');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Model-as-judge scoring, in your CI pipeline, makes quality measurable.
 
 ---
 

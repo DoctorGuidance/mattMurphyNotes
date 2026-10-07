@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcCDhdAiqOZ/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your customers are using an AI product that has never been inspected. In any other industry, that would shut your whole business down. A restaurant cannot serve food without a health inspection.
+Your customers are using a product that has never been inspected. In any other industry, that would shut you down.
 
 ---
 
@@ -18,7 +18,7 @@ Your customers are using an AI product that has never been inspected. In any oth
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ A restaurant cannot serve food without a health inspection. A building cannot be
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your AI built the product and your customers moved in the same day. Nobody checked the foundation.
-- [ ] the regulatory environment is catching up fast. The EUAI act went live last week.
-- [ ] an inspection system is not hard to build. It's a decision to build.
+- [ ] your AI built the product and your customers moved in the same day.
+- [ ] the regulatory environment is catching up fast.
+- [ ] an inspection system is not hard to build.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #081
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #081 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #081');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The inspection is overdue.
 
 ---
 

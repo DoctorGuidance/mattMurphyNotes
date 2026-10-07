@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Db_etk2ElsD/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Every company building their own software in the future needs someone in house who knows how to direct AI. Not a developer, not an IT person, but someone who understands what it takes to keep production applications up and running. And that role doesn't exist in most companies today, but it will exist in every single company in the next 5 years.
+Every company that builds its own software needs someone in-house who knows how to direct AI.
 
 ---
 
@@ -18,7 +18,7 @@ Every company building their own software in the future needs someone in house w
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,21 +28,28 @@ And that role doesn't exist in most companies today, but it will exist in every 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] They're directing the AI. The rest of the staff is vibe coding prototypes.
-- [ ] they manage the relationship with the engineering firm that finishes builds that the team cannot finish on their own. Not every build's going to need outside help, but the ones that do need someone in house who can speak the language, understand the scope of the project, and can evaluate whether the work was done correctly from the engineering firm.
+- [ ] They're directing the AI.
+- [ ] they manage the relationship with the engineering firm that finishes builds that the team cannot finish on their own.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #083
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #083 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #083');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -50,7 +57,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Someone who runs the audits, directs the AI to harden the builds, and manages the engineering partnership. This role will exist in every company within five years.
 
 ---
 

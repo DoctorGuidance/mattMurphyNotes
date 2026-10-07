@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbQmjD1D_ua/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Over 2,000 builders have had us look at their app and the same three things are broken and almost every single one. 2,000 requests. Not kidding.
+2,000 builders asked us to look at their apps.
 
 ---
 
@@ -18,7 +18,7 @@ Over 2,000 builders have had us look at their app and the same three things are 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,29 +28,33 @@ Not kidding. DMs, comments, emails, inbound audits at the faction group, Matt Mu
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] no error handling beyond the default. Their AI built the feature.
-- [ ] no environment separation. Development and production are running in the same database, same API keys, same configuration altogether.
-- [ ] no audit trail on sensitive actions. Users upgrading plans, changing email addresses, deleting data, modifying permissions, none of it is logged.
+- [ ] no error handling beyond the default.
+- [ ] no environment separation.
+- [ ] no audit trail on sensitive actions.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+// pages/api/secureProxy.ts
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+// Server-side gateway: Secret keys NEVER touch the client bundle
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const secretKey = process.env.INTERNAL_SERVICE_KEY; // Kept strictly on server
+  const response = await fetch('https://api.upstream.com/v1/data', {
+    headers: { 'Authorization': `Bearer ${secretKey}` }
+  });
+  const data = await response.json();
+  res.status(200).json(data);
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Direct your AI to close them before your customers find them first, which is usually exactly what happens
 
 ---
 

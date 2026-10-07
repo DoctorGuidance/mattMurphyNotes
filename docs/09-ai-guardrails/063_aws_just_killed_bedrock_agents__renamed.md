@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcbP4U7G6QK/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-AWS just killed Bedrock Agents. Now everyone who built on it for the healthcare baa has a migration path they did not plan for. And if you built your healthcare app on bedrock agents, your compliance path just got rerouted.
+AWS just killed Bedrock Agents. Renamed it to Classic. Closed to new customers.
 
 ---
 
@@ -18,7 +18,7 @@ AWS just killed Bedrock Agents. Now everyone who built on it for the healthcare 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ And if you built your healthcare app on bedrock agents, your compliance path jus
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] an abstraction layer between your application and any cloud provider's agent framework. Your business logic should never be hardwired to a vendor's SDK.
-- [ ] a BAA audit on every service in your stack after any provider migration. So your BAA covers specific services by name.
-- [ ] a migration runway, not a migration emergency. Classic is not shutting down tomorrow.
+- [ ] an abstraction layer between your application and any cloud provider's agent framework.
+- [ ] a BAA audit on every service in your stack after any provider migration.
+- [ ] a migration runway, not a migration emergency.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #063
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #063 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #063');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your cloud provider will always build the next thing. Architect so it does not break yours.
 
 ---
 

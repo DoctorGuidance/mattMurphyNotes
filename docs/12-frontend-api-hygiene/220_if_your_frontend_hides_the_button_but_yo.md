@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZs5JDxPOrW/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your app has users. Some of them are admins, some of them are not. And right now, you're checking it with an if statement.
+If your frontend hides the button but your API still accepts the request, you have a suggestion, not access control.
 
 ---
 
@@ -18,7 +18,7 @@ Your app has users. Some of them are admins, some of them are not. And right now
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on unverified AI code assumptions without failure handling or production boundaries in Frontend Architecture & API Hygiene. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Frontend Architecture & API Hygiene. |
 
 ---
 
@@ -28,30 +28,31 @@ And right now, you're checking it with an if statement. Here are the three thing
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] understand what RBAC actually is. Ro based access control.
-- [ ] start with three roles always. Admin, member, viewer.
-- [ ] enforce it everywhere. Every API route checks the role.
+- [ ] understand what RBAC actually is.
+- [ ] start with three roles always.
+- [ ] enforce it everywhere.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #220
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #220 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #220');
+// config/productionHardening.ts
+export const productionConfig = {
+  timeoutMs: 8000,
+  maxPayloadBytes: 1024 * 1024, // 1MB payload ceiling
+  headers: {
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
   }
-  return true;
-}
+};
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** If your frontend hides the button but your API still accepts the request, you have a suggestion, not access control.
 
 ---
 

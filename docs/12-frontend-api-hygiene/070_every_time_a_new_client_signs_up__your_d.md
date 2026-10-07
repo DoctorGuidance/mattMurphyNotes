@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcQ8u02Cj1A/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Every time a new client signs up for your multi-tenant system, you fork the entire repository. New branch, new deployment, new set of environmental variables. Client number four wanted dashboard in dark mode.
+Every time a new client signs up, your developer forks the entire repository.
 
 ---
 
@@ -18,7 +18,7 @@ Every time a new client signs up for your multi-tenant system, you fork the enti
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Filters tenant data in frontend or application code, leaking records across accounts on missed WHERE clauses. | Enforces Row-Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant data leakage. |
 
 ---
 
@@ -28,30 +28,28 @@ Client number four wanted dashboard in dark mode. Client number seven wanted to 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] wanted dashboard in dark mode. Client number seven wanted to export CSVs instead of PDFs.
-- [ ] feature flag scoped per tenant. A feature flag is not a global onoff switch.
-- [ ] tenant configuration inheritance with override layers. So start with a base configuration every tenant shares.
-- [ ] tenant aware routing at the application boundary. The application must know which tenant is making the request before it touches any logic.
+- [ ] wants to skip onboarding entirely.
+- [ ] feature flag scoped per tenant.
+- [ ] tenant configuration inheritance with override layers.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+```sql
+-- migrations/001_row_level_security.sql
+ALTER TABLE user_documents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_policy ON user_documents
+  FOR ALL
+  USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid)
+  WITH CHECK (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Feature flags per tenant. Configuration inheritance with overrides. Tenant-aware routing at the boundary. One codebase. Ten clients. Zero forks.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Observability & Error Tracking (`مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا`) |
 | **Target Production Layer** | Layer 12 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbDv862jzKb/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your user clicked delete my account. So you deleted all their data. Well, you just broke a federal law.
+Your user clicked delete my account.
 
 ---
 
@@ -18,7 +18,7 @@ Your user clicked delete my account. So you deleted all their data. Well, you ju
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ Well, you just broke a federal law. Certain industries require you to retain cus
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] a data retention policy engine. This isn't a toggle that says active or deleted.
-- [ ] a retention schedule mapped to your actual obligations. 7 years is not universal to all companies and all projects, right?
-- [ ] an audit trail that proves you followed the policy. When a regulator asks, and in certain industries they absolutely will, you need to show exactly what was retained, what was anonymized, and when the clock started, and also when it expires.
+- [ ] a data retention policy engine.
+- [ ] a retention schedule mapped to your actual obligations.
+- [ ] an audit trail that proves you followed the policy.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #128
-// Domain: 06-observability-logs
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #128 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #128');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your AI has no idea this conflict exists. Direct your AI to build a retention policy engine, map your obligations, and create an audit trail before your first user asks to leave.
 
 ---
 

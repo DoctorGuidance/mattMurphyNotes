@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdewD5fFOjE/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI built a return to feature. After login, the user redirects to the page they came from. The destination comes from a URL parameter your server never validates.
+An attacker just used your login page to send your users to a phishing site.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI built a return to feature. After login, the user redirects to the page t
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ The destination comes from a URL parameter your server never validates. A redire
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your login URL includes a parameter. liked return to or redirect.
-- [ ] an attacker who cannot use an external URL tries a relative path that resolves unexpectedly, like a double slash at the start, a backslash, an encoded character. URL parsing treats these differently than your validation does.
-- [ ] your logout flow has the same vulnerability. A redirect after logout sends the user to a fishing login page that looks just like yours.
+- [ ] your login URL includes a parameter.
+- [ ] an attacker who cannot use an external URL tries a relative path that resolves unexpectedly, like a double slash at the start, a backslash, an encoded character.
+- [ ] your logout flow has the same vulnerability.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #017
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #017 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #017');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your login page is your user's front door.
 
 ---
 

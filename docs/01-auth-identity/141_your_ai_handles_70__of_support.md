@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Da02icHj2ss/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Just last week, I told you your AI assistant is your first support engineer. And this week, I want to tell you where the agent stops and you start as the human in the loop. Your AI handles 70% of the support automatically from the playbooks you built, the known issues, the documented fixes, password resets, permission syncs, configuration errors.
+Your AI handles 70% of support.
 
 ---
 
@@ -18,7 +18,7 @@ Just last week, I told you your AI assistant is your first support engineer. And
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,34 @@ Your AI handles 70% of the support automatically from the playbooks you built, t
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] the billing dispute where the customer is right but the system said otherwise. So a customer is charged twice.
-- [ ] the feature request disguised as a bug report. A customer says a filter is broken, right?
-- [ ] the angry email that is not about the bug. A customer sends a furious message about a minor formatting issue, but we all know it's not about formatting.
+- [ ] the billing dispute where the customer is right but the system said otherwise.
+- [ ] the feature request disguised as a bug report.
+- [ ] the angry email that is not about the bug.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #141
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #141 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #141');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Build the 70% so you have time for the 30%.
 
 ---
 

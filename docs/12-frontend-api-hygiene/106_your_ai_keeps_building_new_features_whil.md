@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbeZo5Zx5i2/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI keeps building new features while your existing features are totally broken and you keep letting it because building feels like progress. Something breaks, a payment flow fails, your onboarding drops people at step three. Instead of fixing it, you ask your AI to build the next feature.
+Your AI keeps building new features while your existing features are broken.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI keeps building new features while your existing features are totally bro
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ Instead of fixing it, you ask your AI to build the next feature. Guess what? Bee
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] every new feature stacked on a broken foundation makes the foundation more fragile. Your AI will happily add a notification system on top of an offflow that drops sessions.
-- [ ] Your customers are not asking for new features. They are asking for the current ones to work perfectly.
-- [ ] direct your AI to run a feature health audit before it builds anything new. What is live?
+- [ ] every new feature stacked on a broken foundation makes the foundation more fragile.
+- [ ] Your customers are not asking for new features.
+- [ ] direct your AI to run a feature health audit before it builds anything new.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #106
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #106 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #106');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** But your job as an AIdirected engineer is to tell it when to stop building and start fixing
 
 ---
 

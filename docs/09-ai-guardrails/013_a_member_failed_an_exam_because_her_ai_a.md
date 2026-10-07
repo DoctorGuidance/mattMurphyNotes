@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Ddl66hIAIkY/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-So, a member in our faction builders community failed an exam because her AI argued with the curriculum. Her entire application is one400 line file. Claude told her not to split it.
+A member failed an exam because her AI argued with the curriculum.
 
 ---
 
@@ -18,7 +18,7 @@ So, a member in our faction builders community failed an exam because her AI arg
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ Claude told her not to split it. The exam said, "Split it." She asked who to lis
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] the model sees the code in front of it. It does not see the developer who inherits it in 6 months.
-- [ ] standards exist because someone already made the mistake. file organization, naming conventions, separation of concerns.
-- [ ] when your AI argues with the standard, that is the moment you are being tested not by the exam, by the work itself. The builders who override the model when it conflicts with the principle are the ones who ship products that survive.
+- [ ] the model sees the code in front of it.
+- [ ] standards exist because someone already made the mistake.
+- [ ] when your AI argues with the standard, that is the moment you are being tested not by the exam, by the work itself.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #013
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #013 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #013');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** When your AI argues with a standard, that is the moment you are being tested. The exam was right.
 
 ---
 

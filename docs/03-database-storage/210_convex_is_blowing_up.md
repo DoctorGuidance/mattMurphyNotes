@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Database & Storage Engineering (`پایگاه‌داده، روابط، ایندکس و پایداری داده`) |
 | **Target Production Layer** | Layer 3 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZ3G-nTPl9F/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Convex is blowing up right now. Builders are loving it. It's real time by default.
+Convex is blowing up.
 
 ---
 
@@ -18,7 +18,7 @@ Convex is blowing up right now. Builders are loving it. It's real time by defaul
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ It's real time by default. No SQL, no migrations. Feels like magic until it does
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] Convex is a reactive database. Your data changes, your UI updates automatically.
-- [ ] Postgress, it's the most battle tested database on the planet. 40 years in production, ton of engineers, every hosting platform supports it, every ORM speaks it.
-- [ ] the real question is the lock in, right? Convex is a platform.
+- [ ] Convex is a reactive database.
+- [ ] Postgress, it's the most battle tested database on the planet.
+- [ ] the real question is the lock in, right?
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #210
-// Domain: 03-database-storage
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #210 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #210');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Pick the tradeoff you can live with.
 
 ---
 

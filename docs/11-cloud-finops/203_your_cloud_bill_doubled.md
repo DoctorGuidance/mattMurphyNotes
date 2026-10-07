@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZ-KjLZEcwV/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your cloud bill doubled last month. You're not exactly sure which service is causing it. And you're not alone.
+Your cloud bill doubled.
 
 ---
 
@@ -18,7 +18,7 @@ Your cloud bill doubled last month. You're not exactly sure which service is cau
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,30 @@ And you're not alone. So, here are the three things you're going to check right 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] check your idle resources. That staging environment you spun up 3 months ago, it's still running.
-- [ ] rightize it. Your production server runs on an instance built for traffic you don't have yet.
-- [ ] data going into the cloud is free, but data coming out is not egress fees. So every API response, every image served, every web hook payload.
+- [ ] check your idle resources.
+- [ ] rightize it.
+- [ ] data going into the cloud is free, but data coming out is not egress fees.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #203
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #203 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #203');
-  }
-  return true;
-}
+// lib/dbPool.ts
+import { Pool } from 'pg';
+
+export const dbPool = new Pool({
+  connectionString: process.env.DATABASE_POOL_URL, // PgBouncer transaction pool
+  max: 20,                                         // Strict ceiling per serverless container
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** That is an architecture problem.
 
 ---
 

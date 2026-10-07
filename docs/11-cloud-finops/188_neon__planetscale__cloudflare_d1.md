@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaNcPqCjIqP/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You outgrew that free tier at superb basease finally. And the question is not whether you evaluate alternatives. Of course you do.
+Neon. PlanetScale. Cloudflare D1.
 
 ---
 
@@ -18,7 +18,7 @@ You outgrew that free tier at superb basease finally. And the question is not wh
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,23 +28,30 @@ Of course you do. The question is which alternative architecture matches where y
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] there's neon serverless Postgress. Your database scales to zero when nobody's using it.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// PostgreSQL Connection Pooling Configuration
-// DATABASE_URL routed through PgBouncer / Supavisor:
-DATABASE_URL="postgresql://user:pass@db.pooler.supabase.com:6543/postgres?pgbouncer=true"
-DIRECT_URL="postgresql://user:pass@db.supabase.com:5432/postgres" // For schema migrations
+// lib/dbPool.ts
+import { Pool } from 'pg';
+
+export const dbPool = new Pool({
+  connectionString: process.env.DATABASE_POOL_URL, // PgBouncer transaction pool
+  max: 20,                                         // Strict ceiling per serverless container
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
+});
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Nobody's tutorial covers which one matches your workload.
 
 ---
 

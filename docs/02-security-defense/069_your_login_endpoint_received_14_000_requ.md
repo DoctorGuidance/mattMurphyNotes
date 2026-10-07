@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcRgRM2jjuv/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your login endpoint received 14,000 requests last night and none of them were your users. Credential stuffing bots hitting your login 200 requests per minute. Scrapers on your pricing page every 3 seconds and automated scanners probing every route for potential vulnerabilities.
+Your login endpoint received 14,000 requests last night. None of them were your users. Credential stuffing, scrapers, vulnerability scanners.
 
 ---
 
@@ -18,7 +18,7 @@ Your login endpoint received 14,000 requests last night and none of them were yo
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Configures wildcard `Access-Control-Allow-Origin: *` with credentials enabled, exposing authenticated APIs. | Enforces strict origin allowlists and explicit pre-flight inspection for production APIs. |
 
 ---
 
@@ -28,29 +28,37 @@ Scrapers on your pricing page every 3 seconds and automated scanners probing eve
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] rate limiting rules on authentication endpoints. Your login, registration, and password reset endpoints should never accept more than a defined number of requests per IP per minute.
-- [ ] bot management rules on high-v value pages. Your pricing page, your checkout flow, your API documentation.
-- [ ] custom WFT rules, known attack patterns, SQL injection attempts and query strings, XSS payloads and form fields, path traversal and URLs. Cloudflare's WFT can catch these at the edge and drop the request before your application ever sees it.
+- [ ] rate limiting rules on authentication endpoints.
+- [ ] bot management rules on high-v value pages.
+- [ ] custom WFT rules, known attack patterns, SQL injection attempts and query strings, XSS payloads and form fields, path traversal and URLs.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
-import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
-  storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
+// middleware/cors.ts
+import cors from 'cors';
+
+const ALLOWED_ORIGINS = ['https://app.company.com', 'https://portal.company.com'];
+
+export const secureCors = cors({
+  origin: (origin, callback) => {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy: unauthorized origin'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 });
-await rateLimiter.consume(req.ip);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** You are paying for a wall. Configure it.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdMufvsE6Z3/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Uh-oh. Your server just charged the same credit card twice, provisioned the same user twice, and sent the exact same email to them twice, but every web hook signature was totally valid. And that quite frankly is the problem.
+Your server just charged the same card twice, provisioned the same user twice, sent the same email twice.
 
 ---
 
@@ -18,7 +18,7 @@ Uh-oh. Your server just charged the same credit card twice, provisioned the same
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,32 +28,29 @@ And that quite frankly is the problem. So your AI verified the web hook signatur
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] but your AI stopped at
-- [ ] direct your AI to store every event ID before it processes the handler logic. Check the ID against your database.
-- [ ] set a replay window. Reject event IDs older than 24 hours.
-- [ ] return a success response for all duplicates. Right?
+- [ ] but your AI stopped at step one.
+- [ ] direct your AI to store every event ID before it processes the handler logic.
+- [ ] set a replay window.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The signature proves the sender. Idempotency proves you only acted once.
 
 ---
 

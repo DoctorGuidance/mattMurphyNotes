@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbTF4zkEegn/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Yeah, your AI built an app in a weekend, but a security auditor walks in on Monday morning, shuts it right down. Every default wide open stack trace totally public endpoints accepting requests from anywhere. Rate limits that don't even exist and logging that's capturing nothing.
+Your AI built your app in a weekend. A security auditor would shut it down by Monday.
 
 ---
 
@@ -18,7 +18,7 @@ Yeah, your AI built an app in a weekend, but a security auditor walks in on Mond
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Leaves endpoints open without rate limiting, allowing scrapers or brute-force bots to drain resources. | Implements token bucket rate limiting at gateway level, throttling abusive IPs with exponential backoff. |
 
 ---
 
@@ -28,29 +28,42 @@ Rate limits that don't even exist and logging that's capturing nothing. So yeah,
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] error handling that protects your internals. Right now, when something breaks, your app returns a stack trace that tells an attacker exactly what framework you're running, what databases you're using, where your code has failed.
-- [ ] security headers on every response. Content security policies, X-frame options, strict transport security.
-- [ ] input validation on every endpoint, not just your login form, every form, every API parameter, every query string. Your AI validates what it thinks a user will submit.
+- [ ] error handling that protects your internals.
+- [ ] security headers on every response.
+- [ ] input validation on every endpoint, not just your login form, every form, every API parameter, every query string.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Redis Token Bucket Rate Limiter
+// middleware/rateLimiter.ts
 import { RateLimiterRedis } from 'rate-limiter-flexible';
-const rateLimiter = new RateLimiterRedis({
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
   storeClient: redisClient,
-  points: 10,   // 10 requests
-  duration: 60, // per 60 seconds
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
 });
-await rateLimiter.consume(req.ip);
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
+  }
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So direct your AI to lock it down before someone else tests what your AI left wide open
 
 ---
 

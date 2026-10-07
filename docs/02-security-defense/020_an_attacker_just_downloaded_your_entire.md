@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `HIGH` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdbnwpOiEZJ/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI just let an attacker download your entire API schema. Every query, every mutation, every type and relationship in your database. So your AI deployed a GraphQL endpoint and left introspection enabled.
+An attacker just downloaded your entire API schema.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI just let an attacker download your entire API schema. Every query, every
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ So your AI deployed a GraphQL endpoint and left introspection enabled. When your
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] introspection returns your full schema on a single request. Every type name, every field, every argument, every relationship.
-- [ ] an attacker who knows your schema crafts queries that request deeply nested relationships. A query that joins users to orders to payments to addresses five levels deep, right?
-- [ ] even with introspection disabled, an attacker can reconstruct your schema by sending queries and observing which ones succeed and which ones fail. So field suggestions and error messages reveal valid field names one at a time.
+- [ ] introspection returns your full schema on a single request.
+- [ ] an attacker who knows your schema crafts queries that request deeply nested relationships.
+- [ ] even with introspection disabled, an attacker can reconstruct your schema by sending queries and observing which ones succeed and which ones fail.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #020
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #020 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #020');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your schema is for your application. An attacker should never see it.
 
 ---
 

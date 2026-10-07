@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Db-7JyYDdas/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Don't shoot the messenger, but 10,000 people are working on your idea right now, and none of them are worried about you. While you're hiding your product, protecting your code, and refusing to make content because someone might steal your idea, 10,000 other people are building the exact same idea right now. I promise you, it's true.
+10,000 people are working on your idea right now.
 
 ---
 
@@ -18,7 +18,7 @@ Don't shoot the messenger, but 10,000 people are working on your idea right now,
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,20 +28,28 @@ I promise you, it's true. They're shipping, they're getting users, they're gener
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] stop building tools for your competitors. I see this constantly every day.
+- [ ] stop building tools for your competitors.
+- [ ] if the first thing you are worried about is someone stealing your idea, you are not ready for this world.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #084
-// Domain: 07-async-queues-webhooks
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #084 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #084');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -49,7 +57,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** If the first thing you worry about is someone stealing your idea, you are not ready for this.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Testing, Staging & CI/CD (`تست، محیط‌های کاری، CI/CD و خط لوله استقرار`) |
 | **Target Production Layer** | Layer 7 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaaYDrMkbpW/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You use the free tier of GitHub actions on CI/CD. 2,000 minutes a month, automatic builds on every push. Your solo project uses 80 minutes.
+GitHub Actions free tier. 2,000 minutes.
 
 ---
 
@@ -18,7 +18,7 @@ You use the free tier of GitHub actions on CI/CD. 2,000 minutes a month, automat
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on unverified AI code assumptions without failure handling or production boundaries in Testing, Staging & CI/CD. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Testing, Staging & CI/CD. |
 
 ---
 
@@ -28,30 +28,31 @@ Your solo project uses 80 minutes. No problem. It's got you covered.
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] Your solo project uses 80 minutes.
-- [ ] A bug ships to production because the safety net ran out of minutes.
-- [ ] And that day always arrives during a sprint and not in between them.
+- [ ] Inspect the existing code paths and identify unvalidated boundary inputs.
+- [ ] Implement defense-in-depth guardrails preventing unauthorized state modification.
+- [ ] Add automated regression tests verifying failure scenarios before shipping.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #172
-// Domain: 10-cicd-deployments
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #172 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #172');
+// config/productionHardening.ts
+export const productionConfig = {
+  timeoutMs: 8000,
+  maxPayloadBytes: 1024 * 1024, // 1MB payload ceiling
+  headers: {
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
   }
-  return true;
-}
+};
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Every free tier has a trap door. Know where yours is.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DdHBY76jE2o/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-An attacker just typed a crafted string right into your search field and your database returned every user's credentials. That's not a win. Your AI dropped into raw SQL and removed every protection that Prisma provides.
+An attacker just typed a crafted string into your search field and your database returned every user's credentials.
 
 ---
 
@@ -18,7 +18,7 @@ An attacker just typed a crafted string right into your search field and your da
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ Your AI dropped into raw SQL and removed every protection that Prisma provides. 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] your AI put user input directly into a database command, a search field, a filter, or a sort parameter. Right?
-- [ ] validate every input before it reaches any query. A search field that accepts 10,000 characters when the longest valid search is 200 is not a feature.
-- [ ] direct your AI to find Every raw query in your codebase right now, one search, every instance. Any raw query that builds itself from user input is an open door to your system.
+- [ ] your AI put user input directly into a database command, a search field, a filter, or a sort parameter.
+- [ ] validate every input before it reaches any query.
+- [ ] direct your AI to find Every raw query in your codebase right now, one search, every instance.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #033
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #033 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #033');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** The ORM is not the vulnerability. The one place your AI bypassed it is.
 
 ---
 

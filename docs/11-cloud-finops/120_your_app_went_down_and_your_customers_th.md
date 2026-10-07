@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbL-9-3kT8H/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your app went down when you were asleep and now your customers think you stole their money. 6 hours of downtime, no status page, no status updates, no maintenance announcement, no communication to the users of any kind. And this is all because your AI never built you a status system.
+Your app went down and your customers think you stole their money. Six hours of downtime.
 
 ---
 
@@ -18,7 +18,7 @@ Your app went down when you were asleep and now your customers think you stole t
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ And this is all because your AI never built you a status system. Here are three 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] a public status page on a separate domain altogether, not hosted on your main infrastructure. Because when your app goes down, your status page goes down with it.
-- [ ] a scheduled maintenance announcement system. Every application needs downtime.
-- [ ] an incident communication workflow. When an outage hits, you need a status page update with defined intervals, email notifications to active subscribers, and an estimated restoration time, even if it's just a guess.
+- [ ] a public status page on a separate domain altogether, not hosted on your main infrastructure.
+- [ ] a scheduled maintenance announcement system.
+- [ ] an incident communication workflow.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #120
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #120 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #120');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So direct your AI to build it before your next outage cost you more than just a little bit of downtime
 
 ---
 

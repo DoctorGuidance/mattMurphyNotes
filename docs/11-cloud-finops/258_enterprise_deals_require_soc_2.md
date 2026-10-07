@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZH8QLtxdCT/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your first enterprise prospect asked you for your sock 2 report. You don't have one, so they told you to come back when you do. Here are three things you can do right now to prepare for your sock 2.
+Enterprise deals require SOC 2.
 
 ---
 
@@ -18,7 +18,7 @@ Your first enterprise prospect asked you for your sock 2 report. You don't have 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on unverified AI code assumptions without failure handling or production boundaries in Cloud Infrastructure & FinOps. | Applies hardened architectural patterns, strict input boundaries, and automated monitoring for Cloud Infrastructure & FinOps. |
 
 ---
 
@@ -28,22 +28,34 @@ Here are three things you can do right now to prepare for your sock 2. Step one,
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] deploy continuous compliance monitoring right now. Pick a platform like Vont or Drada or secure frame.
-- [ ] automate your evidence collection. Sock 2 requires proof of everything.
-- [ ] start with sock 2 type one. Type one says your controls are designed correctly at that point in time.
+- [ ] deploy continuous compliance monitoring right now.
+- [ ] automate your evidence collection.
+- [ ] start with sock 2 type one.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #258
-// Domain: 11-cloud-finops
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #258 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #258');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Ship in 60 days.
 
 ---
 

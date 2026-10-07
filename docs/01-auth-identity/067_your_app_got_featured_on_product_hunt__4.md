@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcUFF39Eu04/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your app just got featured on Product Hunt. 4,000 signups in the last 48 hours. By day seven though, 90% of them were gone.
+Your app got featured on Product Hunt. 4,000 signups in 48 hours.
 
 ---
 
@@ -18,7 +18,7 @@ Your app just got featured on Product Hunt. 4,000 signups in the last 48 hours. 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ By day seven though, 90% of them were gone. So, your signup page is converting, 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] a time to value target measured in
-- [ ] progressive disclosure that gates complexity behind achievements. So, do not show every feature on the
-- [ ] a day one and day seven re-engagement trigger tied to something the user created. Not a generic come back, please email.
+- [ ] a time to value target measured in seconds, not days.
+- [ ] progressive disclosure that gates complexity behind achievements.
+- [ ] a day one and day seven re-engagement trigger tied to something the user created.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #067
-// Domain: 01-auth-identity
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #067 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #067');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your signup converts. Make your product convert too.
 
 ---
 

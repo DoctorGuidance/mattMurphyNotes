@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcMWtOgEgaE/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-GitHub has just showed you exactly where your AI money goes, and most of you might not ever look, but GitHub's new usage report now breaks down your AI credits by model. Input tokens, output tokens, cash reads, and cash rights. For the first time, you can see exactly which model consumed the credits and what kind of tokens created the costs.
+GitHub just showed you exactly where your AI money goes.
 
 ---
 
@@ -18,7 +18,7 @@ GitHub has just showed you exactly where your AI money goes, and most of you mig
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ For the first time, you can see exactly which model consumed the credits and wha
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] model routing by task complexity. When an agent picks a model, it picks the best model available for every single call.
-- [ ] input caching on repeating workflows. If your agent sends the same project context, the same system prompt, the same instructions on every single call, you're paying full token price for identical outputs on every cycle.
-- [ ] a weekly cost breakdown by model, by workflow, and by token type. A monthly invoice tells you what you spent, sure, but a weekly breakdown tells you where to cut.
+- [ ] model routing by task complexity.
+- [ ] input caching on repeating workflows.
+- [ ] a weekly cost breakdown by model, by workflow, and by token type.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #073
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #073 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #073');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Cost is now a system you engineer, not a number you react to. Read the report.
 
 ---
 

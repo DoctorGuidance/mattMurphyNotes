@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcThgrwlaDD/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You said yes to every single client request for 18 months straight. Now your product no longer ships without breaking something. Custom dashboards for client number four, special export for client number seven, a workflow that only client number 11 uses.
+You said yes to every client request for 18 months. Your product no longer ships without breaking something.
 
 ---
 
@@ -18,7 +18,7 @@ You said yes to every single client request for 18 months straight. Now your pro
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,23 +28,29 @@ Custom dashboards for client number four, special export for client number seven
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] special export for client number seven, a workflow that only client
-- [ ] a customization cost model before the
-- [ ] configuration over code. Every custom feature that can be expressed as a configuration change instead of a code branch saves you exponentially.
-- [ ] productization threshold. When three or more clients request the same customization, it stops being custom.
+- [ ] uses.
+- [ ] a customization cost model before the first line of code is written, not after.
+- [ ] configuration over code.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #068
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #068 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #068');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -52,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** our best client should not be your most expensive client.
 
 ---
 

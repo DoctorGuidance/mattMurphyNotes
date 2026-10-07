@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Frontend Architecture & API Hygiene (`معماری فرانت‌اند، طراحی واسط و بهداشت API`) |
 | **Target Production Layer** | Layer 1 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/Dbymz5CE5ZP/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-If you are building products for builders, your product needs to be something an agent can buy. Not something a person browses for, something an agent discovers, evaluates, and installs in their system without a human ever visiting your website. The way builders purchase tools is changing every minute, and most product builders have not even caught up.
+If you are building for builders, your product needs to be something an agent can buy.
 
 ---
 
@@ -18,7 +18,7 @@ If you are building products for builders, your product needs to be something an
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,21 +28,24 @@ The way builders purchase tools is changing every minute, and most product build
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] if you build AI rappers, skills, MCPs, developer tools of any kind, your product is not bought, it's integrated. A builder's agent queries for a capability, finds your tool, evaluates the documentation, checks the price, and adds it to their system right there.
-- [ ] tokenized access is how agents are going to buy. Not monthly subscriptions, not per seat pricing tokens.
+- [ ] if you build AI rappers, skills, MCPs, developer tools of any kind, your product is not bought, it's integrated.
+- [ ] tokenized access is how agents are going to buy.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #093
-// Domain: 12-frontend-api-hygiene
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #093 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #093');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -50,7 +53,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Builders are using AI to find their tools. If your product is not structured data an agent can read, you are invisible to the fastest growing acquisition channel in software.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Authentication & Identity (`احراز هویت و مدیریت نشست‌ها`) |
 | **Target Production Layer** | Layer 4 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DcwZzLckxZ4/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-So, your AI, it added signin with Google to your product, but your AI also left the redirect wide open. So, someone just sent your users a login link that delivers their token to a server you've never even seen. So, your AI, it built ooth flow, right?
+You added Sign in with Google. Your AI left the redirect wide open.
 
 ---
 
@@ -18,7 +18,7 @@ So, your AI, it added signin with Google to your product, but your AI also left 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,29 +28,33 @@ So, your AI, it built ooth flow, right? Log in with Google, get a token, redirec
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] lock your redirect URL to exact registered URLs. No wild cards, no pattern matching, no open redirects.
-- [ ] enforce a state parameter on every OOTH request. The state parameter ties the login request to the user session.
-- [ ] scope your token request to the minimum permissions your app actually needs. So if you requested full profile access and your app only needs an email address, every stolen token gives the attacker more than it should.
+- [ ] lock your redirect URL to exact registered URLs.
+- [ ] enforce a state parameter on every OOTH request.
+- [ ] scope your token request to the minimum permissions your app actually needs.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Strict Tenant & User-Scoped Query
-const record = await prisma.document.findFirst({
-  where: {
-    id: req.params.id,
-    tenantId: req.user.tenantId // Mandatory tenant isolation
-  }
-});
-if (!record) throw new NotFoundError('Access denied or record not found');
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your users trust that login button. Make sure it only works for you.
 
 ---
 

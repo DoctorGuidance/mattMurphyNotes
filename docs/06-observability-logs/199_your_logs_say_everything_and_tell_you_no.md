@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Observability & Error Tracking (`مشاهده‌پذیری، لاگ ساختاریافته و رهگیری خطا`) |
 | **Target Production Layer** | Layer 12 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DaCLbB1khUp/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your logs definitely say everything, but they're telling you nothing. 200,000 lines of unstructured text. So, here are the three things you're going to do right now to understand them better.
+Your logs say everything and tell you nothing.
 
 ---
 
@@ -18,7 +18,7 @@ Your logs definitely say everything, but they're telling you nothing. 200,000 li
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Relies on default primary keys without composite or covering indexes, causing sequential full-table scans. | Defines covering and composite indexes matching exact query access patterns with foreign key constraints. |
 
 ---
 
@@ -28,30 +28,29 @@ So, here are the three things you're going to do right now to understand them be
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] structured logging. Instead of writing a sentence to the log, write an object.
-- [ ] correlation IDs. One user request touches six services.
-- [ ] Three log levels with discipline. Everything is not an error and everything is not info.
+- [ ] structured logging.
+- [ ] correlation IDs.
+- [ ] Three log levels with discipline.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
-```typescript
-// Hardened Production Configuration - Episode #199
-// Domain: 06-observability-logs
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #199 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #199');
-  }
-  return true;
-}
+```sql
+-- migrations/002_composite_indexes.sql
+-- Eliminate table scans and guarantee unique constraints
+CREATE UNIQUE INDEX CONCURRENTLY IF NOT EXISTS idx_users_org_email 
+  ON users (organization_id, LOWER(email));
+
+-- Covering index for frequent filtered lookups
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_customer_status_created 
+  ON orders (customer_id, status) INCLUDE (total_amount, created_at);
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Structure changes that.
 
 ---
 

@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbbaGawGG3_/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your AI can find you the perfect customers before you post a single ad about your product and almost nobody is using it this way. So when I was building the faction builder community, I did not guess who my audience was. I had a pretty good idea, but I directed my AI to build an ICP for my products based on my specific background, my skill set, and the market I was entering.
+Your AI can find your perfect customer before you post a single ad.
 
 ---
 
@@ -18,7 +18,7 @@ Your AI can find you the perfect customers before you post a single ad about you
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,31 +28,37 @@ I had a pretty good idea, but I directed my AI to build an ICP for my products b
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] build your ICP from your actual skill set. Your skill set, not from wishful thinking or an idea you had about a problem.
-- [ ] research the communities where your customers already live and go learn from the inside out. I paid to enter the communities that best modeled what I was trying to build.
-- [ ] turn that research into your product blueprint. Before you write a single line of code, direct your AI to take your ICP research and your competitive analysis and generate a product positioning document that is focused on you.
+- [ ] build your ICP from your actual skill set.
+- [ ] research the communities where your customers already live and go learn from the inside out.
+- [ ] turn that research into your product blueprint.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-# Docker Compose Network Segmentation
-networks:
-  frontend_net:
-  backend_net:
-    internal: true # No direct internet access
-services:
-  marketing:
-    networks: [frontend_net]
-  database:
-    networks: [backend_net] # Isolated from marketing container
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
+}
 ```
 
 ---
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** So, direct your AI to start it before another feature nobody asked for
 
 ---
 

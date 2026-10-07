@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Async Queues & Webhooks (`صف‌های پردازش غیرهمزمان و وب‌هوک‌های مالی`) |
 | **Target Production Layer** | Layer 6 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbJSeKTFKW0/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your customer just sent you a payment. And now they think you're a scam. The charge hit their bank account, but the confirmation email never showed up behind it.
+Your customer just paid you. And they think you are a scam.
 
 ---
 
@@ -18,7 +18,7 @@ Your customer just sent you a payment. And now they think you're a scam. The cha
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ The charge hit their bank account, but the confirmation email never showed up be
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] SPF and DKIM records in your sending domain. These are the authentication protocols that tell Gmail and Outlook your app is allowed to send email from your domain.
-- [ ] a dedicated sending domain for transactional emails separate from your marketing. When your newsletter gets spam complaints, that reputation bleeds into your receipts.
-- [ ] delivery monitoring. That tells you where your emails actually land.
+- [ ] SPF and DKIM records in your sending domain.
+- [ ] a dedicated sending domain for transactional emails separate from your marketing.
+- [ ] delivery monitoring.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #122
-// Domain: 07-async-queues-webhooks
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #122 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #122');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Your AI never configured email deliverability. Direct your AI to set up SPF, DKIM, a dedicated sending domain, and delivery monitoring.
 
 ---
 

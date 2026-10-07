@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | Testing, Staging & CI/CD (`تست، محیط‌های کاری، CI/CD و خط لوله استقرار`) |
 | **Target Production Layer** | Layer 7 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZiVwxixLrb/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-Your CI/CD pipeline was built for deterministic code. Same input, same output every single time. AI responses break that assumption.
+AI breaks traditional CI/CD.
 
 ---
 
@@ -18,7 +18,7 @@ Your CI/CD pipeline was built for deterministic code. Same input, same output ev
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,25 @@ AI responses break that assumption. So if your pipeline checks for exact output 
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] replace assertionbased tests with evaluationbased tests. Do not check for string equality.
-- [ ] add a cost check to your pipeline. Estimate the token cost of each deployment.
-- [ ] gate deploys on Canary quality. scores.
+- [ ] replace assertionbased tests with evaluationbased tests.
+- [ ] add a cost check to your pipeline.
+- [ ] gate deploys on Canary quality.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #233
-// Domain: 10-cicd-deployments
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #233 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #233');
-  }
-  return true;
+// auth/session.ts
+import { Response } from 'express';
+
+export function setSecureSessionCookie(res: Response, token: string) {
+  res.cookie('session_token', token, {
+    httpOnly: true,                               // Inaccessible to client JS
+    secure: process.env.NODE_ENV === 'production', // HTTPS only
+    sameSite: 'lax',                              // CSRF protection
+    path: '/',
+    maxAge: 15 * 60 * 1000                        // 15-minute rotation window
+  });
 }
 ```
 
@@ -51,7 +54,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Replace assertions with evals, add cost checks, and gate on canary quality.
 
 ---
 

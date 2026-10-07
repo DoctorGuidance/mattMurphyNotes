@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `MEDIUM` |
 | **Architectural Domain** | AI Guardrails, LLM Security & Compliance (`مهار مدل‌های هوش مصنوعی، پرامپت و الزامات قانونی`) |
 | **Target Production Layer** | Layer 2 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DctRagnk9uk/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-You have 47 stale skills loaded in your AI assistant right now. And more than half of them were written for a model that no longer exists. I'm referring to a skill that you saved 4 months ago.
+You have 47 skills loaded into your AI right now. Half of them were written for a model that no longer exists.
 
 ---
 
@@ -18,7 +18,7 @@ You have 47 stale skills loaded in your AI assistant right now. And more than ha
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,29 @@ I'm referring to a skill that you saved 4 months ago. It was written for a model
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] audit every skill in your system against the current model version. If the skill references capabilities, syntax, or workarounds that no longer apply, it's dead weight.
-- [ ] treat skills as prescriptions, not assets. A skill should solve one problem in one moment for your build and move on.
-- [ ] measure the performance differences. Sure.
+- [ ] audit every skill in your system against the current model version.
+- [ ] treat skills as prescriptions, not assets.
+- [ ] measure the performance differences.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #051
-// Domain: 09-ai-guardrails
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #051 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #051');
-  }
-  return true;
+// guardrails/aiAuditTrail.ts
+import crypto from 'crypto';
+import { db } from '../lib/db';
+
+export async function recordAIGeneration(userId: string, model: string, prompt: string, output: string) {
+  const promptHash = crypto.createHash('sha256').update(prompt).digest('hex');
+  await db.aiAuditLogs.create({
+    data: {
+      userId,
+      modelName: model,
+      promptSha256: promptHash,
+      isSyntheticallyGenerated: true,
+      timestamp: new Date()
+    }
+  });
 }
 ```
 
@@ -51,7 +58,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Apply. Verify. Dispose. Your AI got smarter every month. Your skills did not.
 
 ---
 

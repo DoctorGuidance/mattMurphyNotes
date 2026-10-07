@@ -2,7 +2,7 @@
 
 | Parameter | Specification |
 |:---|:---|
-| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Production Risk Severity** | 🚨 `CRITICAL` |
 | **Architectural Domain** | Application Security & Defense (`امنیت نرم‌افزار، حملات و دفاع لایه‌ای`) |
 | **Target Production Layer** | Layer 8 |
 | **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZyEXA6vDXs/) |
@@ -10,7 +10,7 @@
 ---
 
 ## 🚨 1. The Incident & Attack Vector
-The first time I ran OWAP Zap against one of my own applications, I found 11 vulnerabilities, 11 in an app that I thought was totally ready to ship. So, here are the three things you can do right now to fix it. Step one, you got to know what OASP's app even is.
+The first time I ever ran OWASP ZAP on one of my own apps.
 
 ---
 
@@ -18,7 +18,7 @@ The first time I ran OWAP Zap against one of my own applications, I found 11 vul
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+| Sends raw user input straight to LLMs and streams unverified model outputs directly to client browsers. | Applies schema validation, prompt sanitization, consent gates, and immutable audit logs with SGI metadata. |
 
 ---
 
@@ -28,22 +28,34 @@ Step one, you got to know what OASP's app even is. It's a free open-source secur
 ---
 
 ## ⚡ 4. Hardening Action Checklist
-- [ ] you got to know what OASP's app even is. It's a free open-source security scanner.
-- [ ] run it before launch, never after. Not when a customer asks if you've done a security audit, not when an investor asks about sock 2, but before the
-- [ ] do not try to fix everything at once. Zap will give you a report.
+- [ ] you got to know what OASP's app even is.
+- [ ] run it before launch, never after.
+- [ ] do not try to fix everything at once.
 
 ---
 
 ## 💻 5. Hardened Production Implementation
 ```typescript
-// Hardened Production Configuration - Episode #215
-// Domain: 02-security-defense
-export function enforceProductionGuardrail(context: Record<string, unknown>) {
-  // Enforce Matt Murphy #215 invariants:
-  if (!context.validated) {
-    throw new Error('Production guardrail triggered: Review Masterclass #215');
+// middleware/rateLimiter.ts
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import { redisClient } from '../lib/redis';
+import { Request, Response, NextFunction } from 'express';
+
+const limiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rl_global',
+  points: 10,       // Max 10 requests
+  duration: 60,     // Per 60 seconds
+  blockDuration: 60 // Block for 60s if exceeded
+});
+
+export async function rateLimitMiddleware(req: Request, res: Response, next: NextFunction) {
+  try {
+    await limiter.consume(req.ip);
+    next();
+  } catch (err) {
+    res.status(429).json({ error: 'Rate limit exceeded. Try again in 60s.' });
   }
-  return true;
 }
 ```
 
@@ -51,7 +63,7 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ## 🌟 6. Golden Takeaway
 > [!TIP]
-> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+> **Production Heuristic:** Scan yourself before someone else does.
 
 ---
 
