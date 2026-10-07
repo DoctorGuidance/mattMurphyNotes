@@ -343,13 +343,33 @@
       <!-- Modal Body (Scrollable) -->
       <div class="p-6 space-y-6 overflow-y-auto text-xs sm:text-sm">
         
-        <!-- Problem Section -->
+        <!-- Incident / Problem Section -->
         <div class="p-4 rounded-2xl bg-red-950/20 border border-red-500/30 space-y-2">
           <div class="font-bold text-red-400 flex items-center gap-2 text-sm">
             <span>🚨</span>
-            <span id="modal-lbl-problem">Problem Statement & Attack Vector</span>
+            <span id="modal-lbl-problem">Problem Statement & Failure Vector</span>
           </div>
           <p id="modal-problem" class="text-gray-300 leading-relaxed"></p>
+        </div>
+
+        <!-- Comparison Table: Vibe Coding vs Production -->
+        <div class="rounded-2xl border border-darkBorder overflow-hidden bg-gray-950/70">
+          <div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x md:divide-x-reverse divide-darkBorder">
+            <div class="p-4 space-y-1 bg-red-950/10">
+              <div class="text-xs font-bold text-red-400 flex items-center gap-1.5">
+                <span>❌</span>
+                <span id="modal-lbl-mistake">The Vibe-Coding Trap (Common Mistake)</span>
+              </div>
+              <p id="modal-mistake" class="text-xs text-gray-300 leading-relaxed"></p>
+            </div>
+            <div class="p-4 space-y-1 bg-emerald-950/10">
+              <div class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                <span>✅</span>
+                <span id="modal-lbl-prod-std">Hardened Production Standard</span>
+              </div>
+              <p id="modal-prod-std" class="text-xs text-gray-300 leading-relaxed"></p>
+            </div>
+          </div>
         </div>
 
         <!-- Root Cause Section -->
@@ -361,8 +381,17 @@
           <p id="modal-root-cause" class="text-gray-300 leading-relaxed"></p>
         </div>
 
+        <!-- Golden Takeaway Highlight Box -->
+        <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-teal-950/30 to-cyan-950/40 border border-emerald-500/40 space-y-1 shadow-lg shadow-emerald-950/20">
+          <div class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+            <span>🌟</span>
+            <span id="modal-lbl-golden">Golden Takeaway (Production Heuristic)</span>
+          </div>
+          <p id="modal-golden" class="text-xs sm:text-sm font-semibold text-white leading-relaxed"></p>
+        </div>
+
         <!-- Action Plan Section -->
-        <div class="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-3">
+        <div class="p-4 rounded-2xl bg-gray-950/60 border border-darkBorder space-y-3">
           <div class="font-bold text-emerald-400 flex items-center gap-2 text-sm">
             <span>⚡</span>
             <span id="modal-lbl-action-plan">Hardening Action Checklist</span>

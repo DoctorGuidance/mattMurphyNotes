@@ -700,17 +700,39 @@ function openModal(epNum) {
   const secondaryTitle = isFa ? ep.title : ep.title_fa;
   const catName = isFa ? ep.category_name_fa : ep.category_name_en;
 
-  document.getElementById('modal-ep-badge').textContent = `#${ep.number}`;
+  const sev = ep.severity || 'MEDIUM';
+  const epBadge = document.getElementById('modal-ep-badge');
+  epBadge.textContent = `#${ep.number} • ${sev}`;
+  if (sev === 'CRITICAL') {
+    epBadge.className = 'px-2.5 py-0.5 rounded-full font-mono font-bold bg-red-500/20 text-red-400 border border-red-500/40';
+  } else if (sev === 'HIGH') {
+    epBadge.className = 'px-2.5 py-0.5 rounded-full font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40';
+  } else {
+    epBadge.className = 'px-2.5 py-0.5 rounded-full font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+  }
+
   document.getElementById('modal-cat-badge').textContent = catName;
   document.getElementById('modal-layer-badge').textContent = `Layer ${ep.layer}`;
   document.getElementById('modal-title-primary').textContent = primaryTitle;
   document.getElementById('modal-title-secondary').textContent = secondaryTitle;
   
-  document.getElementById('modal-problem').textContent = ep.problem_fa;
-  document.getElementById('modal-root-cause').textContent = ep.root_cause_fa;
+  document.getElementById('modal-problem').textContent = isFa ? (ep.problem_fa || ep.problem_en) : (ep.problem_en || ep.problem_fa);
+  
+  // Comparison Table
+  const mistake = isFa ? (ep.table_mistake_fa || ep.table_mistake_en || 'اشتباهات رایج وایب‌کدینگ') : (ep.table_mistake_en || 'Common vibe-coding pitfall');
+  const prodStd = isFa ? (ep.table_production_fa || ep.table_production_en || 'استاندارد سخت‌سازی پروداکشن') : (ep.table_production_en || 'Hardened production standard');
+  document.getElementById('modal-mistake').textContent = mistake;
+  document.getElementById('modal-prod-std').textContent = prodStd;
+
+  document.getElementById('modal-root-cause').textContent = isFa ? (ep.root_cause_fa || ep.root_cause_en) : (ep.root_cause_en || ep.root_cause_fa);
+
+  // Golden Takeaway
+  const golden = isFa ? (ep.golden_takeaway_fa || ep.golden_takeaway_en || 'اصل طلایی مت مورفی') : (ep.golden_takeaway_en || 'Key production heuristic');
+  document.getElementById('modal-golden').textContent = golden;
 
   const actionList = document.getElementById('modal-action-plan');
-  actionList.innerHTML = (ep.action_plan || []).map(item => `<li>${item}</li>`).join('');
+  const actions = isFa ? (ep.action_plan || ep.action_plan_en || []) : (ep.action_plan_en || ep.action_plan || []);
+  actionList.innerHTML = actions.map(item => `<li>${item}</li>`).join('');
 
   currentModalCode = ep.code_snippet || '// Production snippet';
   document.getElementById('modal-code').textContent = currentModalCode;

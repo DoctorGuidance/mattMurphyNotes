@@ -1,29 +1,40 @@
 # Episode 120: Your app went down and your customers think you stole their
 
-> **Category:** Cloud Infrastructure & FinOps (معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه)  
-> **Production Layer:** Layer 6  
-> **Official Instagram Reel:** [https://www.instagram.com/reel/DbL-9-3kT8H/](https://www.instagram.com/reel/DbL-9-3kT8H/)  
+| Parameter | Specification |
+|:---|:---|
+| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Architectural Domain** | Cloud Infrastructure & FinOps (`معماری ابری، سرورلس، تاب‌آوری و مدیریت هزینه`) |
+| **Target Production Layer** | Layer 6 |
+| **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DbL-9-3kT8H/) |
 
 ---
 
-## 🚨 1. Problem Statement & Failure Vector (From Voice Transcript)
+## 🚨 1. The Incident & Attack Vector
 Your app went down when you were asleep and now your customers think you stole their money. 6 hours of downtime, no status page, no status updates, no maintenance announcement, no communication to the users of any kind. And this is all because your AI never built you a status system.
 
 ---
 
-## 💡 2. Root Cause & Architectural Solution (Matt Murphy Analysis)
+## ❌ 2. Vibe-Coding Trap vs. Production Reality
+
+| ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
+|:---|:---|
+| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+
+---
+
+## 💡 3. Root Cause & Architectural Principle
 And this is all because your AI never built you a status system. Here are three things you direct your AI to build before your next outage becomes a trust crisis. Step one, a public status page on a separate domain altogether, not hosted on your main infrastructure.
 
 ---
 
-## ⚡ 3. Hardening Action Checklist
+## ⚡ 4. Hardening Action Checklist
 - [ ] a public status page on a separate domain altogether, not hosted on your main infrastructure. Because when your app goes down, your status page goes down with it.
 - [ ] a scheduled maintenance announcement system. Every application needs downtime.
 - [ ] an incident communication workflow. When an outage hits, you need a status page update with defined intervals, email notifications to active subscribers, and an estimated restoration time, even if it's just a guess.
 
 ---
 
-## 💻 4. Hardened Implementation Code / Config
+## 💻 5. Hardened Production Implementation
 ```typescript
 // Hardened Production Configuration - Episode #120
 // Domain: 11-cloud-finops
@@ -38,7 +49,13 @@ export function enforceProductionGuardrail(context: Record<string, unknown>) {
 
 ---
 
-## 🎧 5. Exact Spoken Audio Transcript (Word-for-Word)
+## 🌟 6. Golden Takeaway
+> [!TIP]
+> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+
+---
+
+## 🎧 7. Exact Word-for-Word Audio Transcript
 <div dir="ltr">
 
 Your app went down when you were asleep and now your customers think you stole their money. 6 hours of downtime, no status page, no status updates, no maintenance announcement, no communication to the users of any kind. And this is all because your AI never built you a status system. Here are three things you direct your AI to build before your next outage becomes a trust crisis. Step one, a public status page on a separate domain altogether, not hosted on your main infrastructure. Because when your app goes down, your status page goes down with it. So your AI can deploy a standalone status page in 20 minutes on a completely separate host. The difference between the site is down and I have no idea why. And we know and we are trying to fix it is the difference between a chargeback and patience. Right? And that's a win if you get it right. Step two, a scheduled maintenance announcement system. Every application needs downtime. The Builders who announce maintenance windows in advance, they look professional. The builders who take their app down at 2 p.m. on a Tuesday afternoon with no warning look pretty amateur. So, your AI can build an automated notification system that emails active users before scheduled downtime and posts it to your status page so your customers do not mind downtime. They don't mind it at all. They mind surprises and time that they had set aside that you didn't notify them. And step three, an incident communication workflow. When an outage hits, you need a status page update with defined intervals, email notifications to active subscribers, and an estimated restoration time, even if it's just a guess. Silence during an outage is what turns technical problems into a reputation and revenue problem. Your AI can build the entire workflow with templates preloaded and triggers fully automated, but it'll never build it on its own because it does not know that silence is the fastest way to lose every customer you earned. So your AI built a product and never built the system. It tells your customers the product is still alive even when it isn't. So direct your AI to build it before your next outage cost you more than just a little bit of downtime.

@@ -1,29 +1,40 @@
 # Episode 221: Application-level filtering is a prayer
 
-> **Category:** Multi-Tenancy & Data Isolation (معماری چندمستأجره و جداسازی قطعی داده‌ها)  
-> **Production Layer:** Layer 8  
-> **Official Instagram Reel:** [https://www.instagram.com/reel/DZslOCNRDNh/](https://www.instagram.com/reel/DZslOCNRDNh/)  
+| Parameter | Specification |
+|:---|:---|
+| **Production Risk Severity** | ℹ️ `MEDIUM` |
+| **Architectural Domain** | Multi-Tenancy & Data Isolation (`معماری چندمستأجره و جداسازی قطعی داده‌ها`) |
+| **Target Production Layer** | Layer 8 |
+| **Official Video Source** | [Watch Reel on Instagram](https://www.instagram.com/reel/DZslOCNRDNh/) |
 
 ---
 
-## 🚨 1. Problem Statement & Failure Vector (From Voice Transcript)
+## 🚨 1. The Incident & Attack Vector
 Your application, it's got a bug. A query returns data that it should not have and the user sees another customer's records. In most applications, nothing can stop this.
 
 ---
 
-## 💡 2. Root Cause & Architectural Solution (Matt Murphy Analysis)
+## ❌ 2. Vibe-Coding Trap vs. Production Reality
+
+| ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
+|:---|:---|
+| Assumes happy-path behavior without anticipating edge cases or malicious input. | Enforces defensive validation, isolated boundaries, and fail-safe recovery mechanisms. |
+
+---
+
+## 💡 3. Root Cause & Architectural Principle
 In most applications, nothing can stop this. But rowle security certainly will. Here are the three things you need to know right now about RLS.
 
 ---
 
-## ⚡ 3. Hardening Action Checklist
+## ⚡ 4. Hardening Action Checklist
 - [ ] RLS is a database level firewall. You write the policy.
 - [ ] this is not the same as filtering in your application code. One missed wear clause and you have a data leak.
 - [ ] Superbase makes RLS accessible. You enable it per table and every query respects the policy.
 
 ---
 
-## 💻 4. Hardened Implementation Code / Config
+## 💻 5. Hardened Production Implementation
 ```typescript
 // Strict Tenant & User-Scoped Query
 const record = await prisma.document.findFirst({
@@ -37,7 +48,13 @@ if (!record) throw new NotFoundError('Access denied or record not found');
 
 ---
 
-## 🎧 5. Exact Spoken Audio Transcript (Word-for-Word)
+## 🌟 6. Golden Takeaway
+> [!TIP]
+> **Production Heuristic:** Never deploy unverified AI-generated code directly to production without testing failure modes.
+
+---
+
+## 🎧 7. Exact Word-for-Word Audio Transcript
 <div dir="ltr">
 
 Your application, it's got a bug. A query returns data that it should not have and the user sees another customer's records. In most applications, nothing can stop this. But rowle security certainly will. Here are the three things you need to know right now about RLS. Step one, RLS is a database level firewall. You write the policy. The user can only see rows where the tenant ID matches their own ID. Every query passes through a policy first. If the row does not belong to the user does not exist. Step two, this is not the same as filtering in your application code. One missed wear clause and you have a data leak. RLS means the database itself enforces this rule. Even if the application code is wrong, the data stays protected. That is the difference between a policy and a prayer and that's a win. Step three, Superbase makes RLS accessible. You enable it per table and every query respects the policy. see automatically. For anything where one user should never see another user's information, RLS is not a feature, it's the foundation. So, always make sure to protect the data at the source.
