@@ -18,7 +18,7 @@ Application-level filtering is a prayer.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on loose application filters for tenant isolation in 'Application-level filtering is a prayer', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Application-level filtering is a prayer'. |
+| Relies on fragile application-level ORM filters (`where: { tenantId }`), risking catastrophic data leaks if a single query forgets it. | Enforces tenant isolation natively at the database engine level via PostgreSQL Row-Level Security (RLS) policies. |
 
 ---
 

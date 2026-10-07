@@ -18,7 +18,7 @@ One year ago I started building something.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'One year ago I started building something'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Accumulates chaotic frontend global state variables that cause random UI glitches and stale data across pages. | Adopts structured server-state caching libraries (`@tanstack/react-query`) with automatic background refetching and cache invalidation. |
 
 ---
 

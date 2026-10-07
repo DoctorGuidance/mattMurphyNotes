@@ -18,7 +18,7 @@ Your deployment takes forty-five minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Your deployment takes forty-five minutes'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Your deployment takes forty-five minutes'. |
+| Suffers 45-minute deployment build times caused by un-cached monolithic Docker builds and sequential test execution. | Optimizes Docker build pipelines with multi-stage BuildKit caching and parallel test matrix jobs, cutting deploy time to 4 minutes. |
 
 ---
 

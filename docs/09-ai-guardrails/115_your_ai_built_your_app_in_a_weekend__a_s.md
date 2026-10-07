@@ -18,7 +18,7 @@ Your AI built your app in a weekend. A security auditor would shut it down by Mo
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI built your app in a weekend. A security auditor'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Ships AI-scaffolded prototypes to production without basic defensive hardening: no input validation, error redaction, or headers. | Applies pre-launch hardening gates: strict Zod input schemas, generic error boundaries, and OWASP security response headers. |
 
 ---
 

@@ -18,7 +18,7 @@ The database you started with is not the one you need.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'The database you started with is not the one you need', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'The database you started with is not the one you need'. |
+| Persists rapidly changing high-volume event logs in primary transactional tables, saturating relational buffer pool memory. | Offloads append-only event streams and audit trails to dedicated time-series databases or object storage (ClickHouse/S3). |
 
 ---
 

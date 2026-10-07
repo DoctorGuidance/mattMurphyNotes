@@ -18,7 +18,7 @@ Your API is configured to accept requests from any origin with credentials.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Your API is configured to accept requests from any origin', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your API is configured to accept requests from any origin'. |
+| Echoes back incoming request origins in `Access-Control-Allow-Origin` headers, rendering CORS protections completely useless. | Validates incoming origins against an explicit static allowlist before setting access control response headers. |
 
 ---
 

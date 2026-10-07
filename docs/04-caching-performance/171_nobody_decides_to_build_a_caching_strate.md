@@ -18,7 +18,7 @@ Nobody decides to build a caching strategy.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'Nobody decides to build a caching strategy', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Adds ad-hoc in-memory caching variables across controllers, causing inconsistent state across multiple server instances. | Standardizes on centralized Redis clusters with explicit TTLs and event-driven cache invalidation patterns (Cache-Aside). |
 
 ---
 

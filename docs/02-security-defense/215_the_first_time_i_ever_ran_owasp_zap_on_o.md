@@ -18,7 +18,7 @@ The first time I ever ran OWASP ZAP on one of my own apps.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'The first time I ever ran OWASP ZAP on one of my own apps', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'The first time I ever ran OWASP ZAP on one of my own apps'. |
+| Deploys web applications to production without running automated dynamic application security testing (DAST) tools. | Integrates OWASP ZAP dynamic vulnerability scanning into CI/CD pipelines to detect injection and header flaws before release. |
 
 ---
 

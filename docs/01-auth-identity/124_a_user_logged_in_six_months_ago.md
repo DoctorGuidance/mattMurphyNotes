@@ -18,7 +18,7 @@ A user logged in six months ago.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Issues indefinite session tokens without server-side invalidation or inactivity timeout checks, leaving stale sessions permanently open. | Enforces rolling session timeouts, short-lived access tokens (15m), and instant server-side revocation on password/security events. |
+| Issues long-lived session tokens that never expire, leaving accounts vulnerable if client devices are lost or stolen. | Enforces rotating refresh tokens with 7-day idle timeouts, 30-day absolute expirations, and remote session revocation. |
 
 ---
 

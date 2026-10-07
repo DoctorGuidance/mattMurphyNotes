@@ -18,7 +18,7 @@ Supabase. Firebase. Neon. Convex.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Supabase. Firebase. Neon. Convex', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Supabase. Firebase. Neon. Convex'. |
+| Jumps between managed database platforms (Supabase, Firebase, Neon, Convex) without evaluating vendor lock-in or schema mobility. | Standardizes on open-source relational primitives (PostgreSQL) to ensure zero-lockin database portability across cloud providers. |
 
 ---
 

@@ -18,7 +18,7 @@ Vibe Coded Multi-Tenant Platform.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on loose application filters for tenant isolation in 'Vibe Coded Multi-Tenant Platform', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Vibe Coded Multi-Tenant Platform'. |
+| Builds multi-tenant platforms without scoping file storage or cache keys, allowing users to view peer organization assets. | Enforces composite tenant namespaces across all 13 layers: database tables, Redis cache keys, S3 storage prefixes, and logs. |
 
 ---
 

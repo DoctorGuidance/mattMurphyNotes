@@ -18,7 +18,7 @@ An attacker just typed a crafted string into your search field and your database
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'An attacker just typed a crafted string into your search', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker just typed a crafted string into your search'. |
+| Concatenates user search input directly into raw database query strings, opening critical SQL/NoSQL injection vulnerabilities. | Uses parameterized queries and typed ORM builders exclusively, treating all user inputs as non-executable literal data. |
 
 ---
 

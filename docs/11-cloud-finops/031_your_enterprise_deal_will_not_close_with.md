@@ -18,7 +18,7 @@ Your enterprise deal will not close without SOC 2.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Your enterprise deal will not close without SOC 2'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Pitches enterprise buyers without SOC 2 certification, losing six-figure deals at the security review stage. | Automates continuous compliance monitoring (Vanta/Drata) and implements audited security policies to achieve SOC 2 Type II. |
 
 ---
 

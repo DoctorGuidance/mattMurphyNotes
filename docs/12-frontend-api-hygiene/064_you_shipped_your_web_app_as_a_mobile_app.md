@@ -18,7 +18,7 @@ You shipped your web app as a mobile app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You shipped your web app as a mobile app'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Wraps responsive websites in naive mobile WebViews, shipping laggy touch interactions, zoom bugs, and broken offline experiences. | Optimizes mobile experiences: removes tap delays, disables unintended viewport zooming, and handles offline network states gracefully. |
 
 ---
 

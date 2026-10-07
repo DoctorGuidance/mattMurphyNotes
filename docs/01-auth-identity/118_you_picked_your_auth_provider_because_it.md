@@ -18,7 +18,7 @@ You picked your auth provider because it was free.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Selects consumer authentication providers lacking SAML SSO or SCIM provisioning, blocking enterprise security compliance. | Architects auth abstraction supporting enterprise SAML SSO, automated SCIM user lifecycle management, and domain directory syncing. |
+| Selects identity providers solely on free-tier limits without evaluating data exportability or custom domain SSO capabilities. | Selects auth providers based on tenant isolation, SAML/OIDC compliance, and zero-downtime user credential export policies. |
 
 ---
 

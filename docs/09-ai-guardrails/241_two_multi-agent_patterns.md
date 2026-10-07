@@ -18,7 +18,7 @@ Two multi-agent patterns.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Two multi-agent patterns'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Deploys chaotic multi-agent networks where agents talk in unconstrained loops, generating massive token bills without completing tasks. | Structures multi-agent workflows as deterministic supervisor-worker state machines with strict turn limits and goal gates. |
 
 ---
 

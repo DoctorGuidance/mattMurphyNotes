@@ -18,7 +18,7 @@ Convex is blowing up.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Convex is blowing up', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Convex is blowing up'. |
+| Adopts reactive document databases without understanding consistency models, leading to data synchronization anomalies. | Evaluates transactional guarantees, schema enforcement, and query constraints before committing data to reactive backends. |
 
 ---
 

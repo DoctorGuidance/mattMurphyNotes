@@ -18,7 +18,7 @@ You added indexes and your app is still slow.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'You added indexes and your app is still slow', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'You added indexes and your app is still slow'. |
+| Adds random single-column indexes without analyzing query patterns, bloating disk overhead while queries remain slow. | Designs composite multi-column indexes matching exact `WHERE`, `JOIN`, and `ORDER BY` clauses following leftmost prefix rules. |
 
 ---
 

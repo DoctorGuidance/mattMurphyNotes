@@ -18,7 +18,7 @@ Your database changed.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your database changed', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your database changed'. |
+| Applies database schema migrations directly in production with locks that block read and write traffic during deployments. | Employs the expand-and-contract migration pattern, adding non-breaking nullable columns before deprecating legacy fields. |
 
 ---
 

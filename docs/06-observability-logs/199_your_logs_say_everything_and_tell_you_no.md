@@ -18,7 +18,7 @@ Your logs say everything and tell you nothing.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Your logs say everything and tell you nothing', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Floods log files with millions of unformatted string messages, making root cause analysis impossible during outages. | Emits structured JSON logs containing standardized log levels, ISO timestamps, error stack traces, and request correlation IDs. |
 
 ---
 

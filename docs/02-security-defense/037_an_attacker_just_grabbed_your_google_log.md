@@ -18,7 +18,7 @@ An attacker just grabbed your Google Login authorization code on a mobile networ
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'An attacker just grabbed your Google Login authorization', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker just grabbed your Google Login authorization'. |
+| Implements OAuth authorization code exchanges without validating PKCE code verifiers or cross-site state parameters. | Enforces PKCE (RFC 7636) code challenges and cryptographically signed state parameters on all third-party OAuth integrations. |
 
 ---
 

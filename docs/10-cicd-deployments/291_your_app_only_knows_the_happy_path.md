@@ -18,7 +18,7 @@ Your app only knows the happy path.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Your app only knows the happy path'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Your app only knows the happy path'. |
+| Tests software only on the happy path, releasing code that crashes on empty database states or network timeouts. | Tests edge cases, network timeouts, invalid inputs, and dirty data conditions in CI before approving pull requests. |
 
 ---
 

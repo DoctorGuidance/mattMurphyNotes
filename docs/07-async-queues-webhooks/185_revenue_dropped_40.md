@@ -18,7 +18,7 @@ Your revenue dropped 40% last Tuesday. Sentry showed zero new errors. Post hog s
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Revenue dropped 40%'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Ignores drops in payment processing success rates, mistaking third-party payment gateway outages for normal sales slumps. | Tracks end-to-end checkout conversion rates and alerts on statistical drops in payment provider authorization ratios. |
 
 ---
 

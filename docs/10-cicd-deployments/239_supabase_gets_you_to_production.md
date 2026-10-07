@@ -18,7 +18,7 @@ Supabase gets you to production.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Supabase gets you to production'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Supabase gets you to production'. |
+| Applies database schema changes via the Supabase web dashboard in production, causing environmental drift from local code. | Manages Supabase schema migrations as versioned SQL migration files committed to Git and applied via CI pipelines. |
 
 ---
 

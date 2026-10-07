@@ -18,7 +18,7 @@ Something broke in production last night
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Something broke. Users noticed before you did', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Relies on customer support tickets to detect broken features instead of proactive error monitoring systems. | Integrates proactive Real User Monitoring (RUM) and error threshold alerts that notify engineers within 60 seconds of spikes. |
 
 ---
 

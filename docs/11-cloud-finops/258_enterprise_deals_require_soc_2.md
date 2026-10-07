@@ -18,7 +18,7 @@ Enterprise deals require SOC 2.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Enterprise deals require SOC 2'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Promises enterprise security compliance to prospective clients without implementing verified SOC 2 control frameworks. | Implements formal SOC 2 controls: automated access reviews, encrypted backups, centralized logging, and vendor risk assessments. |
 
 ---
 

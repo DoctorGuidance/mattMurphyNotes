@@ -18,7 +18,7 @@ You accept webhooks from Stripe without verifying the signature.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'You accept webhooks from Stripe without verifying the'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Accepts incoming webhooks without verifying digital signatures, letting attackers inject counterfeit payment confirmations. | Validates cryptographic webhook signatures against the raw unparsed payload buffer before dispatching business logic. |
 
 ---
 

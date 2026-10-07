@@ -18,7 +18,7 @@ Two cost protection levers are hiding in every major AI provider's documentation
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'AI Provider Secret!', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'AI Provider Secret!'. |
+| Stores AI provider API keys in raw `.env` files committed to repository roots and packaged into Docker build artifacts. | Injects AI provider credentials at runtime via secure secret managers (AWS SSM/Doppler) without baking them into images. |
 
 ---
 

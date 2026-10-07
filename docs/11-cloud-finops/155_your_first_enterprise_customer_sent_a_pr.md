@@ -18,7 +18,7 @@ Your first enterprise customer sent a procurement checklist.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Your first enterprise customer sent a procurement checklist'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Attempts to close enterprise accounts without standard security questionnaire documentation or verifiable uptime records. | Prepares enterprise procurement packages: architectural security whitepapers, SOC 2 reports, and 99.9% uptime SLA commitments. |
 
 ---
 

@@ -18,7 +18,7 @@ Repository Branching Strategy.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Repository Branching Strategy'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Repository Branching Strategy'. |
+| Maintains long-lived diverging feature branches for weeks, causing nightmare merge conflicts and broken deployments. | Practices trunk-based development with short-lived feature branches (<24h) and feature flags for incomplete capabilities. |
 
 ---
 

@@ -18,7 +18,7 @@ They call me grandpa AI in the comments.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'They call me grandpa AI in the comments'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Relies on vibe coding assumptions and blind generative iterations without understanding fundamental software engineering trade-offs. | Grounds software construction in timeless engineering principles: mathematical invariants, algorithmic efficiency, and race safety. |
 
 ---
 

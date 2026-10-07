@@ -18,7 +18,7 @@ Three backup decisions you make right now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on infrequent daily database snapshots stored on the same cloud server without performing scheduled restore drills. | Implements automated continuous WAL backups to isolated secondary cloud regions with automated recurring restore validation. |
+| Postpones backup configuration decisions until after production deployment, risking irreversible data corruption. | Establishes automated daily backup snapshots, geo-replicated offsite storage, and defines explicit RPO/RTO metrics. |
 
 ---
 

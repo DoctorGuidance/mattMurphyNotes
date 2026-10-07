@@ -18,7 +18,7 @@ Your browser is protecting your users right now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Your browser is protecting your users right now'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Omits browser security headers, exposing users to Cross-Site Scripting (XSS), MIME-type sniffing, and clickjacking. | Enforces essential HTTP security response headers: strict CSP, `X-Content-Type-Options: nosniff`, and `X-Frame-Options: DENY`. |
 
 ---
 

@@ -18,7 +18,7 @@ You moved to a VPS for more control.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'You moved to a VPS for more control', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'You moved to a VPS for more control'. |
+| Leaves VPS root SSH access enabled with default passwords and open administrative ports on public IP addresses. | Hardens Linux VPS hosts: disables root SSH, enforces key-based authentication, configures UFW firewalls, and enables Fail2ban. |
 
 ---
 

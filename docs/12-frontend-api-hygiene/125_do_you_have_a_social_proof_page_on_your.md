@@ -18,7 +18,7 @@ Do you have a social proof page on your website?
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Do you have a social proof page on your website'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Displays fabricated, static social proof testimonials on marketing pages, destroying customer trust upon inspection. | Renders authentic, verifiable customer metrics and dynamic social proof backed by real customer case studies. |
 
 ---
 

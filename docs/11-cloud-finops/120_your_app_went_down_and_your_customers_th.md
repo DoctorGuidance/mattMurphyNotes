@@ -18,7 +18,7 @@ Your app went down and your customers think you stole their money. Six hours of 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Your app went down and your customers think you stole their'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Hosts customer status pages on the primary application infrastructure, going dark and leaving users uninformed during outages. | Deploys independent, externally hosted status pages (Instatus/Statuspage) with automated incident notifications. |
 
 ---
 

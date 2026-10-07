@@ -18,7 +18,7 @@ Last week I told you you don't need a sock 2 security audit, but you do need to 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'You don’t need SOC2'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Invests thousands in complex enterprise compliance certifications before validating product-market fit with paying customers. | Prioritizes core technical hygiene (RLS, encryption, backups, auth) to establish practical security before purchasing formal badges. |
 
 ---
 

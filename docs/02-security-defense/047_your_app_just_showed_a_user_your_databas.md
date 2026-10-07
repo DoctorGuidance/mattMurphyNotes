@@ -18,7 +18,7 @@ Your app just showed a user your database name, your server file path, and the q
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Your app just showed a user your database name, your server', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your app just showed a user your database name, your server'. |
+| Returns raw database error stack traces and internal file paths to users upon unhandled server exceptions. | Sanitizes error responses into generic user messages while routing full diagnostic stack traces to centralized Sentry trackers. |
 
 ---
 

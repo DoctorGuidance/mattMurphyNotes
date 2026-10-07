@@ -18,7 +18,7 @@ Your database has two versions of every record right now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your database has two versions of every record right now', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your database has two versions of every record right now'. |
+| Reads from asynchronously replicated database read replicas immediately after writes, serving stale or conflicting state to users. | Implements read-after-write consistency routing, directing queries immediately following mutations to the primary database node. |
 
 ---
 

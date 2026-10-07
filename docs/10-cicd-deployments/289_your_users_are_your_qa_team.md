@@ -18,7 +18,7 @@ Your users are your QA team.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Builds frontend components handling only the happy path, showing blank screens or infinite spinners on network failure. | Implements all 4 mandatory UI states (Loading skeleton, Error with interactive Retry, Empty guidance, and Success) for every async view. |
+| Rely on paying users to discover broken workflows in production due to lack of automated regression testing. | Deploys automated Playwright end-to-end integration test suites in CI verifying critical user journeys before every release. |
 
 ---
 

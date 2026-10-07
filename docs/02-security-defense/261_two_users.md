@@ -18,7 +18,7 @@ Two users edit the same document at the same time. One saves, then the other sav
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Two users', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Two users'. |
+| Shares database user credentials across multiple microservices, granting lateral access if any single service is breached. | Provisions distinct database credentials and scoped schema permissions for every microservice to enforce defense-in-depth. |
 
 ---
 

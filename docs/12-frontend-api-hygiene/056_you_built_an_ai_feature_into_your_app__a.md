@@ -18,7 +18,7 @@ You built an AI feature into your app. A user told your AI to ignore its instruc
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You built an AI feature into your app. A user told your AI'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Renders un-sanitized user prompts or LLM output directly into the DOM, opening severe Cross-Site Scripting (XSS) vectors. | Sanitizes all dynamic content with DOMPurify and enforces strict Content Security Policy (CSP) headers against script execution. |
 
 ---
 

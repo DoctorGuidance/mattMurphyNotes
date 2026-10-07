@@ -18,7 +18,7 @@ Your AI pushed 47 files to production in one commit.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Your AI pushed 47 files to production in one commit'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Your AI pushed 47 files to production in one commit'. |
+| Pushes 47 disparate code files directly to production in a single un-reviewed commit, making bug isolation impossible. | Breaks feature changes into small, atomic pull requests protected by feature flags and automated CI verification gates. |
 
 ---
 

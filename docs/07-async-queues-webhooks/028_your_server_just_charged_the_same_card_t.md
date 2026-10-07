@@ -18,7 +18,7 @@ Your server just charged the same card twice, provisioned the same user twice, s
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your server just charged the same card twice, provisioned'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Processes payment transactions without idempotency keys, charging user credit cards twice during network retry storms. | Attaches client-generated idempotency keys (`idempotency_key`) to payment mutations, rejecting duplicate charges in Redis. |
 
 ---
 

@@ -18,7 +18,7 @@ The CEO of the most influential AI company on the planet asked the entire indust
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Builds product roadmaps around speculative vendor announcements and public essays rather than audited operational realities. | Bases infrastructure decisions on regulatory filings, concrete latency/cost benchmarks, and architectural independence. |
+| Sends identical repetitive prompts to expensive cloud LLMs on every request without caching deterministic model completions. | Caches deterministic LLM completions in Redis using prompt hashes as cache keys, drastically slashing API costs and latency. |
 
 ---
 

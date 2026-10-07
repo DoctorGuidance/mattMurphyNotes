@@ -18,7 +18,7 @@ The Friday deploy superstition reveals your architecture, not your calendar.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'The Friday deploy superstition reveals your architecture,'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'The Friday deploy superstition reveals your architecture,'. |
+| Fears Friday deployments due to missing test suites and lack of automated rollback capabilities. | Builds automated regression test suites and zero-downtime blue/green deployment pipelines that make deployments routine any day. |
 
 ---
 

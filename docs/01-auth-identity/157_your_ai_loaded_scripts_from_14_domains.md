@@ -18,7 +18,7 @@ Your AI loaded scripts from 14 domains.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Your AI loaded scripts from 14 domains', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your AI loaded scripts from 14 domains'. |
+| Loads external JavaScript tracking scripts directly onto authentication pages, risking credential harvesting via script tampering. | Enforces strict Content Security Policy (CSP) blocking third-party scripts on all login and password reset routes. |
 
 ---
 

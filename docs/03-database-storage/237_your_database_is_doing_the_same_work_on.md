@@ -18,7 +18,7 @@ Your database is doing the same work on every request.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your database is doing the same work on every request', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your database is doing the same work on every request'. |
+| Repeats un-cached database queries for static configuration tables on every single incoming web request. | Implements in-memory or Redis caching with mutation-driven invalidation for static and slow-changing reference tables. |
 
 ---
 

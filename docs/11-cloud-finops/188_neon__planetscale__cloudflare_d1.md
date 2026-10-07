@@ -18,7 +18,7 @@ Neon. PlanetScale. Cloudflare D1.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Neon. PlanetScale. Cloudflare D1'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Selects serverless database providers on impulsive trends without analyzing connection pooling overhead or cold-start latencies. | Benchmarks database providers against real workload profiles, evaluating cold-start penalty, pooling limits, and query latency. |
 
 ---
 

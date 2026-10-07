@@ -18,7 +18,7 @@ An AI agent breached a company's production database this week. The human superv
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'An AI agent breached a company's production database this', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An AI agent breached a company's production database this'. |
+| Grants autonomous AI agents unrestricted read/write database credentials, risking catastrophic hallucinated record destruction. | Restricts AI agents to least-privilege read-only replicas and scopes mutation capabilities through hardened API contracts. |
 
 ---
 

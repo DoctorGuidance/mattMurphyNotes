@@ -18,7 +18,7 @@ Self-hosted auth is not a philosophy.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Self-hosted auth is not a philosophy', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Self-hosted auth is not a philosophy'. |
+| Deploys self-hosted authentication instances without dedicated security maintenance, falling behind critical vulnerability patches. | Establishes automated vulnerability scanning and immediate patch deployment pipelines for all self-hosted identity engines. |
 
 ---
 

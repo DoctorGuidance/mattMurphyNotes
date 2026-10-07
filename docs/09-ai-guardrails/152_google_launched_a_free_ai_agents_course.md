@@ -18,7 +18,7 @@ Google launched a free AI agents course.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Google launched a free AI agents course'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Builds commercial AI products based on toy introductory tutorials without implementing production failure recovery patterns. | Architects production-grade agent workflows with circuit breakers, graceful degradation fallbacks, and human escalation gates. |
 
 ---
 

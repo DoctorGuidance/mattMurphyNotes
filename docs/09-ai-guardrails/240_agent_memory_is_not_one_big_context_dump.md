@@ -18,7 +18,7 @@ Agent memory is not one big context dump.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Agent memory is not one big context dump'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Dumps entire chat history transcripts into AI context windows on every interaction, burning tokens and diluting agent attention. | Implements hierarchical memory systems: compact working memory scratchpads combined with semantic vector retrieval for history. |
 
 ---
 

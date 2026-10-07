@@ -18,7 +18,7 @@ You push to main, the deploy runs. Every user gets a new code simultaneously. If
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Ship to 5% first'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Ship to 5% first'. |
+| Rolls out major application updates to all users at once, risking widespread customer churn during regressions. | Automates phased rollouts (5% -> 25% -> 100%) with automated rollbacks triggered if error rates exceed 0.1%. |
 
 ---
 

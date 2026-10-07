@@ -18,7 +18,7 @@ RBAC is not a feature.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'RBAC is not a feature', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'RBAC is not a feature'. |
+| Restricts administrative actions solely by hiding UI buttons on the client while leaving underlying API endpoints unprotected. | Decouples permissions from roles and enforces granular authorization checks on every backend controller and database query. |
 
 ---
 

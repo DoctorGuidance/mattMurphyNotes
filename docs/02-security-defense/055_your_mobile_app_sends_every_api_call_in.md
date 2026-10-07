@@ -18,7 +18,7 @@ Your mobile app sends every API call in plain text.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Your mobile app sends every API call in plain text', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your mobile app sends every API call in plain text'. |
+| Communicates with mobile app backends over unencrypted HTTP or without TLS certificate pinning, exposing mobile traffic to interception. | Enforces HTTPS with TLS 1.3 and implements certificate pinning in mobile apps to prevent man-in-the-middle proxy inspection. |
 
 ---
 

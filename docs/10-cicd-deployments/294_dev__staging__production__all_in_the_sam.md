@@ -18,7 +18,7 @@ Dev, staging, production, all in the same place: your laptop.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Dev, staging, production, all in the same place your laptop'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Dev, staging, production, all in the same place your laptop'. |
+| Runs development, staging, and production setups all locally on developer laptops, suffering 'works on my machine' bugs. | Containerizes applications using Docker Compose and mirrors cloud infrastructure in isolated staging environments. |
 
 ---
 

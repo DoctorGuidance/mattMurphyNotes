@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in '32% of companies stopped buying software and built it with'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Replaces mature SaaS tools with flimsy, unmaintained internal prototypes that crash and consume excessive engineering maintenance time. | Scopes internal builds strictly to core differentiated workflows, maintaining enterprise architectural hygiene and testing. |
 
 ---
 

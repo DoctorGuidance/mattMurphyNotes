@@ -18,7 +18,7 @@ Your AI collected revenue from 12 states. You owe sales tax in 9 of them.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your AI collected revenue from 12 states. You owe sales tax'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Collects multi-state e-commerce revenue without calculating dynamic jurisdictional sales tax, incurring massive tax penalties. | Integrates automated sales tax webhooks (Stripe Tax/TaxJar) calculating precise jurisdictional liability per transaction. |
 
 ---
 

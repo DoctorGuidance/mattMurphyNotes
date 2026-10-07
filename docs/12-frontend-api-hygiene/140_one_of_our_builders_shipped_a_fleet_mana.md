@@ -18,7 +18,7 @@ One of our builders shipped a fleet management dashboard.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'One of our builders shipped a fleet management dashboard'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Renders thousands of un-virtualized DOM elements in high-frequency dashboard tables, freezing client browser threads. | Implements DOM list virtualization (`@tanstack/react-virtual`) rendering only elements visible within the active viewport. |
 
 ---
 

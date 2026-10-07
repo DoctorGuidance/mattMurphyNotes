@@ -18,7 +18,7 @@ Your app is free. People are using it. You need to charge money for it, but have
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Flat rate', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Charges flat subscription fees without tracking per-customer resource usage, operating heavy users at a net loss. | Instruments per-tenant compute and API usage metrics to establish accurate unit economics and dynamic pricing tiers. |
 
 ---
 

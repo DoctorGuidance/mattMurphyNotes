@@ -18,7 +18,7 @@ You added Sign in with Google. Your AI left the redirect wide open.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves OAuth redirect URIs open or wildcarded without validating the cryptographic `state` parameter, enabling login hijacking. | Locks OAuth redirect URIs strictly to registered endpoints, validates CSRF state parameters, and requests minimal required scopes. |
+| Accepts unvalidated `returnTo` redirect destinations after Google OAuth login, enabling phishing redirection attacks. | Validates post-authentication redirect URLs against a strict domain whitelist and enforces PKCE state parameters. |
 
 ---
 

@@ -18,7 +18,7 @@ If you are building for builders, your product needs to be something an agent ca
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'If you are building for builders, your product needs to be'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Builds developer tools with poor ergonomics: opaque error messages, missing TypeScript types, and uncopyable code samples. | Optimizes developer experience: clear typed contracts, informative error messages with remediation hints, and copyable snippets. |
 
 ---
 

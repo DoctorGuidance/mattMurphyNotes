@@ -18,7 +18,7 @@ A user asks you to delete their account.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'A user asks you to delete their account'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Deletes only primary user records upon account deletion requests, leaving orphaned PII in related database tables. | Executes cascading foreign key deletions or automated GDPR erasure workflows that purge user data across all tables. |
 
 ---
 

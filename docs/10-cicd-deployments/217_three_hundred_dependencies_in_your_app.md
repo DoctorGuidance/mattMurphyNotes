@@ -18,7 +18,7 @@ Three hundred dependencies in your App.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Three hundred dependencies in your App'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Three hundred dependencies in your App'. |
+| Pulls in 300 unvetted third-party npm dependencies, creating a massive attack surface for supply chain compromises. | Audits the dependency tree, removes redundant packages, and pins exact versions with lockfile integrity verification. |
 
 ---
 

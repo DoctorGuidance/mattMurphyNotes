@@ -18,7 +18,7 @@ Every client says they have monitoring.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Every client says they have monitoring'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Relies on server-side logs alone while remaining completely blind to client-side JavaScript crashes and broken layouts. | Integrates Sentry browser SDK with session replay and breadcrumbs to monitor real user exceptions in production. |
 
 ---
 

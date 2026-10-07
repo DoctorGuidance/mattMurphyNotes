@@ -18,7 +18,7 @@ An attacker just downloaded your entire API schema.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves GraphQL introspection queries enabled in production, giving attackers a complete structural schema of private entities. | Disables GraphQL schema introspection in production environments and enforces strict query depth and complexity limits. |
+| Leaves GraphQL introspection endpoints enabled in production, giving attackers a complete structural blueprint of the API. | Disables GraphQL schema introspection in production environments and enforces strict query depth/complexity limits. |
 
 ---
 

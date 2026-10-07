@@ -18,7 +18,7 @@ GitHub Actions free tier. 2,000 minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'GitHub Actions free tier. 2,000 minutes'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'GitHub Actions free tier. 2,000 minutes'. |
+| Exhausts GitHub Actions free tier minutes mid-month due to un-cached dependency installations and serial test execution. | Implements dependency caching (`actions/cache`), Docker layer caching, and parallelized test jobs to cut CI runtimes by 70%. |
 
 ---
 

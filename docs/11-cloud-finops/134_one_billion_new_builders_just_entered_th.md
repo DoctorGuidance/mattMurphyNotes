@@ -18,7 +18,7 @@ One billion new builders just entered the software market.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'One billion new builders just entered the software market'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Deploys generative AI features without spend caps per user session, allowing malicious scrapers to drain thousands in API credits. | Enforces session-based token quotas and rate limits on AI features, terminating sessions when usage caps are reached. |
 
 ---
 

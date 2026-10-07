@@ -16,43 +16,33 @@ Your mission is to eradicate fragile, prototype-level code ('vibe coding') and e
 
 ---
 
-## 🔄 Autonomous Agent Operating Protocol (Run-to-Completion Engine)
+## 🔄 Autonomous Agent Operating Protocol (Workflows)
 
-This skill is designed as a **Single-Entrypoint Autonomous System**. You do NOT need the user to micro-manage which rulebook to read or tell you to continue. You autonomously diagnose, plan, execute, and verify until the entire goal is achieved.
-
-### 🧭 Autonomous Execution Loop (Never Stop Halfway)
+Whenever you are designing, implementing, refactoring, or auditing code, follow this mandatory 5-step protocol:
 
 ```
  ┌────────────────────────────────────────────────────────────────────────┐
- │ 1. DYNAMIC SCOPE DETECTION & DISCOVERY                                │
- │    - Narrow Task (e.g., "Fix JWT", "Stripe Webhook"):                  │
- │      Route directly to `rules/{target}.md` & audit.                   │
- │    - Broad/Systemic Task (e.g., "Harden repo", "Build production app"): │
- │      Run baseline audit (`audit_guardrails.py`) and formulate a       │
- │      multi-phase plan across the 13 production layers.                 │
+ │ 1. DOMAIN & LAYER AUTO-DETECTION                                       │
+ │    Map the user's task to relevant production layers (1-13) and        │
+ │    architectural domains (01-auth-identity through 12-frontend-api).   │
  ├────────────────────────────────────────────────────────────────────────┤
- │ 2. AUTONOMOUS PHASE-BY-PHASE EXECUTION (STRICT MOMENTUM)               │
- │    - Never stop or ask trivial permission ("Should I proceed to next   │
- │      file?", "Want me to do phase 2?").                               │
- │    - Execute sequentially: Models -> Auth -> Business Logic -> APIs    │
- │      -> Queues -> UI Hygiene -> Monitoring.                           │
+ │ 2. ACTIVATE DOMAIN RULEBOOK                                            │
+ │    Read the specific rulebook under `rules/{domain}.md` to load        │
+ │    hardened code patterns, failure vectors, and action items.          │
  ├────────────────────────────────────────────────────────────────────────┤
- │ 3. CONTINUOUS ANTI-VIBE CROSS-CHECK & SELF-HEALING                     │
- │    - Check each implementation against `references/anti-vibe-traps.md` │
- │    - If a check fails, self-heal in place immediately and re-verify.   │
+ │ 3. CROSS-CHECK ANTI-VIBE TRAPS MATRIX                                  │
+ │    Verify the implementation against `references/anti-vibe-traps.md`   │
+ │    to eliminate known naive AI mistakes before writing any code.       │
  ├────────────────────────────────────────────────────────────────────────┤
- │ 4. 13-LAYER DIAGNOSTIC VERIFICATION                                    │
- │    - Physically inspect files (`view_file`). Never assume code exists. │
- │    - Verify 4 UI states, timeouts, composite indexes, and RLS.         │
+ │ 4. RUN 13-LAYER HEURISTIC DIAGNOSTIC                                   │
+ │    Audit the code against `references/production-verification-         │
+ │    heuristics.md` (4 UI states, timeouts, indexes, RLS, cookies).      │
  ├────────────────────────────────────────────────────────────────────────┤
- │ 5. MECHANICAL FINAL AUDIT & HANDOVER                                   │
- │    - Execute `python scripts/audit_guardrails.py .`                    │
- │    - Commit to Git (`git commit`) and report verified live status.     │
+ │ 5. EXECUTE AUTOMATED STATIC AUDITOR                                    │
+ │    Run `python scripts/audit_guardrails.py .` to mechanically prove     │
+ │    zero critical guardrail violations before declaring completion.     │
  └────────────────────────────────────────────────────────────────────────┘
 ```
-
-> [!IMPORTANT]
-> **Relentless Momentum Rule:** When working on complex or multi-step requests, do NOT halt mid-way with partial progress. Advance through the phases iteratively, writing clean code, applying migrations, and verifying layers until the entire user request is 100% fulfilled.
 
 ---
 

@@ -18,7 +18,7 @@ Your AI built your database. It never planned for the day you have to change it.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your AI built your database. It never planned for the day', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your AI built your database. It never planned for the day'. |
+| Designs single-tenant database schemas that cannot support multi-tenancy without extensive destructive migrations. | Incorporates tenant ID scoping into foundational database schema designs from inception, even for early single-tenant prototypes. |
 
 ---
 

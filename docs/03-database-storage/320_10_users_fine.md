@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in '10 users fine', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in '10 users fine'. |
+| Assumes database stability under 10 users translates linearly to production loads without index optimization or connection limits. | Pre-calculates query latency under scale using realistic benchmarks and optimizes queries before onboarding production users. |
 
 ---
 

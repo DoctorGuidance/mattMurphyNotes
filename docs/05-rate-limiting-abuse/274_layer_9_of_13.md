@@ -18,7 +18,7 @@ Layer nine of 13, rate limiting. This is the one that protects your wallet. So, 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints vulnerable to traffic spikes or credential stuffing in 'Layer 9 of 13' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
+| Omits gateway rate limiting, leaving expensive AI and payment endpoints unprotected against automated bot abuse. | Applies multi-tiered rate limiting at API gateways: strict limits on auth/AI endpoints and relaxed thresholds for read APIs. |
 
 ---
 

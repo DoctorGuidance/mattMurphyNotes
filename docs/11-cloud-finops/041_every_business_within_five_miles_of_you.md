@@ -18,7 +18,7 @@ Every business within five miles of you has a scheduling problem they are paying
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Every business within five miles of you has a scheduling'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Builds simple local business automation tools on expensive multi-region enterprise cloud architectures, burning profit margins. | Leverages cost-effective serverless primitives with generous free tiers, keeping operational hosting costs below $10/month. |
 
 ---
 

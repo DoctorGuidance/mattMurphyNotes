@@ -18,7 +18,7 @@ It's the Fourth of July.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'It's the Fourth of July', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'It's the Fourth of July'. |
+| Fails to test database disaster recovery procedures, leaving engineering teams helpless during holiday cloud outages. | Executes scheduled disaster recovery drills with automated database failover to secondary cloud regions. |
 
 ---
 

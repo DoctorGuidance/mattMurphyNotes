@@ -18,7 +18,7 @@ You built the product.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You built the product'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Abandons product onboarding optimization post-launch, suffering massive drop-offs between signup and first value delivery. | Instruments user onboarding funnels, minimizing time-to-first-value with interactive guides and friction-free setup. |
 
 ---
 

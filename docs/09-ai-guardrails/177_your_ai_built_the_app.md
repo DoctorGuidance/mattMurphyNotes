@@ -18,7 +18,7 @@ Your AI built the app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Rebuilds application interfaces rapidly using AI while ignoring database schema migrations and user data preservation. | Enforces strict database schema migration backward compatibility and persistent user data isolation during rapid AI rebuilds. |
+| Leaves prototype mock data and temporary development shortcuts in production releases, causing intermittent customer data glitches. | Audits codebases for prototype artifacts before launch, replacing mock data with resilient transactional database queries. |
 
 ---
 

@@ -18,7 +18,7 @@ You added a chat widget to your site. It can read every password your users type
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Embeds unvetted third-party JavaScript chat widgets globally without Content Security Policy (CSP) isolation, exposing user keystrokes. | Restricts third-party scripts via strict CSP script-src directives, sandboxes iframe widgets, and audits external DOM access. |
+| Embeds third-party chat widgets directly in the main DOM, allowing unverified scripts to read authenticated session state. | Isolates third-party widgets inside sandboxed iframes with restricted permissions and zero direct access to parent cookies. |
 
 ---
 

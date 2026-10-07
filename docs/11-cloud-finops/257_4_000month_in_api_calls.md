@@ -18,7 +18,7 @@ $4,000/month in API calls.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in '$4,000month in API calls'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Spends $4,000/month on repetitive API calls that query identical context data on every prompt invocation. | Implements prompt compression, prompt caching, and semantic response caching to eliminate redundant token consumption. |
 
 ---
 

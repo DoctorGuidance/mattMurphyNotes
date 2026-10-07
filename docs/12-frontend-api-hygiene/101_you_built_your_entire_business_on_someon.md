@@ -18,7 +18,7 @@ You built your entire business on someone else's software. They just raised your
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You built your entire business on someone else's software'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Builds businesses entirely dependent on closed third-party SaaS APIs that suddenly raise pricing or deprecate endpoints. | Abstracts external third-party dependencies behind internal facade interfaces to preserve data ownership and vendor mobility. |
 
 ---
 

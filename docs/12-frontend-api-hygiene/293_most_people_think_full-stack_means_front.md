@@ -18,7 +18,7 @@ Most people think full-stack means frontend and backend.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Most people think full-stack means frontend and backend'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Equates full-stack development with knowing React and Node.js, ignoring the remaining 11 critical production engineering tiers. | Masters the full 13-layer production stack from DNS routing and WAFs down to database connection pooling and disaster recovery. |
 
 ---
 

@@ -18,7 +18,7 @@ MCP crossed 97M monthly downloads. 19,000 servers.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'MCP crossed 97M monthly downloads. 19,000 servers', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'MCP crossed 97M monthly downloads. 19,000 servers'. |
+| Connects autonomous AI agents directly to production databases without query timeout limits or sandboxed permissions. | Routes agent queries through dedicated read-only connection pools bounded by strict 3-second query execution timeouts. |
 
 ---
 

@@ -18,7 +18,7 @@ Your AI shipped three products this quarter.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'Your AI shipped three products this quarter', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Ships frequent code updates without versioning cache keys, serving stale legacy assets and crashing frontend clients. | Incorporates git commit deployment hashes into cache keys and asset URLs (`Cache-Busting`) to guarantee immediate cache updates. |
 
 ---
 

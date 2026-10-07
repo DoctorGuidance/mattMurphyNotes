@@ -18,7 +18,7 @@ Your first customer dispute will freeze your Stripe account.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your first customer dispute will freeze your Stripe account'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Leaves payment dispute webhooks unhandled, resulting in automated account freezes and lost dispute challenge windows. | Listens for `charge.dispute.created` webhooks, notifying support teams instantly and automating evidence submission pipelines. |
 
 ---
 

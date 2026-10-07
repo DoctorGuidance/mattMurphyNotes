@@ -18,7 +18,7 @@ AI builds beautiful UIs in 10 minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'AI builds beautiful UIs in 10 minutes'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Builds frontend components that handle only the happy path, showing blank screens or infinite spinners on network failure. | Implements all 4 mandatory UI states (Loading skeleton, Error with interactive Retry, Empty guidance, and Success) for every view. |
 
 ---
 

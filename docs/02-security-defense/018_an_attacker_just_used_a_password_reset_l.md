@@ -18,7 +18,7 @@ An attacker just used a password reset link from four months ago.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Disables TLS certificate verification (`rejectUnauthorized: false`) in database or internal API connections to bypass cert errors. | Provisions valid CA certificate bundles for all internal database and microservice connections with strict TLS verification. |
+| Issues permanent, multi-use password reset tokens without expiration or post-consumption invalidation. | Enforces 15-minute token TTLs, single-use invalidation, and throttles password reset dispatches to 3 requests per hour. |
 
 ---
 

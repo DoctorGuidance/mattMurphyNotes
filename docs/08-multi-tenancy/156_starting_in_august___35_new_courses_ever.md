@@ -18,7 +18,7 @@ Starting in August…..35 new courses every week for ten weeks.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on loose application filters for tenant isolation in 'Starting in August…..35 new courses every week for ten weeks', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Starting in August…..35 new courses every week for ten weeks'. |
+| Shares global database tables across tenants without automated tenant-scoping assertions, risking cross-tenant data leaks. | Enforces tenant context scoping on all queries and validates tenant isolation using automated multi-tenant regression suites. |
 
 ---
 

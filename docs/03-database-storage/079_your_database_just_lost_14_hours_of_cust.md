@@ -18,7 +18,7 @@ Your database just lost 14 hours of customer data.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified backup routines in 'Your database just lost 14 hours of customer data', risking irreversible data loss upon storage failure. | Enforces continuous point-in-time recovery (PITR) and automated restore drill verification for 'Your database just lost 14 hours of customer data'. |
+| Relies on unverified nightly snapshot backups, discovering corruption only after catastrophic disk failure destroys 14 hours of data. | Configures continuous Write-Ahead Log (WAL) archiving with Point-in-Time Recovery (PITR) and verifies automated test restores. |
 
 ---
 

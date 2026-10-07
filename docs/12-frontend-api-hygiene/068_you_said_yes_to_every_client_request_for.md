@@ -18,7 +18,7 @@ You said yes to every client request for 18 months. Your product no longer ships
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You said yes to every client request for 18 months. Your'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Accepts every ad-hoc client customization request, fracturing the codebase into unmaintainable customer-specific forks. | Maintains an opinionated core product architecture, satisfying custom requirements via configurable extension hooks. |
 
 ---
 

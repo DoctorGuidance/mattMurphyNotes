@@ -18,7 +18,7 @@ A token that never expires is not auth.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'A token that never expires is not auth', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'A token that never expires is not auth'. |
+| Generates permanent personal access tokens that cannot be selectively revoked, creating permanent backdoors if leaked. | Issues scoped personal access tokens with mandatory expiration dates and instant cryptographic revocation capabilities. |
 
 ---
 

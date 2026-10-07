@@ -18,7 +18,7 @@ Prisma protects you from the database.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Prisma protects you from the database', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Prisma protects you from the database'. |
+| Relies blindly on ORMs like Prisma without inspecting generated raw SQL, missing severe N+1 query performance disasters. | Audits ORM query generation logs, replaces N+1 relationships with eager joins, and runs raw parameterized SQL where needed. |
 
 ---
 

@@ -18,7 +18,7 @@ Every hour you spend building auth is an hour you did not spend on your product.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Every hour you spend building auth is an hour you did not', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Every hour you spend building auth is an hour you did not'. |
+| Builds proprietary cryptographic password hashing and session management algorithms from scratch, inviting subtle implementation flaws. | Leverages hardened, audited open-source authentication frameworks and standard password hashing primitives (Argon2id). |
 
 ---
 

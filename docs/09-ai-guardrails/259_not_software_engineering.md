@@ -18,7 +18,7 @@ Not software engineering.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Not software engineering'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Abandons software engineering rigor for vibe coding, deploying un-tested AI code that crashes under real concurrency. | Enforces software engineering foundations: unit test suites, integration tests, strict typing, and concurrency stress testing. |
 
 ---
 

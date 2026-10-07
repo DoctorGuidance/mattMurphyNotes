@@ -18,7 +18,7 @@ Every time a new client signs up, your developer forks the entire repository.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Every time a new client signs up, your developer forks the'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Forks the entire repository and deployment pipeline for each new tenant, creating unmaintainable code divergence. | Architects single-codebase multi-tenancy with dynamic tenant configuration inheritance and feature flags. |
 
 ---
 

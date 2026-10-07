@@ -18,7 +18,7 @@ Last week, I showed you the one environment trap. One environment, your laptop, 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'One environment'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'One environment'. |
+| Develops directly against production databases, risking accidental table drops and catastrophic customer data corruption. | Enforces strict three-tier environment isolation (Dev, Staging, Production) with isolated database clusters and credentials. |
 
 ---
 

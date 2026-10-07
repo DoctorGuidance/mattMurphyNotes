@@ -18,7 +18,7 @@ An attacker just logged in as your user without a password.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Trusts client-reported timestamps and device clocks for time-sensitive business logic and session expiration. | Computes all lease durations, expirations, and financial timestamps strictly using authoritative server-synchronized UTC clocks. |
+| Retains existing session identifiers across authentication transitions (Session Fixation), enabling session hijacking. | Regenerates session IDs on every privilege change using `req.session.regenerate()` with Secure, HttpOnly, and SameSite flags. |
 
 ---
 

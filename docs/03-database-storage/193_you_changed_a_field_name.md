@@ -18,7 +18,7 @@ You changed a field name.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'You changed a field name', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'You changed a field name'. |
+| Renames database columns in-place, instantly breaking deployed application instances running legacy query code. | Performs three-phase column migrations: add new column, dual-write in application code, backfill data, then drop legacy column. |
 
 ---
 

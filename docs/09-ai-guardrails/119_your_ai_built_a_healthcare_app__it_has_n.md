@@ -18,7 +18,7 @@ Your AI built a healthcare app. It has never heard of HIPAA.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI built a healthcare app. It has never heard of HIPAA'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Deploys healthcare applications processing Protected Health Information (PHI) to non-compliant clouds without BAAs or audit logs. | Executes Business Associate Agreements (BAAs), isolates PHI in dedicated encrypted partitions, and audits access trails. |
 
 ---
 

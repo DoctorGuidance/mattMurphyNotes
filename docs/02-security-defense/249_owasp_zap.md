@@ -18,7 +18,7 @@ You built all the right security features. RLS is on. O is configured.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'OWASP ZAP', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'OWASP ZAP'. |
+| Postpones vulnerability scanning until after security incidents occur, lacking continuous automated compliance verification. | Runs automated container, dependency, and dynamic endpoint vulnerability scans on every merge to production branches. |
 
 ---
 

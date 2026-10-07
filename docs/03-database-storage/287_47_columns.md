@@ -18,7 +18,7 @@ Layer three of 13. One table, 47 columns. That's not a database, folks.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in '47 columns', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in '47 columns'. |
+| Designs bloated database tables with 47 un-normalized columns, dragging performance down on every row read. | Applies normalization best practices: decomposes monolithic entities into cohesive relational models with foreign keys. |
 
 ---
 

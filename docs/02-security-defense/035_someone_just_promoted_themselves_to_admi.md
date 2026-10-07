@@ -18,7 +18,7 @@ Someone just promoted themselves to admin in your app by editing one field in a 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Someone just promoted themselves to admin in your app by', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Someone just promoted themselves to admin in your app by'. |
+| Allows users to pass arbitrary role fields in signup or profile updates, allowing self-promotion to administrator status. | Isolates role assignments to dedicated internal administrative workflows, stripping role fields from public mutation schemas. |
 
 ---
 

@@ -18,7 +18,7 @@ One security check, it's better than nothing, right
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in '47-item security checklist', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for '47-item security checklist'. |
+| Launches production applications without performing structured pre-launch security audits against standard threat vectors. | Verifies production readiness against a comprehensive 47-point security checklist covering identity, data, and compute. |
 
 ---
 

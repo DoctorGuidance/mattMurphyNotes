@@ -18,7 +18,7 @@ Vercel's Hobby plan allows 10 concurrent serverless executions.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Vercel's Hobby plan allows 10 concurrent serverless'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Exhausts platform concurrency limits (10 concurrent serverless invocations), dropping incoming user requests with 504 errors. | Buffers incoming requests via message queues and uses connection poolers to smooth traffic bursts within platform limits. |
 
 ---
 

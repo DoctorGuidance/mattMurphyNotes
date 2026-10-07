@@ -18,7 +18,7 @@ Last week I showed you the software.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends sensitive proprietary prompts and confidential user inputs to third-party cloud LLMs without latency or privacy SLAs. | Deploys self-hosted local inference nodes (Ollama/vLLM) for sensitive IP and enforces private VPC boundaries. |
+| Transfers massive data volumes across unmonitored cloud NAT gateways, incurring shocking four-figure bandwidth billing surprises. | Keeps database and compute traffic inside private VPC subnets with VPC endpoints, eliminating costly NAT gateway egress fees. |
 
 ---
 

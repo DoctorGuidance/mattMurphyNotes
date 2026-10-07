@@ -18,7 +18,7 @@ Your user reported a bug.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Your user reported a bug', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your user reported a bug'. |
+| Swallows authentication exceptions in frontend error boundaries, leaving users on unresponsive screens without error feedback. | Catches authentication exceptions explicitly, clearing invalid tokens and redirecting to login with explanatory context. |
 
 ---
 

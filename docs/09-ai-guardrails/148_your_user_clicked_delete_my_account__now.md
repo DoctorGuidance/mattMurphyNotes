@@ -18,7 +18,7 @@ Your user clicked delete my account. Now what.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your user clicked delete my account. Now what'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Deletes user records from primary tables while leaving orphaned PII in vector embeddings and LLM training caches. | Automates comprehensive data deletion pipelines purging user PII across relational tables, vector stores, and cache layers. |
 
 ---
 

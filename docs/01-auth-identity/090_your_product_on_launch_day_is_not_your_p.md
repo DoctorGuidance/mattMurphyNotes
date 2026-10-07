@@ -18,7 +18,7 @@ Your product on launch day is not your product. It is your hypothesis.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly from developer laptops to production on launch day without automated staging regression pipelines. | Gates all production releases behind automated CI/CD staging verification, database migration smoke tests, and canary rollouts. |
+| Launches authentication flows without telemetry, remaining blind to user drop-offs and broken third-party OAuth providers. | Instruments conversion funnels and automated alerts on authentication failure spikes across all social login providers. |
 
 ---
 

@@ -18,7 +18,7 @@ Every push goes straight to production.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Every push goes straight to production'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Every push goes straight to production'. |
+| Pushes code commits directly to production branches without branch protection rules, automated tests, or review gates. | Enforces protected main branches requiring green CI build checks, automated linting, and peer approvals before deployment. |
 
 ---
 

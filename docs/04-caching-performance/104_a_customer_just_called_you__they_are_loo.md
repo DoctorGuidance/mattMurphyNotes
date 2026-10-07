@@ -18,7 +18,7 @@ A customer just called you. They are looking at someone else's revenue dashboard
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes multi-step billing and credit adjustments across separate uncoordinated database calls without ACID transactions. | Wraps balance updates and financial order state changes inside atomic database transactions (`$transaction`), ensuring all-or-nothing rollback. |
+| Caches database query results using global static keys without tenant scoping, leaking Customer A's dashboard to Customer B. | Prefixes all cache keys with tenant and user boundaries (`cache:tenant_{id}:user_{id}:dashboard`) to prevent cross-tenant data leaks. |
 
 ---
 

@@ -18,7 +18,7 @@ If your frontend hides the button but your API still accepts the request, you ha
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'If your frontend hides the button but your API still'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Hides administrative action buttons in the frontend UI while leaving backend API endpoints accessible without authorization. | Enforces strict role-based authorization checks inside backend route controllers, treating all client requests as untrusted. |
 
 ---
 

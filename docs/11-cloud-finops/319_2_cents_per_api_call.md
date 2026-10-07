@@ -18,7 +18,7 @@ Your AI feature costs 2 cents per call
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in '2 cents per API call'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Operates metered API services without tracking cumulative monthly spend per customer, risking unpaid platform charges. | Maintains real-time user credit balances in Redis, declining incoming requests when customer account balances reach zero. |
 
 ---
 

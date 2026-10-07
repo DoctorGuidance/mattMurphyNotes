@@ -18,7 +18,7 @@ Your customers are using a product that has never been inspected. In any other i
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your customers are using a product that has never been'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Releases AI-generated features directly to paying customers without running adversarial evaluation suites or red-teaming. | Runs automated evaluation pipelines testing prompts against prompt injection attacks, schema violations, and toxic outputs. |
 
 ---
 

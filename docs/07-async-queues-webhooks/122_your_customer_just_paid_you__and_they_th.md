@@ -18,7 +18,7 @@ Your customer just paid you. And they think you are a scam.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your customer just paid you. And they think you are a scam'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Provisions paid user features immediately on frontend redirect without awaiting cryptographically verified webhook receipts. | Gates premium feature provisioning strictly on verified asynchronous `checkout.session.completed` webhook receipts. |
 
 ---
 

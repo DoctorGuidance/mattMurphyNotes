@@ -18,7 +18,7 @@ Half of you said you do not care about the EU. Got it.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Half of you said you do not care about the EU. Got it'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Ignores international data sovereignty laws, storing EU citizen personal data in un-audited US cloud regions without consent. | Enforces regional data residency routing, cryptographic pseudonymization, and Article 50 AI Act transparency metadata. |
 
 ---
 

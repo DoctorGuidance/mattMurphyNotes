@@ -18,7 +18,7 @@ Your AI agent fetches any URL a user submits.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI agent fetches any URL a user submits'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Allows AI agents to fetch arbitrary user-supplied URLs without validation, opening critical Server-Side Request Forgery (SSRF) bypasses. | Blocks internal VPC subnets, loopback addresses (`127.0.0.1`), and cloud metadata endpoints (`169.254.169.254`) from agent requests. |
 
 ---
 

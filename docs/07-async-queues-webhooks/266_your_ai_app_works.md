@@ -18,7 +18,7 @@ Someone in my DMs told me they built an AI app that works great. People are usin
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your AI app works'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Freezes user HTTP requests during slow generative AI completions, crashing when browsers timeout after 30 seconds. | Streams long-running AI completions over Server-Sent Events (SSE) or offloads to async workers with progress callbacks. |
 
 ---
 

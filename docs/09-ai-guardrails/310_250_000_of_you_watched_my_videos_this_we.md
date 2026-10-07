@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in '250,000 of you watched my videos this week, thank you, I’m'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Focuses on social media vanity metrics while production error rates and unhandled exceptions spike unnoticed in backend systems. | Directs focus to real engineering KPIs: system uptime, p99 latency, error rates, and deterministic test suite passes. |
 
 ---
 

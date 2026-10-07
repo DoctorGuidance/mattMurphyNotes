@@ -18,7 +18,7 @@ An attacker just accessed every protected page in your app without logging in.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'An attacker just accessed every protected page in your app', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker just accessed every protected page in your app'. |
+| Relies exclusively on edge middleware route matchers for authorization, leaving endpoints exposed to URL normalization bypasses. | Enforces defense-in-depth authorization checks inside individual route handlers and database queries, not just at middleware boundaries. |
 
 ---
 

@@ -18,7 +18,7 @@ A user visits `/api/invoices/1042`. They change the URL to `1043` and view anoth
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Queries database solely by resource ID from URL parameter (`/api/invoices/:id`), allowing any user to access another tenant's records (IDOR). | Enforces composite scoping on every query (`WHERE id = :id AND tenant_id = :tenant_id AND user_id = :user_id`) to mathematically eliminate IDOR. |
+| Fetches user records directly by sequential URL parameters (`/api/users/:id`) without validating requesting user ownership (IDOR). | Enforces ownership verification on every database query (`where: { id, tenantId, userId }`) and replaces sequential IDs with UUIDv4. |
 
 ---
 

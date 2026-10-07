@@ -18,7 +18,7 @@ You installed an npm package last week. It has been sending your environment var
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Installs untrusted npm packages without automated audit scanning or lockfile verification, allowing malicious code to exfiltrate `process.env`. | Runs automated dependency vulnerability audits (`npm audit` / Snyk), verifies lockfile checksums, and isolates process secrets. |
+| Installs unvetted npm packages that execute malicious postinstall scripts or exfiltrate `process.env` credentials at runtime. | Audits dependencies using `npm audit`, runs untrusted packages in restricted sandboxes, and verifies lockfile integrity in CI. |
 
 ---
 

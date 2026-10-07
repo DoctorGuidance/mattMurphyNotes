@@ -18,7 +18,7 @@ One API call, instant. 10 API calls, fine.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in '1 API call Instant'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Treats individual API call costs as negligible, failing to anticipate exponential cost scaling when user volumes multiply. | Calculates blended unit economics per user session, optimizing expensive prompts and caching high-frequency queries. |
 
 ---
 

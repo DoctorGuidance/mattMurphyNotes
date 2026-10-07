@@ -18,7 +18,7 @@ Your API key is in your frontend.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Your API key is in your frontend'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Exposes private API secret keys in client-side bundles by prefixing sensitive tokens with public build prefixes (`NEXT_PUBLIC_`). | Keeps private API secrets on server backends, exposing lightweight proxy endpoints to frontend clients. |
 
 ---
 

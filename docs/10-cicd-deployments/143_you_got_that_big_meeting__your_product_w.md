@@ -18,7 +18,7 @@ You got that big meeting. Your product works. Your demo is polished.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'You got that big meeting. Your product works. Your demo is'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'You got that big meeting. Your product works. Your demo is'. |
+| Demos software using carefully manicured local databases, watching the product crash when exposed to real production data. | Enforces environment parity between staging and production, testing releases against realistic, anonymized production datasets. |
 
 ---
 

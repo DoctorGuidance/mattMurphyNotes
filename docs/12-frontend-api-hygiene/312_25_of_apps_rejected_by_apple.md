@@ -18,7 +18,7 @@ Would you have guessed that one out of four apps is rejected by the Apple Store
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in '25% of apps rejected by Apple'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Submits mobile wrapper applications to Apple App Store review without account deletion options, facing immediate rejection. | Audits mobile submissions against App Store Review Guidelines: implements in-app account deletion and explicit privacy disclosures. |
 
 ---
 

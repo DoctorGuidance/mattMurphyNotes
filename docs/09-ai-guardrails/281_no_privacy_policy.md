@@ -18,7 +18,7 @@ So, you just shipped the vibecoded app that collects user data. No privacy polic
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'No privacy policy'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Launches commercial SaaS software without terms of service or privacy disclosures, risking legal action and payment processor bans. | Publishes clear, legally compliant Terms of Service and Privacy Policies disclosing data practices before accepting customer signups. |
 
 ---
 

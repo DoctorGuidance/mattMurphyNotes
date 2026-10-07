@@ -18,7 +18,7 @@ Your AI handles 70% of support.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Your AI handles 70% of support', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your AI handles 70% of support'. |
+| Permits automated AI support workflows to execute account actions based on unauthenticated user-supplied email claims. | Verifies cryptographic session signatures and tenant scopes before allowing AI agents to trigger administrative or billing operations. |
 
 ---
 

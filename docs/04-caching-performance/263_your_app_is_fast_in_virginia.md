@@ -18,7 +18,7 @@ Your app is fast in Virginia.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'Your app is fast in Virginia', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Deploys single-region backends serving global users, imposing 300ms network round-trip latencies on overseas customers. | Distributes static content and read replicas via edge networks and global CDNs to achieve sub-50ms latency worldwide. |
 
 ---
 

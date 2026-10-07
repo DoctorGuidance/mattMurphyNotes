@@ -18,7 +18,7 @@ Your app got featured on Product Hunt. 4,000 signups in 48 hours.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Your app got featured on Product Hunt. 4,000 signups in 48', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your app got featured on Product Hunt. 4,000 signups in 48'. |
+| Spawns direct database session queries for every user request during traffic surges, crashing under authentication connection saturation. | Caches validated session tokens in distributed Redis clusters with 60-second TTLs to shield the database from connection spikes. |
 
 ---
 

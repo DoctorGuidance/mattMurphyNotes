@@ -18,7 +18,7 @@ We watched thousands of builders use our products for sixty days.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'We watched thousands of builders use our products for sixty'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Clutters user interfaces with decorative AI gimmicks that confuse users instead of solving real core workflow bottlenecks. | Designs streamlined user workflows focused on ergonomics, minimizing cognitive load and friction in core tasks. |
 
 ---
 

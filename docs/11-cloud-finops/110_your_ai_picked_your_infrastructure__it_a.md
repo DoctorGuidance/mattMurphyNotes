@@ -18,7 +18,7 @@ Your AI picked your infrastructure. It also picked your customer ceiling. The bu
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Your AI picked your infrastructure. It also picked your'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Leaves cloud resources unmonitored without automated spending kill-switches, discovering runaway bills only after credit cards are charged. | Configures strict cloud budget alarms with automated webhook kill-switches that suspend runaway compute jobs at budget thresholds. |
 
 ---
 

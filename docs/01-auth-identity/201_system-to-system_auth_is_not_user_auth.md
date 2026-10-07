@@ -18,7 +18,7 @@ System-to-system auth is not user auth.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'System-to-system auth is not user auth', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'System-to-system auth is not user auth'. |
+| Uses human user session cookies and interactive login flows for automated machine-to-machine microservice integrations. | Enforces dedicated service-to-service authentication using mutual TLS (mTLS) or OAuth2 client credentials with scoped tokens. |
 
 ---
 

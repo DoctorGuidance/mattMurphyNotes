@@ -18,7 +18,7 @@ Your frontend is a display layer, not a trust layer.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Your frontend is a display layer, not a trust layer'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Treats the frontend as a trusted security layer, relying on client-side price calculations and permission checks. | Treats the frontend strictly as an untrusted display layer, re-calculating prices and re-validating permissions on the server. |
 
 ---
 

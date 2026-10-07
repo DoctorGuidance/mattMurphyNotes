@@ -18,7 +18,7 @@ You built it. Nobody came.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You built it. Nobody came'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Builds applications in complete isolation without incorporating distribution mechanics or shareable viral loops into the UI. | Embeds viral sharing hooks, dynamic Open Graph social preview cards, and referral mechanics directly into the user experience. |
 
 ---
 

@@ -18,7 +18,7 @@ An attacker embeds your authenticated dashboard inside a transparent iframe on t
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Omits framing protection headers, allowing attackers to transparently embed application forms inside malicious iframes (Clickjacking). | Configures `X-Frame-Options: DENY` and CSP `frame-ancestors 'none'` to block unauthorized iframe embedding across all routes. |
+| Omits iframe clickjacking protection headers, allowing phishing sites to embed the authenticated UI inside transparent frames. | Enforces `X-Frame-Options: DENY` and `Content-Security-Policy: frame-ancestors 'none'` on all authenticated HTTP responses. |
 
 ---
 

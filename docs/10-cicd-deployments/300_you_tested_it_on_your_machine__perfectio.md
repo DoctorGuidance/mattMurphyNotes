@@ -18,7 +18,7 @@ You tested it on your machine. Perfection!
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'You tested it on your machine. Perfection!'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'You tested it on your machine. Perfection!'. |
+| Deploys code under the assumption that local macOS/Windows execution guarantees identical behavior on Linux production hosts. | Enforces reproducible Docker builds that compile and execute code inside identical Linux container runtimes across all stages. |
 
 ---
 

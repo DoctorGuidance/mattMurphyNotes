@@ -18,7 +18,7 @@ Your AI added Google Sign-In.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Your AI added Google Sign-In', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your AI added Google Sign-In'. |
+| Trusts Google Sign-In identity payloads without verifying the `email_verified: true` claim, risking account takeover. | Validates issuer, audience, and the `email_verified` boolean claim on every external OAuth identity token before account linkage. |
 
 ---
 

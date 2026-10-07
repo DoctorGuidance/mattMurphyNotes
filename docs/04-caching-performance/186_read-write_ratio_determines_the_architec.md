@@ -18,7 +18,7 @@ Read-write ratio determines the architecture.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'Read-write ratio determines the architecture', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Designs write-heavy workloads with aggressive read-caching architectures, causing cache thrashing and lock contention. | Analyzes application read-write ratios to pick optimal caching topologies: Write-Through for reads vs append buffers for writes. |
 
 ---
 

@@ -18,7 +18,7 @@ A single script running 500 requests per second against your login or search end
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves API routes unprotected by rate limits, allowing bot scrapers or brute-force credential stuffing to crash servers. | Implements Redis-backed Token Bucket rate limiting across IP, user session, and tenant tiers, returning standard HTTP 429. |
+| Exposes origin servers directly to the internet without an edge WAF or DDoS mitigation, allowing trivial request loops to crash the app. | Deploys Cloudflare/edge WAF with adaptive behavioral rate limiting and automated IP anomaly blacklisting. |
 
 ---
 

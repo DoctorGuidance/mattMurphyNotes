@@ -18,7 +18,7 @@ Raw AI output should never touch your users.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Raw AI output should never touch your users'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Streams raw, unvalidated LLM generation directly to frontend users, exposing users to prompt injection leaks and broken formatting. | Validates and parses LLM outputs against strict JSON schemas (Zod) with regex sanitization before rendering in the UI. |
 
 ---
 

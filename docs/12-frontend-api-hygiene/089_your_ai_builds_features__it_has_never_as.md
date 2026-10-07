@@ -18,7 +18,7 @@ Your AI builds features. It has never asked you who they are for.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Your AI builds features. It has never asked you who they'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Builds complex UI features based on assumptions without tracking real user behavior or feature adoption metrics. | Instruments frontend feature telemetry and event tracking to validate user engagement before iterating on interfaces. |
 
 ---
 

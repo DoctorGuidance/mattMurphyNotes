@@ -18,7 +18,7 @@ Tech Stack Layer 13 of 13.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Tech Stack Layer 13 of 13', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Tech Stack Layer 13 of 13'. |
+| Treats Layer 13 Storage as a simple key-value store, ignoring transaction atomicity, durability, and isolation guarantees. | Leverages transactional guarantees (`$transaction` / `BEGIN...COMMIT`) to ensure consistency across multi-step mutations. |
 
 ---
 

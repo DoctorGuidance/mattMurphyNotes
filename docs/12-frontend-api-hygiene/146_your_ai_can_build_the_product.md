@@ -18,7 +18,7 @@ Your AI can build the product.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Your AI can build the product'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Treats UI design as pure aesthetics, ignoring technical state transitions and error recovery workflows. | Approaches UI engineering from first principles: modeling state machines that handle loading, errors, network drops, and retries. |
 
 ---
 

@@ -18,7 +18,7 @@ There are 10,000 business owners within 50 miles of you bleeding money on third-
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on loose application filters for tenant isolation in 'There are 10,000 business owners within 50 miles of you', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'There are 10,000 business owners within 50 miles of you'. |
+| Attempts to build multi-tenant SaaS platforms by creating separate databases per tenant, creating operational maintenance nightmares. | Employs shared database architectures with strict PostgreSQL Row-Level Security (RLS) enforcing tenant isolation at scale. |
 
 ---
 

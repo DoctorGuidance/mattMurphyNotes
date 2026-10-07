@@ -18,7 +18,7 @@ The SaaS industry is built on feature bloat. That model is dying.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'The SaaS industry is built on feature bloat. That model is'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Bloats products with decorative AI novelty features while core user workflows remain buggy, slow, and unverified. | Focuses engineering bandwidth on hardening core business value paths, stripping gimmicky AI add-ons that fail to drive retention. |
 
 ---
 

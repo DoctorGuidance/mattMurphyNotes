@@ -18,7 +18,7 @@ In deployment a canary release pushes to a small group first.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'In deployment a canary release pushes to a small group first'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'In deployment a canary release pushes to a small group first'. |
+| Deploys updates simultaneously to 100% of production traffic, exposing all users immediately to uncaught regressions. | Implements canary deployments: routes 5% of production traffic to new versions, monitoring error metrics before full rollout. |
 
 ---
 

@@ -18,7 +18,7 @@ Your user clicked delete my account.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Your user clicked delete my account', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Logs account deletion requests as simple text strings without immutable audit trails required by data protection regulations. | Emits cryptographically verifiable audit logs for GDPR/CCPA deletion requests with automated verification receipts. |
 
 ---
 

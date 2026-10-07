@@ -18,7 +18,7 @@ Same API key for six months.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Same API key for six months', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Same API key for six months'. |
+| Maintains the identical static production API secret key for months without rotation schedules or breach contingency plans. | Automates 90-day secret rotation pipelines supporting dual-key grace periods to prevent service disruption during rotation. |
 
 ---
 

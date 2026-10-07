@@ -18,7 +18,7 @@ Your AI built your app for one country.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI built your app for one country'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Hardcodes single-currency assumptions and language strings into database schemas, blocking global market expansion. | Architects internationalization (i18n) from inception: UTC timestamps, multi-currency decimal handling, and locale routing. |
 
 ---
 

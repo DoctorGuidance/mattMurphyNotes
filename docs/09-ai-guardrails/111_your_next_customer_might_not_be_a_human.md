@@ -18,7 +18,7 @@ Your next customer might not be a human.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your next customer might not be a human'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Designs APIs exclusively for human browser interaction, breaking automated AI agent integrations with unstructured HTML. | Exposes machine-readable, schema-validated OpenAPI specifications and structured JSON endpoints for agent consumers. |
 
 ---
 

@@ -36,10 +36,10 @@ Analysis of 4 incidents and breakdowns from this domain:
 ## ❌ 3. Vibe-Coding Traps vs. Production Reality Matrix
 | # | ❌ The Vibe-Coding Trap (What Naive AI Builds) | ✅ Hardened Production Standard |
 |---|:---|:---|
-| **#103** | Leaves API routes unprotected by rate limits, allowing bot scrapers or brute-force credential stuffing to crash servers. | Implements Redis-backed Token Bucket rate limiting across IP, user session, and tenant tiers, returning standard HTTP 429. |
-| **#178** | Leaves endpoints vulnerable to traffic spikes or credential stuffing in 'Rate limiting is not about saying no' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
-| **#274** | Leaves endpoints vulnerable to traffic spikes or credential stuffing in 'Layer 9 of 13' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
-| **#304** | Leaves endpoints vulnerable to traffic spikes or credential stuffing in '50 users sign up at once' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
+| **#103** | Exposes origin servers directly to the internet without an edge WAF or DDoS mitigation, allowing trivial request loops to crash the app. | Deploys Cloudflare/edge WAF with adaptive behavioral rate limiting and automated IP anomaly blacklisting. |
+| **#178** | Drops abusive connections abruptly with opaque errors instead of standard HTTP rate limiting protocols. | Enforces Token Bucket rate limiting returning HTTP 429 status codes with explicit `Retry-After` headers and graceful client backoff. |
+| **#274** | Omits gateway rate limiting, leaving expensive AI and payment endpoints unprotected against automated bot abuse. | Applies multi-tiered rate limiting at API gateways: strict limits on auth/AI endpoints and relaxed thresholds for read APIs. |
+| **#304** | Allows 50 simultaneous registrations from a single IP to exhaust database pools and trigger external verification costs. | Throttles user registration endpoints by IP subnet and device fingerprint, queueing burst traffic via Redis queues. |
 
 ---
 

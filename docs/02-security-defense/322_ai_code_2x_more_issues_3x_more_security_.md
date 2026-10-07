@@ -18,7 +18,7 @@ The future of software development, it's not coding, it's finishing engineering
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'AI code 2x more issues. 3x more security vulns. $1.5', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'AI code 2x more issues. 3x more security vulns. $1.5'. |
+| Merges high-velocity AI-generated pull requests without automated static analysis security testing (SAST) gates. | Blocks PR merges failing automated Semgrep/SonarQube SAST gates designed to catch insecure AI coding patterns. |
 
 ---
 

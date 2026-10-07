@@ -18,7 +18,7 @@ The better the AI gets, the worse your code is going to be.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'The better the AI gets, the worse your code is going to be'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Relies on increasing LLM reasoning capabilities to fix broken code architectures, neglecting foundational engineering rigor. | Applies rigorous software engineering constraints: deterministic static analysis, end-to-end integration tests, and typing. |
 
 ---
 

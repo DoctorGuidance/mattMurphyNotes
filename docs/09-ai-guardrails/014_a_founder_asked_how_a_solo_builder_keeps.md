@@ -18,7 +18,7 @@ A founder asked how a solo builder keeps up with compliance when the laws change
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Renders unfiltered user-generated HTML in customer emails or web pages, allowing stored Cross-Site Scripting (XSS). | Sanitizes HTML payloads using DOMPurify on input, encodes output entities, and enforces strict Content Security Policy (CSP). |
+| Postpones fundamental legal compliance documents (Privacy Policy, Terms of Service, DPA) until after achieving product revenue. | Establishes a 90-day compliance calendar with automated compliance platforms and quarterly privacy reviews. |
 
 ---
 

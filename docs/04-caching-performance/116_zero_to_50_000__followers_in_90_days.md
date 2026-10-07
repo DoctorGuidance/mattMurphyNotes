@@ -18,7 +18,7 @@ Zero to 50,000+ followers in 90 days.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'Zero to 50,000+ followers in 90 days', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Hits primary databases directly for high-traffic public profile pages, buckling under sudden viral social media traffic spikes. | Serves high-read public pages from distributed edge caches with stale-while-revalidate policies, shielding backend origins. |
 
 ---
 

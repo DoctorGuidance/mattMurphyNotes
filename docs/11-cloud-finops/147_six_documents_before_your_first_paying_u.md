@@ -18,7 +18,7 @@ Six documents before your first paying user.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Six documents before your first paying user'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Accepts commercial payments before establishing formal terms of service, refund policies, and dispute documentation. | Publishes clear, legally binding terms of service, acceptable use policies, and refund guidelines prior to onboarding paying users. |
 
 ---
 

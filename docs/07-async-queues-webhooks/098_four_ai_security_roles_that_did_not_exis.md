@@ -18,7 +18,7 @@ Four AI security roles that did not exist two years ago. All of them pay six fig
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Four AI security roles that did not exist two years ago'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Executes external automated actions immediately upon AI agent tool calls without security verification or human oversight. | Places high-impact asynchronous tool executions behind signed webhook authorization gates with step-up verification. |
 
 ---
 

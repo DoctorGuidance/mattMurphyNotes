@@ -18,7 +18,7 @@ One user, that login works fine
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in '1 user Login works', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for '1 user Login works'. |
+| Relies on in-memory session arrays in multi-instance deployments, causing random logouts when requests hit different server nodes. | Backs user sessions with centralized Redis clusters or stateless encrypted JWT cookies to ensure seamless multi-node scaling. |
 
 ---
 

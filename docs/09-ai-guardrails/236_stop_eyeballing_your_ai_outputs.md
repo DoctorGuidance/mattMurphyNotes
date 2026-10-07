@@ -18,7 +18,7 @@ Stop eyeballing your AI outputs.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Stop eyeballing your AI outputs'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Evaluates AI model output quality solely by manual eyeballing, missing subtle hallucinations and regression bugs in edge cases. | Implements automated Model-as-a-Judge evaluation suites benchmarking outputs against golden datasets on every prompt change. |
 
 ---
 

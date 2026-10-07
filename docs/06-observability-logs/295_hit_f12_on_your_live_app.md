@@ -18,7 +18,7 @@ Hit F12 on your live app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Hit F12 on your live app', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Leaves debugging statements (`console.log`) and internal error details active in production frontend code. | Strips `console.log` statements in production build pipelines and routes client errors to Sentry with PII scrubbing. |
 
 ---
 

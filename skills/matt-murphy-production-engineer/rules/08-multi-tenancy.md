@@ -36,12 +36,12 @@ Analysis of 6 incidents and breakdowns from this domain:
 ## ❌ 3. Vibe-Coding Traps vs. Production Reality Matrix
 | # | ❌ The Vibe-Coding Trap (What Naive AI Builds) | ✅ Hardened Production Standard |
 |---|:---|:---|
-| **#061** | Relies on loose application filters for tenant isolation in 'There are 10,000 business owners within 50 miles of you', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'There are 10,000 business owners within 50 miles of you'. |
-| **#156** | Relies on loose application filters for tenant isolation in 'Starting in August…..35 new courses every week for ten weeks', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Starting in August…..35 new courses every week for ten weeks'. |
-| **#190** | Relies on loose application filters for tenant isolation in 'You wrote RLS policies', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'You wrote RLS policies'. |
-| **#221** | Relies on loose application filters for tenant isolation in 'Application-level filtering is a prayer', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Application-level filtering is a prayer'. |
-| **#225** | Relies on loose application filters for tenant isolation in 'Your multi-tenant isolation model is not a technical', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Your multi-tenant isolation model is not a technical'. |
-| **#270** | Relies on loose application filters for tenant isolation in 'Vibe Coded Multi-Tenant Platform', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Vibe Coded Multi-Tenant Platform'. |
+| **#061** | Attempts to build multi-tenant SaaS platforms by creating separate databases per tenant, creating operational maintenance nightmares. | Employs shared database architectures with strict PostgreSQL Row-Level Security (RLS) enforcing tenant isolation at scale. |
+| **#156** | Shares global database tables across tenants without automated tenant-scoping assertions, risking cross-tenant data leaks. | Enforces tenant context scoping on all queries and validates tenant isolation using automated multi-tenant regression suites. |
+| **#190** | Deploys PostgreSQL Row-Level Security policies without verifying that application database users bypass superuser privileges. | Runs application database connections under dedicated non-superuser roles with `FORCE ROW LEVEL SECURITY` enabled on tables. |
+| **#221** | Relies on fragile application-level ORM filters (`where: { tenantId }`), risking catastrophic data leaks if a single query forgets it. | Enforces tenant isolation natively at the database engine level via PostgreSQL Row-Level Security (RLS) policies. |
+| **#225** | Treats multi-tenant architecture as a purely technical decision, ignoring enterprise customer compliance and silo requirements. | Supports flexible tenant isolation tiers: cost-effective shared pooling for standard users and dedicated silo databases for enterprise tiers. |
+| **#270** | Builds multi-tenant platforms without scoping file storage or cache keys, allowing users to view peer organization assets. | Enforces composite tenant namespaces across all 13 layers: database tables, Redis cache keys, S3 storage prefixes, and logs. |
 
 ---
 

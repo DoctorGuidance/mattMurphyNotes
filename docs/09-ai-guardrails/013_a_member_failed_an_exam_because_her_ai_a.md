@@ -18,7 +18,7 @@ A member failed an exam because her AI argued with the curriculum.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Permits AI coding assistants to override established engineering standards and architectural separation in production files. | Enforces rigorous architectural guidelines and rejects AI suggestions that violate single-responsibility or modular standards. |
+| Leaves 1,400 lines of complex application code in a single monolithic file because an AI assistant advised against refactoring. | Enforces enterprise modular architecture, decomposing monolithic files into typed, isolated domain services regardless of AI bias. |
 
 ---
 

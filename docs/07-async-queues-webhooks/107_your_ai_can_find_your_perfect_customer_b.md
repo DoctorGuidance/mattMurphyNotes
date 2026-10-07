@@ -18,7 +18,7 @@ Your AI can find your perfect customer before you post a single ad.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your AI can find your perfect customer before you post a'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Executes synchronous multi-page web scraping in foreground HTTP requests, hitting gateway timeouts and hanging user browsers. | Delegates web extraction workloads to background queue workers, notifying clients asynchronously via WebSockets or polling. |
 
 ---
 

@@ -18,7 +18,7 @@ GitHub Copilot had a CVSS 9.6 remote code execution vulnerability.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'GitHub Copilot had a CVSS 9.6 remote code execution', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'GitHub Copilot had a CVSS 9.6 remote code execution'. |
+| Allows AI coding assistants to execute unsanitized bash commands or file modifications directly on local developer machines. | Runs untrusted AI-generated terminal scripts inside containerized developer sandboxes with constrained network access. |
 
 ---
 

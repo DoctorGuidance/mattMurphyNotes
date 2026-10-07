@@ -18,7 +18,7 @@ Your AI built an app that 1.3 billion people cannot use.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI built an app that 1.3 billion people cannot use'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Ships AI-generated UIs lacking accessibility standards, exposing companies to ADA lawsuits and locking out 1.3 billion users. | Audits interfaces for WCAG AA compliance: enforces semantic HTML, full keyboard navigation, color contrast, and ARIA labels. |
 
 ---
 

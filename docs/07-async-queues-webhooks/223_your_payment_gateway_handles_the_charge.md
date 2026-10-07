@@ -18,7 +18,7 @@ Your payment gateway handles the charge.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your payment gateway handles the charge'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Fails to handle transient payment gateway 500 errors gracefully, abandoning transactions instead of retrying securely. | Applies automated exponential backoff with jitter on transient gateway failures while preserving idempotency tokens. |
 
 ---
 

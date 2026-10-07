@@ -18,7 +18,7 @@ Half of the questions in my DMs are about this topic.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Half of the questions in my DMs are about this topic', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Half of the questions in my DMs are about this topic'. |
+| Fails to enforce foreign key constraints at the database engine level, resulting in orphaned records and corrupted relational state. | Enforces strict foreign key constraints with explicit `ON DELETE CASCADE` or `RESTRICT` policies in database schemas. |
 
 ---
 

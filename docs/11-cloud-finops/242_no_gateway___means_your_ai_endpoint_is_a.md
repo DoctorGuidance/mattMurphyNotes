@@ -18,7 +18,7 @@ No gateway…..means your AI endpoint is an open wallet with a public URL.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'No gateway…..means your AI endpoint is an open wallet with'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Connects frontend clients directly to AI provider endpoints without a gateway layer, creating an open wallet for billing abuse. | Deploys an AI API gateway (LiteLLM/Portkey) enforcing per-user rate limits, budget ceilings, and caching in front of model calls. |
 
 ---
 

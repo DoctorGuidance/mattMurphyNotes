@@ -18,7 +18,7 @@ Customer A logged in and saw customer B's data.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Customer A logged in and saw customer B's data', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Fails to alert engineers when cross-tenant data leaks occur, learning about privacy breaches from furious customer emails. | Instruments anomaly detection alerts on unexpected tenant ID mismatches and immediately terminates suspicious sessions. |
 
 ---
 

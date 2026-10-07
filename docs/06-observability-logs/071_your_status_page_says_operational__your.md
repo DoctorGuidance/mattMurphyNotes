@@ -18,7 +18,7 @@ Your status page says operational. Your customers are screenshotting error messa
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Your status page says operational. Your customers are', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Maintains status pages showing 'All Systems Operational' based on ping checks while core checkout workflows are broken. | Deploys automated synthetic transaction canaries testing real login and payment workflows end-to-end around the clock. |
 
 ---
 

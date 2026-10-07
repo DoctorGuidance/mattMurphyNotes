@@ -18,7 +18,7 @@ Your database has 10 million rows. Queries that took 20 milliseconds now take fo
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Ten million rows', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Ten million rows'. |
+| Runs pagination using offset-limit queries on tables with 10 million rows, forcing the database to scan millions of discarded rows. | Implements cursor-based keyset pagination (`WHERE id > :last_id LIMIT 50`) for constant-time performance regardless of table size. |
 
 ---
 

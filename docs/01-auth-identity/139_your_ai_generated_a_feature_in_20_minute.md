@@ -18,7 +18,7 @@ Your AI generated a feature in 20 minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Your AI generated a feature in 20 minutes', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your AI generated a feature in 20 minutes'. |
+| Allows user profile update endpoints to modify email and phone identifiers without sending verification challenges. | Requires re-authentication and automated one-time confirmation challenges before altering primary identity attributes. |
 
 ---
 

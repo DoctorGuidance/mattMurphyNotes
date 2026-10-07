@@ -18,7 +18,7 @@ Everyone is shopping for a vector database.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Everyone is shopping for a vector database', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Everyone is shopping for a vector database'. |
+| Deploys standalone vector databases for simple AI search features without evaluating operational complexity and cost overhead. | Leverages `pgvector` extensions inside existing PostgreSQL clusters for small-to-medium vector workloads before scaling out. |
 
 ---
 

@@ -18,7 +18,7 @@ Images do not belong in database columns.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Stores image binaries or large base64 blobs directly in database tables, bloating storage and exhausting buffer pool memory. | Offloads media assets to dedicated S3/Object Storage with CDN edge distribution, storing only normalized URLs/keys in the database. |
+| Stores high-resolution image binaries directly in database bytea/blob columns, inflating storage size and exhausting buffer pools. | Offloads binary media files to dedicated S3/Object Storage with CDN edge distribution, storing only normalized URLs in the database. |
 
 ---
 

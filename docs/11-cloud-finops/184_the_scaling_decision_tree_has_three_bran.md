@@ -18,7 +18,7 @@ The scaling decision tree has three branches.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'The scaling decision tree has three branches'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Attempts to solve backend scaling bottlenecks by adding complex microservices before optimizing monolithic database queries. | Follows structured scaling decision trees: optimizes queries and indexes first, adds caching second, scales hardware last. |
 
 ---
 

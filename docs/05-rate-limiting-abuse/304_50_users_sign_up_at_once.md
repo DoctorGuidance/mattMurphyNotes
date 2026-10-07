@@ -18,7 +18,7 @@ You shipped your vibecoded app
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints vulnerable to traffic spikes or credential stuffing in '50 users sign up at once' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
+| Allows 50 simultaneous registrations from a single IP to exhaust database pools and trigger external verification costs. | Throttles user registration endpoints by IP subnet and device fingerprint, queueing burst traffic via Redis queues. |
 
 ---
 

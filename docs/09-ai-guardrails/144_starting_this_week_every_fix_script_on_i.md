@@ -18,7 +18,7 @@ Starting this week every fix script on Instagram has a companion inside the free
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Starting this week every fix script on Instagram has a'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Copies unverified coding tricks from social media into production without assessing race conditions or security boundaries. | Evaluates third-party code patterns against formal production engineering criteria before adoption into mission-critical repos. |
 
 ---
 

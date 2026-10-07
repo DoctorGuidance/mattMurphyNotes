@@ -18,7 +18,7 @@ Your database has been doing a full table scan on every request since launch.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your database has been doing a full table scan on every', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your database has been doing a full table scan on every'. |
+| Executes unindexed filter queries that perform sequential full table scans across millions of rows, spiking database CPU to 100%. | Analyzes query execution plans with `EXPLAIN ANALYZE` and adds covering composite B-tree indexes matching query predicates. |
 
 ---
 

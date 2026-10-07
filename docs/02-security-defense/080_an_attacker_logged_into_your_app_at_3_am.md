@@ -18,7 +18,7 @@ An attacker logged into your app at 3 AM from another country.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'An attacker logged into your app at 3 AM from another', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker logged into your app at 3 AM from another'. |
+| Allows logins from unprecedented geolocations without requiring step-up verification or alerting account owners. | Calculates risk scores based on IP reputation, device fingerprints, and impossible travel velocity, requiring step-up MFA challenges. |
 
 ---
 

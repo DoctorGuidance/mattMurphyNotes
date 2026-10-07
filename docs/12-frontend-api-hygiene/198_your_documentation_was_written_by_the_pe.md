@@ -18,7 +18,7 @@ Your documentation was written by the person who built the feature.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Your documentation was written by the person who built the'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Writes technical documentation loaded with internal jargon that confuses prospective customers and support staff. | Produces clean, user-centric documentation with searchable troubleshooting guides, interactive examples, and clear workflows. |
 
 ---
 

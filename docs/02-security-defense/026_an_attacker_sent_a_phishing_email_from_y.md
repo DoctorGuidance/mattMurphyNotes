@@ -18,7 +18,7 @@ An attacker sent a phishing email from your domain.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'An attacker sent a phishing email from your domain', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker sent a phishing email from your domain'. |
+| Sends transactional emails without SPF, DKIM, and DMARC DNS records, enabling attackers to spoof domain emails. | Configures strict SPF, DKIM 2048-bit keys, and DMARC `p=reject` policies to ensure verifiable domain email authentication. |
 
 ---
 

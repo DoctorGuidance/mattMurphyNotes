@@ -18,7 +18,7 @@ An attacker just skipped your entire form and sent raw data to your API.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'An attacker just skipped your entire form and sent raw data', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'An attacker just skipped your entire form and sent raw data'. |
+| Relies solely on frontend HTML form validation attributes, trusting raw HTTP requests submitted directly to API handlers. | Enforces identical server-side input schema validation using Zod/Valibot on all incoming API request payloads. |
 
 ---
 

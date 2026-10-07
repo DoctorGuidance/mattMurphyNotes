@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in '92% of developers use AI daily'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for '92% of developers use AI daily'. |
+| Allows developers to merge AI-generated code without automated security testing, flooding codebases with security anti-patterns. | Integrates automated static analysis (SAST) and secret scanning into pull request pipelines to verify all AI-generated code. |
 
 ---
 

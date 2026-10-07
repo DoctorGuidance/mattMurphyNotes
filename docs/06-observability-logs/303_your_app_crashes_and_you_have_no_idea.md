@@ -18,7 +18,7 @@ I told you your app crashes and you don't know why
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Your app crashes and you have no idea', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Operates production servers without automated uptime alerting, discovering outages only when users complain on Twitter. | Configures independent multi-region uptime checks pinging health endpoints every 60 seconds with PagerDuty SMS escalation. |
 
 ---
 

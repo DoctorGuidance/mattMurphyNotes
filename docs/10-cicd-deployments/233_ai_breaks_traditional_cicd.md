@@ -18,7 +18,7 @@ AI breaks traditional CI/CD.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'AI breaks traditional CICD'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'AI breaks traditional CICD'. |
+| Allows high-velocity AI code generation to overwhelm traditional manual PR review processes, creating code review backlogs. | Automates PR review triage with AI linters, automated test suites, and strict architectural boundary checkers. |
 
 ---
 

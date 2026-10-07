@@ -18,7 +18,7 @@ NIST says most agents run on borrowed credentials.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'NIST says most agents run on borrowed credentials'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Runs autonomous AI agents on borrowed master API credentials with unrestricted tool execution permissions across production. | Scopes AI agent credentials to least-privilege, short-lived tokens with strict read-only boundaries and human approval gates. |
 
 ---
 

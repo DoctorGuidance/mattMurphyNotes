@@ -18,7 +18,7 @@ AWS just killed Bedrock Agents. Renamed it to Classic. Closed to new customers.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'AWS just killed Bedrock Agents. Renamed it to Classic'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Binds application architectures to proprietary cloud AI orchestration services that deprecate and rename features abruptly. | Builds AI agent workflows using modular, open abstractions (LangGraph/Custom State Machines) decoupled from proprietary cloud silos. |
 
 ---
 

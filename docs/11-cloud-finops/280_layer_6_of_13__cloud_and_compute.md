@@ -18,7 +18,7 @@ Layer 6 of 13, cloud and compute!
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Layer 6 of 13, cloud and compute!'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Deploys serverless containers without setting upper concurrency bounds, accumulating runaway bills during denial-of-wallet attacks. | Sets explicit maximum concurrency limits, execution memory caps, and automated billing threshold alarms on serverless containers. |
 
 ---
 

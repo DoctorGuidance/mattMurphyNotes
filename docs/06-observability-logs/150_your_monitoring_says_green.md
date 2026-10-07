@@ -18,7 +18,7 @@ Your monitoring says green.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Your monitoring says green', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Relies purely on infrastructure CPU/RAM gauges while business metrics (conversion rates, checkout volume) plummet. | Pairs infrastructure monitoring with business-level telemetry and anomaly alerts tracking transaction volumes and conversion rates. |
 
 ---
 

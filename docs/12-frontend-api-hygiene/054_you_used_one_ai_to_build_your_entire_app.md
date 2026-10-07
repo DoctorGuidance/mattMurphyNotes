@@ -18,7 +18,7 @@ You used one AI to build your entire app. You are using the same AI to check its
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You used one AI to build your entire app. You are using the'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Prompts a single AI session to generate entire full-stack applications in one prompt, producing tangled spaghetti architectures. | Deconstructs software architectures into modular, independently testable layers with explicit typed contract boundaries. |
 
 ---
 

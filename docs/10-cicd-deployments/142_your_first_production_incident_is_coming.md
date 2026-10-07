@@ -18,7 +18,7 @@ Your first production incident is coming.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Your first production incident is coming'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Your first production incident is coming'. |
+| Waits for the first major production outage before writing operational runbooks, panicking when user databases crash. | Authors clear incident response runbooks with documented rollback steps, database failover procedures, and on-call escalation paths. |
 
 ---
 

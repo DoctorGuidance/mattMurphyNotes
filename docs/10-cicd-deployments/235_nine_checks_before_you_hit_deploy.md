@@ -18,7 +18,7 @@ Nine checks before you hit deploy.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Nine checks before you hit deploy'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Nine checks before you hit deploy'. |
+| Hits the deploy button without verifying database migrations, environment variables, or build health. | Automates a strict 9-point pre-flight deployment checklist in CI: schema check, secret scans, build verification, and smoke tests. |
 
 ---
 

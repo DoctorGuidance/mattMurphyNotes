@@ -18,7 +18,7 @@ Your cloud bill doubled.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Your cloud bill doubled'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Discovers cloud bills doubled unexpectedly due to abandoned unattached storage volumes, zombie instances, and NAT data transfer. | Automates weekly cloud resource hygiene scans with automated teardown of unattached disks and idle staging compute nodes. |
 
 ---
 

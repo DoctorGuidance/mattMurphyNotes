@@ -18,7 +18,7 @@ Thousands of people scraped your prompt this week and you have no idea it happen
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Thousands of people scraped your prompt this week and you'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Exposes proprietary system prompts and confidential business logic in client-side code, allowing trivial prompt reverse-engineering. | Encapsulates system prompts behind authenticated backend API proxies, returning only sanitized domain responses to clients. |
 
 ---
 

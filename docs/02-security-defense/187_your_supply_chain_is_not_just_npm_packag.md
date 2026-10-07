@@ -18,7 +18,7 @@ Your supply chain is not just npm packages anymore.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Your supply chain is not just npm packages anymore', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your supply chain is not just npm packages anymore'. |
+| Installs unverified Model Context Protocol (MCP) servers with unrestricted file system and environment variable access. | Audits MCP server source code, applies least-privilege operating system permissions, and restricts tool execution capabilities. |
 
 ---
 

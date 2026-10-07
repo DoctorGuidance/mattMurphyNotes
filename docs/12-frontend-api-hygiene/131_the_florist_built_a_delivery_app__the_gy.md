@@ -18,7 +18,7 @@ The florist built a delivery app. The gym owner automated scheduling.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'The florist built a delivery app. The gym owner automated'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Over-engineers simple client ordering workflows with confusing multi-step modals and slow network roundtrips. | Implements streamlined checkout interfaces with optimistic UI updates and real-time status feedback for users. |
 
 ---
 

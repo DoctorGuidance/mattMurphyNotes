@@ -18,7 +18,7 @@ Your AI keeps building new features while your existing features are broken.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Your AI keeps building new features while your existing'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Rushes to build shiny new frontend features while existing customer workflows suffer from reported, unaddressed regressions. | Prioritizes stabilizing existing user journeys and fixing reported bugs before commencing new UI feature development. |
 
 ---
 

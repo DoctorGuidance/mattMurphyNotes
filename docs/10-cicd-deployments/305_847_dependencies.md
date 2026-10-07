@@ -18,7 +18,7 @@ I told you your vibe coded app has 847 dependencies and you installed maybe seve
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in '847 dependencies'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for '847 dependencies'. |
+| Accumulates 847 transitive npm dependencies, ignoring known security CVEs and supply chain injection risks. | Runs automated `npm audit` gates in CI and schedules monthly dependency pruning to eliminate unmaintained libraries. |
 
 ---
 

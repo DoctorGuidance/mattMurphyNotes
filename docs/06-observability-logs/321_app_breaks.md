@@ -18,7 +18,7 @@ The app breaks, so you check the logs
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'App breaks', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Runs applications without automated healthcheck probes, causing container orchestrators to route traffic to dead instances. | Implements separate `/health/liveness` and `/health/readiness` probes for automated Kubernetes/Docker restart and routing. |
 
 ---
 

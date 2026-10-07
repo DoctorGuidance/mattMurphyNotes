@@ -18,7 +18,7 @@ You're not just setting a price, you're deciding who gets to participate.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'You're not just setting a price, you're deciding who gets'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Prices software arbitrarily without factoring in underlying compute, storage, and AI model token consumption margins. | Models product pricing around gross margin economics, incorporating variable compute and AI inference costs into plan tiers. |
 
 ---
 

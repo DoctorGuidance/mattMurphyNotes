@@ -18,7 +18,7 @@ Your AI just answered a customer's question with data from another customer's pr
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Your AI just answered a customer's question with data from', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your AI just answered a customer's question with data from'. |
+| Feeds un-redacted multi-tenant databases into customer-facing LLMs, leaking peer customer data through prompt completions. | Enforces strict data masking, tenant isolation filters, and prompt boundaries before feeding context into LLM generation. |
 
 ---
 

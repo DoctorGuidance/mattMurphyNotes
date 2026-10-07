@@ -18,7 +18,7 @@ Your AI built your Stripe checkout.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your AI built your Stripe checkout'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Reads purchase prices directly from client request bodies, allowing attackers to buy $500 items for $1 via API tampering. | Creates checkout sessions strictly on the server using database Price IDs, verifying payment state via signed webhooks. |
 
 ---
 

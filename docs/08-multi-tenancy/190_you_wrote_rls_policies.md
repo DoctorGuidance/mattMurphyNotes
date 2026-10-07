@@ -18,7 +18,7 @@ You wrote RLS policies.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on loose application filters for tenant isolation in 'You wrote RLS policies', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'You wrote RLS policies'. |
+| Deploys PostgreSQL Row-Level Security policies without verifying that application database users bypass superuser privileges. | Runs application database connections under dedicated non-superuser roles with `FORCE ROW LEVEL SECURITY` enabled on tables. |
 
 ---
 

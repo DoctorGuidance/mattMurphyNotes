@@ -18,7 +18,7 @@ Your Stripe webhook failed silently for six hours.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your Stripe webhook failed silently for six hours'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Fails to monitor failed webhook retries, leaving payment discrepancies unresolved for six hours during production outages. | Routes failed webhook events to Dead-Letter Queues (DLQ) with PagerDuty alerts after three automated exponential backoff attempts. |
 
 ---
 

@@ -18,7 +18,7 @@ Your database answers the same question a thousand times a day.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your database answers the same question a thousand times a', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your database answers the same question a thousand times a'. |
+| Executes identical expensive database aggregation queries on every HTTP request without caching intermediate calculations. | Caches aggregated metric calculations in Redis or uses materialized views refreshed periodically in the background. |
 
 ---
 

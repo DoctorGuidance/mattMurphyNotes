@@ -18,7 +18,7 @@ Your checkout takes 12 seconds because your AI built the whole process as one ch
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your checkout takes 12 seconds because your AI built the'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Executes synchronous AI model calls inside checkout transaction flows, causing 12-second latency and cart abandonments. | Decouples AI enhancements from checkout paths, executing them asynchronously in background queues to keep checkouts sub-second. |
 
 ---
 

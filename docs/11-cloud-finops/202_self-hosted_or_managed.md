@@ -18,7 +18,7 @@ Self-hosted or managed.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Self-hosted or managed'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Migrates to self-hosted infrastructure under the illusion of 'free compute', underestimating engineering maintenance hours. | Calculates Total Cost of Ownership (TCO) including maintenance, security patch management, and on-call engineer overhead. |
 
 ---
 

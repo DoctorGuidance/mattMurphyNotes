@@ -18,7 +18,7 @@ Your mobile app exists, but when someone shares a link to your content, it opens
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'One mobile link'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Shares raw desktop web URLs on mobile marketing channels, landing mobile users on un-responsive, broken desktop layouts. | Implements universal mobile deep-linking and responsive viewport routing to ensure seamless mobile onboarding experiences. |
 
 ---
 

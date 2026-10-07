@@ -18,7 +18,7 @@ Your AI feature takes 12 seconds. Your platform times out at 10.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Your AI feature takes 12 seconds. Your platform times out'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Runs 12-second generative AI tasks in standard synchronous HTTP serverless routes, failing under 10-second edge platform timeouts. | Streams long-running completions using Server-Sent Events (SSE) or offloads tasks to asynchronous queues with progress updates. |
 
 ---
 

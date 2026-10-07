@@ -18,7 +18,7 @@ Two frontier models shipped last week and most builders never checked the price.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Two frontier models shipped last week and most builders'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Upgrades production LLM models instantly on release day, breaking downstream schema parsers with unannounced prompt drift. | Pins exact model version snapshots (`gpt-4o-2024-08-06`) and verifies structured output schemas in staging prior to production promotion. |
 
 ---
 

@@ -18,7 +18,7 @@ Three questions every builder should answer before launch.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Three questions every builder should answer before launch'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Launches products without answering foundational launch criteria: payment validation, data privacy, and failure recovery. | Verifies production readiness against core pre-launch criteria: payment webhooks, GDPR deletion paths, and uptime alerting. |
 
 ---
 

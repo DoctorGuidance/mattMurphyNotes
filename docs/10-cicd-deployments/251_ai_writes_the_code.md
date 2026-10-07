@@ -18,7 +18,7 @@ The AI wrote your code. You shipped it without reading it. It's three months lat
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'AI writes the code'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'AI writes the code'. |
+| Allows AI to generate large production components without writing unit tests, accumulating silent architectural debt. | Mandates test-driven verification for AI-generated code, requiring unit and integration tests before merging changes. |
 
 ---
 

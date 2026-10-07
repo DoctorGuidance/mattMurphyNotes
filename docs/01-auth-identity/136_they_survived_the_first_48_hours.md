@@ -18,7 +18,7 @@ They survived the first 48 hours.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'They survived the first 48 hours', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'They survived the first 48 hours'. |
+| Forces lengthy multi-step registration forms upfront, causing 70% of prospective users to abandon the authentication funnel. | Adopts progressive profiling with frictionless passwordless magic links, collecting extended metadata only after user activation. |
 
 ---
 

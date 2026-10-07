@@ -18,7 +18,7 @@ Your user just saw your database password on their screen.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your user just saw your database password on their screen', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your user just saw your database password on their screen'. |
+| Exposes raw database connection strings containing administrative passwords in client-facing exception stack traces. | Scrubs sensitive database connection strings and passwords from all application error boundaries and logging middleware. |
 
 ---
 

@@ -18,7 +18,7 @@ You put Cloudflare in front of your app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'You put Cloudflare in front of your app', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Puts Cloudflare in front of an application with naive default cache settings, accidentally caching dynamic user sessions at the edge. | Configures explicit `Cache-Control: private, no-store` on authenticated routes while caching purely static assets at the CDN edge. |
 
 ---
 

@@ -18,7 +18,7 @@ Your AI built the app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Directs AI to deploy user-facing application features without giving the agent observability or support troubleshooting playbooks. | Equips AI agents with structured error telemetry and automated support diagnostic playbooks for production triage. |
+| Relies on AI coding tools to design business logic architectures, resulting in tangled domain models and circular dependencies. | Designs core domain models and transactional boundaries using domain-driven design before delegating implementation to AI. |
 
 ---
 

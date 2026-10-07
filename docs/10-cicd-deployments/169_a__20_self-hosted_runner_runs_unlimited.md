@@ -18,7 +18,7 @@ A $20 self-hosted runner runs unlimited minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'A $20 self-hosted runner runs unlimited minutes'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'A $20 self-hosted runner runs unlimited minutes'. |
+| Burns expensive managed cloud CI runner minutes on long build matrices instead of using cost-effective dedicated runners. | Deploys dedicated self-hosted CI runners on fixed-cost compute instances ($20/mo), achieving unlimited pipeline execution. |
 
 ---
 

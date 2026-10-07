@@ -18,7 +18,7 @@ Nobody is measuring whether their AI build is actually making money. You can tel
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Nobody is measuring whether their AI build is actually'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Operates AI applications without measuring per-user cost of goods sold (COGS), operating power users at a net financial loss. | Instruments per-user token and infrastructure cost metering, aligning customer pricing tiers with underlying compute expenses. |
 
 ---
 

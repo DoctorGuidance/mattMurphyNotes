@@ -18,7 +18,7 @@ Layer five is staging. You deploy by pushing the main. No staging, no review, no
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Layer 5 of 13!'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Layer 5 of 13!'. |
+| Treats Layer 5 Staging Parity as optional, testing migrations on production databases during live customer traffic. | Mandates staging dry-runs for all database migrations and configuration updates prior to production execution. |
 
 ---
 

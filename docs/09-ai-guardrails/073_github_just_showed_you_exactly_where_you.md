@@ -18,7 +18,7 @@ GitHub just showed you exactly where your AI money goes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'GitHub just showed you exactly where your AI money goes'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Spends thousands of dollars on unmonitored AI token usage without tracking token consumption per user, feature, or endpoint. | Instruments per-user and per-feature token telemetry, enforcing automated spend alerts and strict monthly quota limits. |
 
 ---
 

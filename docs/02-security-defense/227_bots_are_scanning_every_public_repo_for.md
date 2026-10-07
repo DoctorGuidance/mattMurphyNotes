@@ -18,7 +18,7 @@ Bots are scanning every public repo for API keys right now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Bots are scanning every public repo for API keys right now', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Bots are scanning every public repo for API keys right now'. |
+| Leaves public repositories unmonitored for accidental secret commits, allowing automated crawler bots to steal keys in seconds. | Installs pre-commit Git hooks (TruffleHog/git-secrets) that block commits containing API keys, private certificates, or tokens. |
 
 ---
 

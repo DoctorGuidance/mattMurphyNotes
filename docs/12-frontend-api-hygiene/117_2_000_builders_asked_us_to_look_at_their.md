@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in '2,000 builders asked us to look at their apps'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Ships frontend applications missing global error boundaries, causing whole pages to crash to blank white screens on minor exceptions. | Wraps critical UI components in React Error Boundaries that display graceful fallback UIs with retry buttons upon crashes. |
 
 ---
 

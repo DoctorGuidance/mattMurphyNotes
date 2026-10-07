@@ -18,7 +18,7 @@ Serverless was predictable at 10 users. At 1,000 the bill is climbing.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Serverless was predictable at 10 users. At 1,000 the bill'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Leaves serverless functions configured with default 15-minute execution timeouts, accumulating massive bills during hanging loops. | Enforces hard function timeouts (15-30 seconds) and memory limits across all serverless function definitions. |
 
 ---
 

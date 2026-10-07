@@ -18,7 +18,7 @@ Your AI generated app uses 47 different packages and you can name maybe three of
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in '47 packages'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for '47 packages'. |
+| Installs dozens of redundant utility packages, inflating frontend bundle sizes and slowing page load speeds. | Audits bundle sizes using Webpack/Vite bundle analyzers, replacing heavy external packages with native JavaScript APIs. |
 
 ---
 

@@ -18,7 +18,7 @@ Three deployment models.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Three deployment models'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Three deployment models'. |
+| Adopts high-risk deployment models without understanding coupling between application code and database schema states. | Selects deployment patterns (Rolling, Blue/Green, Canary) aligned with backward-compatible database schema migrations. |
 
 ---
 

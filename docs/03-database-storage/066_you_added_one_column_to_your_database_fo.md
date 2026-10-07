@@ -18,7 +18,7 @@ You added one column to your database for one client. Every other client's queri
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on manual application-level `where: { tenantId }` filtering, risking catastrophic cross-tenant data leaks on any missed query. | Enforces native Row Level Security (RLS) directly in PostgreSQL, guaranteeing zero cross-tenant leakage at the database engine level. |
+| Adds bespoke un-indexed columns to primary tables for one client, degrading query performance for all remaining tenants. | Maintains clean schema normalization with JSONB attribute fields or dedicated tenant configuration extension tables. |
 
 ---
 

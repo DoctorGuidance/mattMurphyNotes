@@ -18,7 +18,7 @@ MCP is a dead end. Your agent can build its own integrations now.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'MCP is a dead end. Your agent can build its own'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Assumes Model Context Protocol (MCP) servers solve all agent integration hurdles without securing local socket tool execution. | Applies rigorous sandbox isolation, input validation, and execution rate limits to all Model Context Protocol (MCP) tool endpoints. |
 
 ---
 

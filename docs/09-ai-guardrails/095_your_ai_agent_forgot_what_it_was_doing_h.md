@@ -18,7 +18,7 @@ Your AI agent forgot what it was doing halfway through the job.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI agent forgot what it was doing halfway through the'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Builds autonomous agents that forget task objectives halfway through execution due to unstructured, unbounded context growth. | Implements structured state machines with explicit task scratchpads and periodic context summarization checkpoints. |
 
 ---
 

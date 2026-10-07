@@ -18,7 +18,7 @@ Your app works great.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your app works great', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your app works great'. |
+| Deploys applications without configuring database connection leak alerts, crashing servers silently when connections remain open. | Monitors database active connection metrics and enforces connection pool timeouts with automatic garbage collection of idle pools. |
 
 ---
 

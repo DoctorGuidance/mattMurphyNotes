@@ -18,7 +18,7 @@ Someone sent a forged request to your API last Tuesday.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Runs database without automated WAL archiving, relying on nightly backups that lose up to 24 hours of customer transactions. | Implements continuous Point-In-Time Recovery (PITR) with continuous WAL streaming to offsite cloud storage. |
+| Accepts state-modifying POST requests without Cross-Site Request Forgery (CSRF) tokens on cookie-authenticated sessions. | Implements Double Submit Cookie patterns or SameSite=Strict cookie policies to neutralize cross-site request forgery. |
 
 ---
 

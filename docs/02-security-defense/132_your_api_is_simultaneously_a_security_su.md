@@ -18,7 +18,7 @@ Your API is simultaneously a security surface, a product surface, and a contract
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Your API is simultaneously a security surface, a product', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your API is simultaneously a security surface, a product'. |
+| Treats APIs solely as frontend data conduits without recognizing them as the primary attack surface requiring continuous defense. | Architects APIs with defense-in-depth: edge rate limiting, schema validation, least-privilege scoping, and audit telemetry. |
 
 ---
 

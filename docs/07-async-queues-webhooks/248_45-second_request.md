@@ -18,7 +18,7 @@ A user clicks export report. Your API generates a PDF. It takes 45 seconds, so t
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in '45-second request'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Holds HTTP connections open for 45 seconds while processing heavy tasks, hitting edge proxy connection timeouts. | Responds immediately with HTTP 202 Accepted, delegating heavy operations to background queues with status polling. |
 
 ---
 

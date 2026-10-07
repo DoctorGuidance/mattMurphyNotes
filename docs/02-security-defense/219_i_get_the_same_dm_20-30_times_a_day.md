@@ -18,7 +18,7 @@ I get the same DM 20-30 times a day:
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'I get the same DM 20-30 times a day', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'I get the same DM 20-30 times a day'. |
+| Builds ad-hoc security mechanisms in application code instead of leveraging battle-tested security framework primitives. | Standardizes security defenses on proven industry frameworks, avoiding brittle custom security implementations. |
 
 ---
 

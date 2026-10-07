@@ -18,7 +18,7 @@ Serverless Postgres or serverless MySQL.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Serverless Postgres or serverless MySQL'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Picks serverless database engines without testing compatibility with application transaction patterns and relational constraints. | Evaluates serverless database compatibility against relational constraints, transaction isolation levels, and migration tools. |
 
 ---
 

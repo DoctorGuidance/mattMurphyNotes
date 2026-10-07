@@ -18,7 +18,7 @@ You have 6,000 users and fewer of them come back every week.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'You have 6,000 users and fewer of them come back every week', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Tracks vanity signup numbers while ignoring cohort retention metrics and user drop-off telemetry on core features. | Instruments user engagement telemetry and cohort retention tracking to detect silent user abandonment early. |
 
 ---
 

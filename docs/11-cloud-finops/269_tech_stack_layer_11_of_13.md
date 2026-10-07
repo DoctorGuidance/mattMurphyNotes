@@ -18,7 +18,7 @@ Tech Stack Layer 11 of 13.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Tech Stack Layer 11 of 13'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Treats Layer 11 Cloud FinOps as an afterthought, ignoring runaway egress bandwidth and unbudgeted cloud infrastructure. | Enforces Layer 11 FinOps discipline: hard function execution timeouts, egress traffic monitoring, and cloud budget kill-switches. |
 
 ---
 

@@ -18,7 +18,7 @@ Your AI built a product. It did not register a business.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI built a product. It did not register a business'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Charges paying customers for AI software before establishing registered business entities, exposing founders to personal liability. | Registers formal business entities, establishes dedicated commercial banking pipelines, and enforces terms of service. |
 
 ---
 

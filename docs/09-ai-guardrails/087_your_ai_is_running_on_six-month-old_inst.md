@@ -18,7 +18,7 @@ Your AI is running on six-month-old instructions. That is why it is getting wors
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI is running on six-month-old instructions. That is'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Leaves AI agent instructions hardcoded in database strings for six months without version control or continuous regression testing. | Versions system prompts in Git repositories with automated evaluation tests run on every pull request to prevent performance drift. |
 
 ---
 

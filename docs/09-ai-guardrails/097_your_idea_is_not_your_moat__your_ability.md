@@ -18,7 +18,7 @@ Your idea is not your moat. Your ability to execute is.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your idea is not your moat. Your ability to execute is'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Believes product ideas constitute defensible moats rather than continuous production execution speed and engineering rigor. | Treats high-velocity, production-hardened engineering execution and customer retention loops as the only sustainable business moat. |
 
 ---
 

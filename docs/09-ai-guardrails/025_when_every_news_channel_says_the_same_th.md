@@ -18,7 +18,7 @@ When every news channel says the same thing on the same day, I don't get scared.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'When every news channel says the same thing on the same'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Believes vendor marketing hype around new frontier models without running deterministic regression benchmarks against private data. | Establishes internal automated evaluation test suites to benchmark speed, cost, and hallucination rates before switching models. |
 
 ---
 

@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in '10,000 people are working on your idea right now'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Spawns unbounded concurrent background workers during viral traffic bursts, overwhelming and crashing downstream databases. | Enforces worker pool concurrency limits with token buckets and backpressure controls to protect downstream services. |
 
 ---
 

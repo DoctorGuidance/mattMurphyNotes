@@ -18,7 +18,7 @@ Your app works in the demo. It works when you show your friends. But it’s not 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Your app works in the demo. It works when you show your'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Your app works in the demo. It works when you show your'. |
+| Prepares investor demos using pristine sanitized data, hiding severe database deadlocks and slow queries under dirty inputs. | Fuzz-tests staging environments with dirty, realistic production datasets to uncover unhandled errors prior to launch. |
 
 ---
 

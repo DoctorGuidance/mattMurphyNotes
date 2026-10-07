@@ -18,7 +18,7 @@ Self-hosted or managed.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'Self-hosted or managed'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'Self-hosted or managed'. |
+| Makes infrastructure hosting decisions based on internet hype rather than calculating operational maintenance and egress costs. | Evaluates hosting trade-offs systematically: balancing managed convenience against self-hosted control and compute margins. |
 
 ---
 

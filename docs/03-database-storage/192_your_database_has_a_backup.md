@@ -18,7 +18,7 @@ Your database has a backup.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on unverified backup routines in 'Your database has a backup', risking irreversible data loss upon storage failure. | Enforces continuous point-in-time recovery (PITR) and automated restore drill verification for 'Your database has a backup'. |
+| Assumes automated cloud provider snapshots guarantee recovery without ever executing an end-to-end database restore test. | Executes automated monthly restore drills spinning up isolated test databases from production snapshots to verify integrity. |
 
 ---
 

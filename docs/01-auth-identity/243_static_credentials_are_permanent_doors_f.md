@@ -18,7 +18,7 @@ Static credentials are permanent doors for attackers.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Static credentials are permanent doors for attackers', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Static credentials are permanent doors for attackers'. |
+| Deploys static, hardcoded API secret keys that remain unchanged across environments for years, maximizing breach blast radiuses. | Enforces automated secret rotation using cloud secret managers and issues short-lived ephemeral credentials to services. |
 
 ---
 

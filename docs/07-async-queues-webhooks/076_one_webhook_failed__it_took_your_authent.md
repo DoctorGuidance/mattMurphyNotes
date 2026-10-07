@@ -18,7 +18,7 @@ One webhook failed. It took your authentication, your dashboard, and your checko
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'One webhook failed. It took your authentication, your'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Executes heavy webhook processing directly inside synchronous HTTP handler threads, crashing the server under event spikes. | Enqueues incoming webhook payloads into asynchronous Redis queues (BullMQ/SQS) with Dead-Letter Queues (DLQ) for retries. |
 
 ---
 

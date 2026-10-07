@@ -18,7 +18,7 @@
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in '60% of signups never return after day two', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for '60% of signups never return after day two'. |
+| Fails to detect credential stuffing attacks by logging failed logins as normal application events without threshold alarms. | Monitors failed login ratios per IP and user account, triggering progressive delays, CAPTCHAs, and security alerts. |
 
 ---
 

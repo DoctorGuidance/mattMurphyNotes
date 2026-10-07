@@ -18,7 +18,7 @@ You have 47 skills loaded into your AI right now. Half of them were written for 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'You have 47 skills loaded into your AI right now. Half of'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Overloads AI agent context windows with 47 simultaneous skill instructions, causing severe attention degradation and instruction drift. | Dynamically activates domain skills on-demand using intent classifiers, keeping agent active context lean and focused. |
 
 ---
 

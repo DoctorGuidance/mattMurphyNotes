@@ -18,7 +18,7 @@ Your app was written by AI.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your app was written by AI', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your app was written by AI'. |
+| Deploys database schemas generated blindly by AI without unique constraints, allowing duplicate records during race conditions. | Enforces database composite unique constraints and check constraints to guarantee structural data integrity under concurrency. |
 
 ---
 

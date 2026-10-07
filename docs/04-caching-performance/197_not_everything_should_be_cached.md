@@ -18,7 +18,7 @@ Not Everything Should Be Cached.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'Not Everything Should Be Cached', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Caches rapidly mutating transactional states like inventory balances, causing overselling and financial reconciliation bugs. | Restricts caching to static, reference, or read-heavy data while reading volatile transactional state directly from ACID databases. |
 
 ---
 

@@ -18,7 +18,7 @@ Rate limiting is not about saying no.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves endpoints vulnerable to traffic spikes or credential stuffing in 'Rate limiting is not about saying no' without gateway rate limiting. | Deploys multi-tier Token Bucket rate limiters backed by Redis with standard HTTP 429 Retry-After headers. |
+| Drops abusive connections abruptly with opaque errors instead of standard HTTP rate limiting protocols. | Enforces Token Bucket rate limiting returning HTTP 429 status codes with explicit `Retry-After` headers and graceful client backoff. |
 
 ---
 

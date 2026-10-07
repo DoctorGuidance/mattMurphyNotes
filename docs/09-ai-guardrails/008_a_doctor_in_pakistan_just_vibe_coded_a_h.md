@@ -18,7 +18,7 @@ A doctor in Pakistan just vibe coded a HIPAA-compliant hospital management syste
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes prototype healthcare software is HIPAA-compliant without verifiable audit trails, encryption at rest, or access controls. | Implements end-to-end encryption at rest/transit, role-based access controls, automated session timeouts, and immutable audit logging. |
+| Assumes prototype healthcare AI software is HIPAA-compliant without verifiable audit trails, encryption at rest, or access controls. | Implements end-to-end encryption at rest/transit, role-based access controls, automated session timeouts, and immutable audit logging. |
 
 ---
 

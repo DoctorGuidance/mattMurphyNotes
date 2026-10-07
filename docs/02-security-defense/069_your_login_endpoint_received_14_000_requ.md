@@ -18,7 +18,7 @@ Your login endpoint received 14,000 requests last night. None of them were your 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Your login endpoint received 14,000 requests last night', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your login endpoint received 14,000 requests last night'. |
+| Leaves authentication endpoints vulnerable to credential stuffing attacks by allowing 14,000 un-throttled login requests. | Deploys IP-based and username-based Token Bucket rate limiters backed by Redis with progressive delays and CAPTCHA gates. |
 
 ---
 

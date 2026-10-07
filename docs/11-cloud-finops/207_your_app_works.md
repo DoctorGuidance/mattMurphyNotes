@@ -18,7 +18,7 @@ your enterprise app works and your first enterprise customer is calling you up. 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in 'Your app works'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Fails to profile system throughput under load, learning about memory leaks and CPU saturation only when user traffic surges. | Executes synthetic stress tests using k6/Locust to identify memory leaks, event loop blockages, and CPU bottlenecks before launch. |
 
 ---
 

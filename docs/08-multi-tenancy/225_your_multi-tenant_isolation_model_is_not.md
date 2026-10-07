@@ -18,7 +18,7 @@ Your multi-tenant isolation model is not a technical decision.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Relies on loose application filters for tenant isolation in 'Your multi-tenant isolation model is not a technical', risking cross-tenant data exposure. | Enforces database Row Level Security (RLS) policies and composite tenant scoping across all layers in 'Your multi-tenant isolation model is not a technical'. |
+| Treats multi-tenant architecture as a purely technical decision, ignoring enterprise customer compliance and silo requirements. | Supports flexible tenant isolation tiers: cost-effective shared pooling for standard users and dedicated silo databases for enterprise tiers. |
 
 ---
 

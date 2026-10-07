@@ -18,7 +18,7 @@ Your AI put your database credentials in a Next.js Server Action.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your AI put your database credentials in a Next.js Server', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your AI put your database credentials in a Next.js Server'. |
+| References database connection credentials in client-accessible Next.js components, risking database string exposure. | Imports the `server-only` package in database client files, guaranteeing compilation errors if imported into client bundles. |
 
 ---
 

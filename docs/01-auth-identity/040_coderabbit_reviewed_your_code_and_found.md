@@ -18,7 +18,7 @@ CodeRabbit reviewed your code and found zero issues.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Passes raw `req.body` directly into ORM update methods, allowing attackers to inject `isAdmin: true` via mass assignment. | Enforces strict input allowlists using Zod schemas (`.strict()`), rejecting any non-whitelisted or administrative fields. |
+| Accepts unrestricted request body payloads in user update endpoints, enabling privilege escalation via `isAdmin: true` mass assignment. | Enforces strict Zod schema whitelisting on update endpoints and strips sensitive role/permission fields at the controller layer. |
 
 ---
 

@@ -18,7 +18,7 @@ I need to tell you something that's going to make you uncomfortable.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'I need to tell you something that's going to make you', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Fails to capture structured telemetry, remaining completely blind to silent application failures that damage user trust. | Instruments structured JSON logging with correlation IDs and business outcome tracking across all critical user journeys. |
 
 ---
 

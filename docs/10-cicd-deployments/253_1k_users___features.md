@@ -18,7 +18,7 @@ Today you learned about Canary deployments and mobile deep links. Both of those 
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in '1K users = features'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for '1K users = features'. |
+| Continues rushing new features after reaching 1,000 active users while ignoring database query degradation and stability. | Shifts focus at 1k users from feature addition to operational reliability: index optimization, caching, and regression testing. |
 
 ---
 

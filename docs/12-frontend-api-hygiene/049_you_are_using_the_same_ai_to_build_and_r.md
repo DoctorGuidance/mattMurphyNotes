@@ -18,7 +18,7 @@ You are using the same AI to build and review your code. Here is what each platf
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You are using the same AI to build and review your code'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Uses the identical LLM to both write code and review pull requests, perpetuating shared blind spots across architectures. | Employs diverse review personas, automated static analysis tools, and human engineering judgment to audit code independently. |
 
 ---
 

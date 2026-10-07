@@ -18,7 +18,7 @@ Your app is copy-pasted from ChatGPT.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in 'Your app is copy-pasted from ChatGPT', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for 'Your app is copy-pasted from ChatGPT'. |
+| Copies code snippets directly from LLMs into production without validating cryptographic safety or input boundaries. | Audits every AI-generated component against secure coding guidelines, enforcing strict validation and sanitization. |
 
 ---
 

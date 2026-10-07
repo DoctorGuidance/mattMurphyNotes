@@ -18,7 +18,7 @@ Your database doesn’t have to live with your app.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Executes unindexed or unconstrained database queries in 'Your database doesn’t have to live with your app', degrading query throughput under load. | Applies composite B-tree indexing and query pagination constraints tailored to access patterns in 'Your database doesn’t have to live with your app'. |
+| Binds application hosting tightly to co-located database servers, preventing independent horizontal scaling of compute and data. | Decouples application server instances from managed database clusters over private subnets with connection poolers. |
 
 ---
 

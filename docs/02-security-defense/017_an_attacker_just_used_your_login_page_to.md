@@ -18,7 +18,7 @@ An attacker just used your login page to send your users to a phishing site.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Accepts unvalidated URL redirect parameters on login/logout routes (`?redirect=...`), bouncing users to external phishing domains. | Enforces strict destination allowlisting for redirect URLs, rejecting external protocols, double slashes, and path traversal. |
+| Accepts unvalidated redirect destinations in query parameters, enabling attackers to route users to external phishing portals. | Validates post-action redirect paths against an explicit relative route allowlist, rejecting scheme-relative URLs (`//`). |
 
 ---
 

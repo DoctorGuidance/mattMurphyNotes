@@ -18,7 +18,7 @@ AI Directed Engineering gets you to launch.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Deploys code directly to production without environment parity, automated regression testing, or rollback plans in 'AI Directed Engineering gets you to launch'. | Automates CI/CD staging verification with backward-compatible migrations and automated canary rollbacks for 'AI Directed Engineering gets you to launch'. |
+| Uses AI coding tools to bypass staging environments, deploying unverified prototype code straight to paying users. | Enforces automated CI/CD staging environments where AI-authored code passes automated regression tests before production release. |
 
 ---
 

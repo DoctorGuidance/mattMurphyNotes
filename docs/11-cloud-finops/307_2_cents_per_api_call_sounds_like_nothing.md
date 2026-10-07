@@ -18,7 +18,7 @@ So, I told you your AI app costs 2 cents per call
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Leaves serverless functions or compute instances unmonitored without timeouts or egress alarms in '2 cents per API call sounds like nothing'. | Enforces hard function timeouts (15-30s), egress bandwidth controls, and automated cloud spending kill-switches. |
+| Allows autonomous AI agent loops to make unconstrained recursive API calls, draining hundreds of dollars in minutes. | Implements recursion depth limits and hard monetary spend ceilings that kill automated agent loops if budgets are exceeded. |
 
 ---
 

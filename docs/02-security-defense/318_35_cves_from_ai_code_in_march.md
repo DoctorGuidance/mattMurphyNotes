@@ -18,7 +18,7 @@ AI generated code creates 35 new CVAs just last month and in January it was only
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Exposes security boundaries in '35 CVEs from AI code in March', trusting client inputs or unvalidated network parameters. | Enforces defense-in-depth security, strict boundary sanitization, and least-privilege access for '35 CVEs from AI code in March'. |
+| Ignores newly disclosed Common Vulnerabilities and Exposures (CVEs) in deployed production dependencies. | Configures continuous CVE monitoring with automated pull requests (Dependabot) and emergency security patch protocols. |
 
 ---
 

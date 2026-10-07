@@ -18,7 +18,7 @@ You want to be an AI builder. You are going to have to sell against me. Not gate
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'You want to be an AI builder. You are going to have to sell'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Builds sophisticated technical features without designing clear user onboarding flows or communicating measurable value propositions. | Pairs technical engineering with seamless onboarding UX, guided empty states, and frictionless conversion paths. |
 
 ---
 

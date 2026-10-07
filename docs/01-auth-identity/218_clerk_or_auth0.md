@@ -18,7 +18,7 @@ Clerk or Autho? Not sure which one to pick? They are two of the biggest names in
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Clerk or Auth0', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Clerk or Auth0'. |
+| Migrates between auth vendors on impulsive whim without accounting for user credential migration friction and webhook divergence. | Abstracts authentication interfaces behind internal adapter contracts to enable vendor transitions without rewriting business code. |
 
 ---
 

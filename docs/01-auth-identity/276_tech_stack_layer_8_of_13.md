@@ -18,7 +18,7 @@ Tech Stack Layer 8 of 13.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Tech Stack Layer 8 of 13', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Tech Stack Layer 8 of 13'. |
+| Treats Layer 8 Identity as an isolated feature rather than an architectural foundation integrated across all 13 production tiers. | Propagates validated identity contexts through edge middleware, service meshes, and database row-level security boundaries. |
 
 ---
 

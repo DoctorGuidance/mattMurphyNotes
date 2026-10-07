@@ -18,7 +18,7 @@ Your checkout works with credit cards.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Assumes successful network responses and relies solely on frontend validation for business state in 'Your checkout works with credit cards'. | Implements all 4 UI states, treats client state as untrusted, and verifies payload schemas on both client and server. |
+| Handles credit card checkout with custom form inputs, risking PCI compliance violations and failing 3D Secure verification. | Integrates Stripe Elements using server-created payment intents, handling 3D Secure challenges natively and securely. |
 
 ---
 

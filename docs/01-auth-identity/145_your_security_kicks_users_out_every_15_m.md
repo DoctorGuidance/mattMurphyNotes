@@ -18,7 +18,7 @@ Your security kicks users out every 15 minutes.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements naive authentication in 'Your security kicks users out every 15 minutes', failing to protect session boundaries or validate identity claims. | Enforces cryptographic session controls, HttpOnly cookies, and strict identity scoping for 'Your security kicks users out every 15 minutes'. |
+| Forces abrupt user logouts every 15 minutes by failing to implement silent background token renewal flows. | Implements seamless background token refresh using rotating refresh tokens without interrupting active user sessions. |
 
 ---
 

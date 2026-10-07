@@ -18,7 +18,7 @@ You added Redis and your app got faster.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'You added Redis and your app got faster', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Adds Redis without connection pooling or serialization optimizations, spending more time in network roundtrips than SQL queries. | Implements connection pooling, binary serialization (MessagePack/Protobuf), and batch pipelining for Redis interactions. |
 
 ---
 

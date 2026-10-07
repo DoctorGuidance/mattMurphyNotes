@@ -18,7 +18,7 @@ Your revenue is disappearing every month and you cannot see it.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your revenue is disappearing every month and you cannot see'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Misses silent webhook ingestion drops, losing thousands of dollars in unbilled subscription renewals without alerts. | Monitors webhook ingestion telemetry and alerts engineers if payment event arrival rates drop below expected thresholds. |
 
 ---
 

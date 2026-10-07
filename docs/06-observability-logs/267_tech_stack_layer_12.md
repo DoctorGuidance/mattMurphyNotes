@@ -18,7 +18,7 @@ Layer 12 of 13, error tracking and logs. This is the one that tells you what's b
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Logs unstructured text or swallows exceptions silently in 'Tech Stack Layer 12', creating monitoring blind spots in production. | Emits structured JSON logs containing correlation IDs (`x-request-id`) and reports contextual errors to Sentry. |
+| Treats Layer 12 Observability as an afterthought, shipping code without health checks or centralized error tracking. | Establishes Layer 12 observability standards: `/healthz` endpoints, Sentry error capture, and OpenTelemetry distributed tracing. |
 
 ---
 

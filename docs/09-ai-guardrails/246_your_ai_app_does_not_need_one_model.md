@@ -18,7 +18,7 @@ Your AI app does not need one model.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Sends unvalidated user inputs straight to LLMs without budget caps or injection defenses in 'Your AI app does not need one model'. | Applies prompt sanitization, structured output validation (Zod), spend ceilings, and SGI metadata compliance. |
+| Routes all application requests to expensive frontier models, running up massive operating costs for trivial classification tasks. | Implements model routing gateways: fast, low-cost models (8B) for classification and frontier models solely for complex reasoning. |
 
 ---
 

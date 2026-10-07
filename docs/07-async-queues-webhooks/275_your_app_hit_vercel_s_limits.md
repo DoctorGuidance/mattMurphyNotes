@@ -18,7 +18,7 @@ Your app hit Vercel’s limits.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Processes asynchronous jobs or webhooks without raw signature checks or idempotency locks in 'Your app hit Vercel’s limits'. | Verifies webhook HMAC signatures on raw buffers and uses Redis idempotency keys with Dead-Letter Queues (DLQ). |
+| Executes long-running video or AI processing pipelines inside serverless functions, hitting hard Vercel execution limits. | Offloads long-running processing tasks to dedicated long-lived container workers (Fly/ECS) decoupled via message queues. |
 
 ---
 

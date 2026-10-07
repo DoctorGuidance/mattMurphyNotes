@@ -18,7 +18,7 @@ Tech Stack Layer 10 of 13.
 
 | ❌ The Vibe-Coding Trap (Common Mistake) | ✅ Hardened Production Standard |
 |:---|:---|
-| Implements caching without invalidation strategies or tenant namespaces in 'Tech Stack Layer 10 of 13', risking stale or leaked data. | Employs tenant-scoped cache keys with distributed mutex locks (anti-dogpile) and mutation-driven invalidation. |
+| Treats Layer 10 Caching as a band-aid for broken database indexes rather than a deliberate architectural tier. | Hardens database indexes first, then layers Redis caching with strict TTLs and distributed mutex locks against dogpiling. |
 
 ---
 
