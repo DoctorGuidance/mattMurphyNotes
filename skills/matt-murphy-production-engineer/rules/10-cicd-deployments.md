@@ -1,6 +1,6 @@
 # 🛡️ Rulebook: Testing, Staging & CI/CD
 **Architectural Domain:** Testing, Staging & CI/CD | **Domain ID:** `10-cicd-deployments` | **Target Layer:** Layer 7
-> **Corpus Evidence:** Synthesized from 39 Matt Murphy Production Engineering Masterclasses (9 Critical, 6 High, 24 Medium).
+> **Corpus Evidence:** Synthesized from 40 Matt Murphy Production Engineering Masterclasses (10 Critical, 6 High, 24 Medium).
 
 ---
 
@@ -14,7 +14,7 @@ Naive 'vibe-coding' implementations frequently collapse under concurrency, expos
 ---
 
 ## 🚨 2. Critical Attack Vectors & Failure Scenarios
-Analysis of 39 incidents and breakdowns from this domain:
+Analysis of 40 incidents and breakdowns from this domain:
 
 ### 📍 Episode #142: Your first production incident is coming (Severity: `CRITICAL`)
 - **The Attack Vector / Incident:** Your first production incident is coming.
@@ -61,10 +61,10 @@ Analysis of 39 incidents and breakdowns from this domain:
 - **The Root Cause:** Your AI generated app uses 47 different packages and you can name maybe three of them
 - **Matt Murphy Takeaway:** *"Drop it below in the comments"*
 
-### 📍 Episode #002: Full Tech Stack Recap! (Severity: `HIGH`)
-- **The Attack Vector / Incident:** Full Tech Stack Recap!
-- **The Root Cause:** And most vibe coders, they have two front end and a database, sometimes off. But that leaves 10 plus layers completely missing. And those 10 layers that are missing separate a demo from a real product.
-- **Matt Murphy Takeaway:** *"The full production stack. Here’s every layer, one more time."*
+### 📍 Episode #324: The 3-Week Production Failure: Consultant Vetting & Track Record Gate (Severity: `CRITICAL`)
+- **The Attack Vector / Incident:** Companies hire superficial AI consultants who present slick slide decks and sandbox demos, resulting in total system outages and broken data pipelines within weeks of production launch.
+- **The Root Cause:** Confusing sandbox prototypes with hardened production engineering, lacking criteria for operational resilience, and failing to audit real-world production track records.
+- **Matt Murphy Takeaway:** *"A bad social media post can be deleted, but a botched AI deployment destroys core business operations: the cleanup work is always far more expensive than building it right."*
 
 ---
 
@@ -110,6 +110,7 @@ Analysis of 39 incidents and breakdowns from this domain:
 | **#315** | Deploys non-deterministic build artifacts that work or break randomly depending on upstream package updates. | Enforces deterministic builds using pinned package lockfiles, base Docker image SHAs, and reproducible artifact caches. |
 | **#316** | Installs dozens of redundant utility packages, inflating frontend bundle sizes and slowing page load speeds. | Audits bundle sizes using Webpack/Vite bundle analyzers, replacing heavy external packages with native JavaScript APIs. |
 | **#317** | Relies on polished pitch deck demos while skipping resilience testing, watching software fail when real users enter unpredicted inputs. | Runs automated chaos engineering and edge-case fuzzing against application APIs prior to opening public user access. |
+| **#324** | Hiring consultants based on slide decks, social followers, and sandbox screen shares without production lineage. | Production track record gating: validating live pipeline telemetry, zero-leak isolation, and verified SLA history. |
 
 ---
 
@@ -263,3 +264,4 @@ Before shipping any code in this domain, verify each item:
 | **#315** | `MEDIUM` | Deploy. Works | Layer 7 | [Watch Reel](https://www.instagram.com/reel/DX9avyogIVx/) |
 | **#316** | `CRITICAL` | 47 packages | Layer 7 | [Watch Reel](https://www.instagram.com/reel/DX7VHJORcWV/) |
 | **#317** | `MEDIUM` | The demo works | Layer 7 | [Watch Reel](https://www.instagram.com/reel/DX2OR7nRQIP/) |
+| **#324** | `CRITICAL` | The 3-Week Production Failure: Consultant Vetting & Track Record Gate | Layer 7 | [Watch Reel](https://www.instagram.com/reel/324/) |

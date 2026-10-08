@@ -1,5 +1,5 @@
 # 📖 Complete Matt Murphy Production Engineering Masterclass Catalog
-> Comprehensive catalog of all 321 masterclasses, organized across 12 architectural modules and 13 production layers.
+> Comprehensive catalog of all 331 masterclasses, organized across 12 architectural modules and 13 production layers.
 
 ---
 
@@ -8,16 +8,16 @@
 | Domain ID | Module Name | Episode Count | Critical | High | Medium |
 |:---|:---|:---:|:---:|:---:|:---:|
 | `01-auth-identity` | [Authentication & Identity](../rules/01-auth-identity.md) | 30 | 11 | 3 | 16 |
-| `02-security-defense` | [Application Security & Defense](../rules/02-security-defense.md) | 47 | 28 | 6 | 13 |
-| `03-database-storage` | [Database & Storage Engineering](../rules/03-database-storage.md) | 33 | 7 | 9 | 17 |
+| `02-security-defense` | [Application Security & Defense](../rules/02-security-defense.md) | 49 | 30 | 6 | 13 |
+| `03-database-storage` | [Database & Storage Engineering](../rules/03-database-storage.md) | 34 | 8 | 9 | 17 |
 | `04-caching-performance` | [Caching & Edge Performance](../rules/04-caching-performance.md) | 12 | 3 | 1 | 8 |
 | `05-rate-limiting-abuse` | [Rate Limiting & Abuse Prevention](../rules/05-rate-limiting-abuse.md) | 4 | 1 | 2 | 1 |
 | `06-observability-logs` | [Observability & Error Tracking](../rules/06-observability-logs.md) | 16 | 7 | 1 | 8 |
 | `07-async-queues-webhooks` | [Async Queues & Webhooks](../rules/07-async-queues-webhooks.md) | 19 | 2 | 7 | 10 |
 | `08-multi-tenancy` | [Multi-Tenancy & Data Isolation](../rules/08-multi-tenancy.md) | 6 | 3 | 0 | 3 |
-| `09-ai-guardrails` | [AI Guardrails, LLM Security & Compliance](../rules/09-ai-guardrails.md) | 46 | 6 | 7 | 33 |
-| `10-cicd-deployments` | [Testing, Staging & CI/CD](../rules/10-cicd-deployments.md) | 39 | 9 | 6 | 24 |
-| `11-cloud-finops` | [Cloud Infrastructure & FinOps](../rules/11-cloud-finops.md) | 32 | 3 | 9 | 20 |
+| `09-ai-guardrails` | [AI Guardrails, LLM Security & Compliance](../rules/09-ai-guardrails.md) | 48 | 8 | 7 | 33 |
+| `10-cicd-deployments` | [Testing, Staging & CI/CD](../rules/10-cicd-deployments.md) | 40 | 10 | 6 | 24 |
+| `11-cloud-finops` | [Cloud Infrastructure & FinOps](../rules/11-cloud-finops.md) | 36 | 3 | 12 | 21 |
 | `12-frontend-api-hygiene` | [Frontend Architecture & API Hygiene](../rules/12-frontend-api-hygiene.md) | 37 | 14 | 1 | 22 |
 
 ---
@@ -347,3 +347,13 @@
 | **#320** | `HIGH` | L3 | `03-database-storage` | 10 users fine | Maybe, maybe not... |
 | **#321** | `MEDIUM` | L12 | `06-observability-logs` | App breaks | If your app broke right now, would you know why or would you be guessing... |
 | **#322** | `CRITICAL` | L8 | `02-security-defense` | AI code 2x more issues. 3x more security vulns. $1.5 | We'll tell you all about it... |
+| **#323** | `CRITICAL` | L2 | `09-ai-guardrails` | Direct the Machine: Clarity is the New Programming Language | The new programming language is clarity: the ultimate edge is not the model you use, but how clearly... |
+| **#324** | `CRITICAL` | L7 | `10-cicd-deployments` | The 3-Week Production Failure: Consultant Vetting & Track Record Gate | A bad social media post can be deleted, but a botched AI deployment destroys core business operation... |
+| **#325** | `HIGH` | L6 | `11-cloud-finops` | Frontier API Margin Trap: The Math of Self-Hosting Sovereign Models | Frontier AI vendors sell convenience at the cost of your margin and IP: own the model, own the infra... |
+| **#326** | `CRITICAL` | L8 | `02-security-defense` | Flat Network Blast Radius: Microsegmentation, mTLS & Least Privilege | A flat network that trusts everything is one breach away from losing everything: enforce network seg... |
+| **#327** | `CRITICAL` | L8 | `02-security-defense` | The Wildcard CORS Breach: Explicit Allowlists & Safe Credential Handling | Your API must have a strict guest list: wildcard CORS or unvalidated origin reflection hands your au... |
+| **#328** | `HIGH` | L6 | `11-cloud-finops` | The 4-Step Sovereign VPS AI Pipeline: Model, Train, Host, API | Four steps stand between API dependency and complete AI sovereignty: select the base model, fine-tun... |
+| **#329** | `CRITICAL` | L3 | `03-database-storage` | Default Open S3 Buckets: Separation of Assets, Randomized IDs & Audit Logs | Your cloud storage should store data, not serve it to anyone who asks: isolate public assets from pr... |
+| **#330** | `MEDIUM` | L6 | `11-cloud-finops` | Dedicated Server vs On-Demand VPS: The Infrastructure Ownership Threshold | If your workload runs 24/7 and you are still paying by the hour for someone else's metered hardware,... |
+| **#331** | `CRITICAL` | L2 | `09-ai-guardrails` | The Big AI Agent Land Grab: Operating Systems vs Sovereign Control | The agent race is not about who builds the smartest agent, it is about who owns it: do not let corpo... |
+| **#332** | `HIGH` | L6 | `11-cloud-finops` | Open-Weight Economics: GLM 5.3 & The 80% Workload Sovereign Replacement | The frontier model race is a distraction: the sovereign ownership race is what builds enduring enter... |

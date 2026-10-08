@@ -1,6 +1,6 @@
 # 🛡️ Rulebook: AI Guardrails, LLM Security & Compliance
 **Architectural Domain:** AI Guardrails, LLM Security & Compliance | **Domain ID:** `09-ai-guardrails` | **Target Layer:** Layer 2
-> **Corpus Evidence:** Synthesized from 46 Matt Murphy Production Engineering Masterclasses (6 Critical, 7 High, 33 Medium).
+> **Corpus Evidence:** Synthesized from 48 Matt Murphy Production Engineering Masterclasses (8 Critical, 7 High, 33 Medium).
 
 ---
 
@@ -14,7 +14,7 @@ Naive 'vibe-coding' implementations frequently collapse under concurrency, expos
 ---
 
 ## 🚨 2. Critical Attack Vectors & Failure Scenarios
-Analysis of 46 incidents and breakdowns from this domain:
+Analysis of 48 incidents and breakdowns from this domain:
 
 ### 📍 Episode #001: Your AI Product Just Became Illegal (EU AI Act & SGI Compliance) (Severity: `CRITICAL`)
 - **The Attack Vector / Incident:** The EU AI Act went live, legally classifying all model-generated copy, avatars, and images as Synthetically Generated Information (SGI). If your application serves AI outputs without explicit disclosure, you face severe statutory fines for deceptive practices.
@@ -46,6 +46,16 @@ Analysis of 46 incidents and breakdowns from this domain:
 - **The Root Cause:** 250,000 of you watched my videos this week
 - **Matt Murphy Takeaway:** *"But next week we start solving"*
 
+### 📍 Episode #323: Direct the Machine: Clarity is the New Programming Language (Severity: `CRITICAL`)
+- **The Attack Vector / Incident:** Developers waste effort memorizing ephemeral syntax while lacking the precision, clarity, and system verification skills required to instruct autonomous AI agents without introducing fatal architectural regressions.
+- **The Root Cause:** Treating AI assistance as passive auto-complete rather than maintaining strict architectural control, failing to formulate explicit multi-layer specifications, and lacking domain depth to verify code correctness.
+- **Matt Murphy Takeaway:** *"The new programming language is clarity: the ultimate edge is not the model you use, but how clearly you think, how precisely you instruct the machine, and whether you possess the depth to verify it."*
+
+### 📍 Episode #331: The Big AI Agent Land Grab: Operating Systems vs Sovereign Control (Severity: `CRITICAL`)
+- **The Attack Vector / Incident:** Autonomous corporate AI agents require complete integration into core financial, customer, and operational databases (Stripe, QuickBooks, Slack), handing vendors total operational lock-in and intelligence exposure.
+- **The Root Cause:** Treating autonomous agents as harmless productivity tools rather than recognizing them as third-party operating systems embedding deeply inside company workflows on vendor-controlled terms.
+- **Matt Murphy Takeaway:** *"The agent race is not about who builds the smartest agent, it is about who owns it: do not let corporate AI become the proprietary operating system of your business."*
+
 ### 📍 Episode #025: When every news channel says the same thing on the same (Severity: `HIGH`)
 - **The Attack Vector / Incident:** When every news channel says the same thing on the same day, I don't get scared. I get suspicious.
 - **The Root Cause:** I've been in tech for 30 plus years. I have seen this movie before. So, let's talk about it.
@@ -55,16 +65,6 @@ Analysis of 46 incidents and breakdowns from this domain:
 - **The Attack Vector / Incident:** Two frontier models shipped last week and most builders never checked the price.
 - **The Root Cause:** Whether it went up or down depends on whether you noticed at all. Right. Fable 5.1 and GPT6 Astra both dropped in the same week.
 - **Matt Murphy Takeaway:** *"HASHTAGS: #aidirectedengineering #claude #gpt #agents #production"*
-
-### 📍 Episode #088: The SaaS industry is built on feature bloat. That model is (Severity: `HIGH`)
-- **The Attack Vector / Incident:** The SaaS industry is built on feature bloat. That model is dying.
-- **The Root Cause:** And that model is dead. Every major platform tries to solve every problem for every customer. You know who I'm talking about.
-- **Matt Murphy Takeaway:** *"An AI Directed Engineer can build the 50 features you actually use for a fraction of what you pay to rent 1,000 you do not. The economics flipped. The next era gives you ownership."*
-
-### 📍 Episode #114: The better the AI gets, the worse your code is going to be (Severity: `HIGH`)
-- **The Attack Vector / Incident:** The better the AI gets, the worse your code is going to be.
-- **The Root Cause:** Opus 5 is better. GPT56 is smarter. Fable is unbeatable.
-- **Matt Murphy Takeaway:** *"Here is why better models are making this worse."*
 
 ---
 
@@ -117,6 +117,8 @@ Analysis of 46 incidents and breakdowns from this domain:
 | **#302** | Operates in complete developer isolation, missing out on shared architectural lessons and production engineering patterns. | Engages in senior engineering peer reviews and production post-mortems to continuously level up architectural judgment. |
 | **#309** | Deploys no-code visual AI prototypes straight to enterprise customers without auditing backend security or API boundaries. | Hardens visual AI exports by decoupling business logic into secure backend APIs with server-side authentication and rate limits. |
 | **#310** | Focuses on social media vanity metrics while production error rates and unhandled exceptions spike unnoticed in backend systems. | Directs focus to real engineering KPIs: system uptime, p99 latency, error rates, and deterministic test suite passes. |
+| **#323** | Passive vibe coding: accepting unverified AI code blindly and letting the agent dictate system design. | Directive specification: formulating exact multi-layer invariants and inspecting every generated boundary with automated gates. |
+| **#331** | Granting proprietary cloud agents full read/write access to Stripe, QuickBooks, and Slack workflows on external vendor terms. | Sovereign agent architecture: self-hosted tool calling, private execution boundaries, and zero data leakage to external models. |
 
 ---
 
@@ -260,3 +262,5 @@ Before shipping any code in this domain, verify each item:
 | **#302** | `MEDIUM` | We’re building a community of builders, operators, and vibe | Layer 2 | [Watch Reel](https://www.instagram.com/reel/DYSumgevjjU/) |
 | **#309** | `CRITICAL` | Founder ships on Lovable | Layer 2 | [Watch Reel](https://www.instagram.com/reel/DYIG09qxms4/) |
 | **#310** | `CRITICAL` | 250,000 of you watched my videos this week, thank you, I’m | Layer 2 | [Watch Reel](https://www.instagram.com/reel/DYFlrvbBehK/) |
+| **#323** | `CRITICAL` | Direct the Machine: Clarity is the New Programming Language | Layer 2 | [Watch Reel](https://www.instagram.com/reel/323/) |
+| **#331** | `CRITICAL` | The Big AI Agent Land Grab: Operating Systems vs Sovereign Control | Layer 2 | [Watch Reel](https://www.instagram.com/reel/331/) |

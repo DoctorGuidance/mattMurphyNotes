@@ -1,6 +1,6 @@
 # 🛡️ Rulebook: Application Security & Defense
 **Architectural Domain:** Application Security & Defense | **Domain ID:** `02-security-defense` | **Target Layer:** Layer 8
-> **Corpus Evidence:** Synthesized from 47 Matt Murphy Production Engineering Masterclasses (28 Critical, 6 High, 13 Medium).
+> **Corpus Evidence:** Synthesized from 49 Matt Murphy Production Engineering Masterclasses (30 Critical, 6 High, 13 Medium).
 
 ---
 
@@ -14,7 +14,7 @@ Naive 'vibe-coding' implementations frequently collapse under concurrency, expos
 ---
 
 ## 🚨 2. Critical Attack Vectors & Failure Scenarios
-Analysis of 47 incidents and breakdowns from this domain:
+Analysis of 49 incidents and breakdowns from this domain:
 
 ### 📍 Episode #004: Lateral Movement: From Compromised Marketing Tool to Production Database (Severity: `CRITICAL`)
 - **The Attack Vector / Incident:** An attacker exploits a known vulnerability in a third-party marketing container. Because all containers share an unsegmented flat Docker network, the attacker pivots to the admin API and reads database credentials from environment variables.
@@ -118,6 +118,8 @@ Analysis of 47 incidents and breakdowns from this domain:
 | **#306** | Launches production applications without performing structured pre-launch security audits against standard threat vectors. | Verifies production readiness against a comprehensive 47-point security checklist covering identity, data, and compute. |
 | **#318** | Ignores newly disclosed Common Vulnerabilities and Exposures (CVEs) in deployed production dependencies. | Configures continuous CVE monitoring with automated pull requests (Dependabot) and emergency security patch protocols. |
 | **#322** | Merges high-velocity AI-generated pull requests without automated static analysis security testing (SAST) gates. | Blocks PR merges failing automated Semgrep/SonarQube SAST gates designed to catch insecure AI coding patterns. |
+| **#326** | Flat Docker/VPC network where all services share credentials, communicate without tokens, and have unrestricted egress. | Microsegmented subnets with Calico/Docker network isolation, mandatory mTLS tokens, and egress firewalls. |
+| **#327** | Setting Access-Control-Allow-Origin: * or echoing req.headers.origin blindly with allowCredentials: true. | Explicit domain allowlist, strict regex matching for trusted origins, and credentials set exclusively for verified peers. |
 
 ---
 
@@ -259,3 +261,5 @@ Before shipping any code in this domain, verify each item:
 | **#306** | `CRITICAL` | 47-item security checklist | Layer 8 | [Watch Reel](https://www.instagram.com/reel/DYNbDGTvGdj/) |
 | **#318** | `CRITICAL` | 35 CVEs from AI code in March | Layer 8 | [Watch Reel](https://www.instagram.com/reel/DX1owcTgr3i/) |
 | **#322** | `CRITICAL` | AI code 2x more issues. 3x more security vulns. $1.5 | Layer 8 | [Watch Reel](https://www.instagram.com/reel/DWrjbaTETY7/) |
+| **#326** | `CRITICAL` | Flat Network Blast Radius: Microsegmentation, mTLS & Least Privilege | Layer 8 | [Watch Reel](https://www.instagram.com/reel/326/) |
+| **#327** | `CRITICAL` | The Wildcard CORS Breach: Explicit Allowlists & Safe Credential Handling | Layer 8 | [Watch Reel](https://www.instagram.com/reel/327/) |

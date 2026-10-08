@@ -1,6 +1,6 @@
 # 🛡️ Rulebook: Cloud Infrastructure & FinOps
 **Architectural Domain:** Cloud Infrastructure & FinOps | **Domain ID:** `11-cloud-finops` | **Target Layer:** Layer 6
-> **Corpus Evidence:** Synthesized from 32 Matt Murphy Production Engineering Masterclasses (3 Critical, 9 High, 20 Medium).
+> **Corpus Evidence:** Synthesized from 36 Matt Murphy Production Engineering Masterclasses (3 Critical, 12 High, 21 Medium).
 
 ---
 
@@ -14,7 +14,7 @@ Naive 'vibe-coding' implementations frequently collapse under concurrency, expos
 ---
 
 ## 🚨 2. Critical Attack Vectors & Failure Scenarios
-Analysis of 32 incidents and breakdowns from this domain:
+Analysis of 36 incidents and breakdowns from this domain:
 
 ### 📍 Episode #155: Your first enterprise customer sent a procurement checklist (Severity: `CRITICAL`)
 - **The Attack Vector / Incident:** Your first enterprise customer sent a procurement checklist.
@@ -103,6 +103,10 @@ Analysis of 32 incidents and breakdowns from this domain:
 | **#307** | Allows autonomous AI agent loops to make unconstrained recursive API calls, draining hundreds of dollars in minutes. | Implements recursion depth limits and hard monetary spend ceilings that kill automated agent loops if budgets are exceeded. |
 | **#311** | Treats individual API call costs as negligible, failing to anticipate exponential cost scaling when user volumes multiply. | Calculates blended unit economics per user session, optimizing expensive prompts and caching high-frequency queries. |
 | **#319** | Operates metered API services without tracking cumulative monthly spend per customer, risking unpaid platform charges. | Maintains real-time user credit balances in Redis, declining incoming requests when customer account balances reach zero. |
+| **#325** | Routing high-volume proprietary workflows to metered third-party APIs, surrendering IP and paying 5x–10x markup. | Self-hosted sovereign inference with fixed compute costs ($200–$400/mo) and complete data isolation within private VPC. |
+| **#328** | Treating proprietary frontier APIs as the only viable deployment model, bleeding margins on repetitive queries. | 4-step self-hosted pipeline: Hugging Face model + domain fine-tuning + vLLM on private VPS + internal REST API. |
+| **#330** | Running continuous 24/7 AI inference and database workloads on metered hourly VPS instances indefinitely. | Workload-driven infrastructure tiering: dedicated bare metal for sustained 24/7 baseline + elastic VPS for burst spikes. |
+| **#332** | Routing simple extraction, summarization, and parsing requests to top-tier frontier APIs at maximum dollar rates. | Intelligent tiered routing: 80% handled by local open-weight inference (GLM/Llama via vLLM) + 20% routed to frontier models conditionally. |
 
 ---
 
@@ -245,3 +249,7 @@ Before shipping any code in this domain, verify each item:
 | **#307** | `HIGH` | 2 cents per API call sounds like nothing | Layer 6 | [Watch Reel](https://www.instagram.com/reel/DYM1FwHARva/) |
 | **#311** | `MEDIUM` | 1 API call Instant | Layer 6 | [Watch Reel](https://www.instagram.com/reel/DYDfSr7NDQw/) |
 | **#319** | `HIGH` | 2 cents per API call | Layer 6 | [Watch Reel](https://www.instagram.com/reel/DXz-dzBPUL2/) |
+| **#325** | `HIGH` | Frontier API Margin Trap: The Math of Self-Hosting Sovereign Models | Layer 6 | [Watch Reel](https://www.instagram.com/reel/325/) |
+| **#328** | `HIGH` | The 4-Step Sovereign VPS AI Pipeline: Model, Train, Host, API | Layer 6 | [Watch Reel](https://www.instagram.com/reel/328/) |
+| **#330** | `MEDIUM` | Dedicated Server vs On-Demand VPS: The Infrastructure Ownership Threshold | Layer 6 | [Watch Reel](https://www.instagram.com/reel/330/) |
+| **#332** | `HIGH` | Open-Weight Economics: GLM 5.3 & The 80% Workload Sovereign Replacement | Layer 6 | [Watch Reel](https://www.instagram.com/reel/332/) |

@@ -1,6 +1,6 @@
 # 🛡️ Rulebook: Database & Storage Engineering
 **Architectural Domain:** Database & Storage Engineering | **Domain ID:** `03-database-storage` | **Target Layer:** Layer 3
-> **Corpus Evidence:** Synthesized from 33 Matt Murphy Production Engineering Masterclasses (7 Critical, 9 High, 17 Medium).
+> **Corpus Evidence:** Synthesized from 34 Matt Murphy Production Engineering Masterclasses (8 Critical, 9 High, 17 Medium).
 
 ---
 
@@ -14,7 +14,7 @@ Naive 'vibe-coding' implementations frequently collapse under concurrency, expos
 ---
 
 ## 🚨 2. Critical Attack Vectors & Failure Scenarios
-Analysis of 33 incidents and breakdowns from this domain:
+Analysis of 34 incidents and breakdowns from this domain:
 
 ### 📍 Episode #003: 50 Users Sign Up and Crash Your Database (Connection Pooling & Caching) (Severity: `CRITICAL`)
 - **The Attack Vector / Incident:** 50 users sign up concurrently. The server opens 50 unmanaged database connections. PostgreSQL reaches its connection limit, queries queue up, and the entire app displays the blank screen of death.
@@ -51,6 +51,11 @@ Analysis of 33 incidents and breakdowns from this domain:
 - **The Root Cause:** Well, here's how you're going to fix it. Number one, abstract your API calls. Never call an API directly from your main code.
 - **Matt Murphy Takeaway:** *"Don’t build your house on rented land. Own the foundation, rent the features."*
 
+### 📍 Episode #329: Default Open S3 Buckets: Separation of Assets, Randomized IDs & Audit Logs (Severity: `CRITICAL`)
+- **The Attack Vector / Incident:** AI tools configure single cloud storage buckets with public-read permissions to bypass upload errors, unintentionally exposing database backups, private user exports, and system configs to automated internet crawlers.
+- **The Root Cause:** Mixing public media and confidential backups in the same storage container, using predictable bucket names (company-backups), and omitting server access logging.
+- **Matt Murphy Takeaway:** *"Your cloud storage should store data, not serve it to anyone who asks: isolate public assets from private records, randomize bucket identifiers, and enforce expiring pre-signed URLs."*
+
 ### 📍 Episode #053: Your database has been doing a full table scan on every (Severity: `HIGH`)
 - **The Attack Vector / Incident:** Your database has been doing a full table scan on every request since launch.
 - **The Root Cause:** So your AI wrote the queries, right? They worked, pages loaded, data showed up. What you did not see is that every query was reading every row in the table to find the one row it needed.
@@ -60,11 +65,6 @@ Analysis of 33 incidents and breakdowns from this domain:
 - **The Attack Vector / Incident:** You added one column to your database for one client. Every other client's queries slowed down by 40%.
 - **The Root Cause:** So one client wanted a custom field on every single record and a new column in the shared schema that only they were using. So now every query, every migration, every backup and every restore carries a custom field that 99% of the clients never asked for or see. So one client's feature requ trust just became every client's technical debt and every client is paying for it in performance.
 - **Matt Murphy Takeaway:** *"Say yes to your biggest client. Say it architecturally."*
-
-### 📍 Episode #079: Your database just lost 14 hours of customer data (Severity: `HIGH`)
-- **The Attack Vector / Incident:** Your database just lost 14 hours of customer data.
-- **The Root Cause:** Everything users did today. Every transaction, every upload, every message, every account change gone. Because your AI set up nightly backups, but your database failed at 2 p.m.
-- **Matt Murphy Takeaway:** *"Your backup is not your recovery plan. Your tested plan is."*
 
 ---
 
@@ -104,6 +104,7 @@ Analysis of 33 incidents and breakdowns from this domain:
 | **#288** | Executes database queries directly from client components or frontend code, exposing database credentials and bypassing business logic. | Enforces Layer 2 API isolation with server-side authentication, input validation, rate limiting, and zero direct database access from clients. |
 | **#298** | Deploys applications without configuring database connection leak alerts, crashing servers silently when connections remain open. | Monitors database active connection metrics and enforces connection pool timeouts with automatic garbage collection of idle pools. |
 | **#320** | Assumes database stability under 10 users translates linearly to production loads without index optimization or connection limits. | Pre-calculates query latency under scale using realistic benchmarks and optimizes queries before onboarding production users. |
+| **#329** | Creating a single public bucket for both user images and DB backups with predictable names like company-backups. | Dual-bucket topology: public CDN bucket for static media + private bucket with expiring pre-signed URLs (TTL < 15m) and access logging. |
 
 ---
 
@@ -221,3 +222,4 @@ Before shipping any code in this domain, verify each item:
 | **#288** | `CRITICAL` | Your frontend talks to the database directly | Layer 3 | [Watch Reel](https://www.instagram.com/reel/DYiSfwGP2D9/) |
 | **#298** | `CRITICAL` | Your app works great | Layer 3 | [Watch Reel](https://www.instagram.com/reel/DYXGdH4AtnZ/) |
 | **#320** | `HIGH` | 10 users fine | Layer 3 | [Watch Reel](https://www.instagram.com/reel/DXwtOTDA-gx/) |
+| **#329** | `CRITICAL` | Default Open S3 Buckets: Separation of Assets, Randomized IDs & Audit Logs | Layer 3 | [Watch Reel](https://www.instagram.com/reel/329/) |

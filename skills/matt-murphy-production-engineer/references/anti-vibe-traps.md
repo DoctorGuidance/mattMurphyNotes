@@ -87,6 +87,8 @@
 | **#306** | Launches production applications without performing structured pre-launch security audits against standard threat vectors. | Verifies production readiness against a comprehensive 47-point security checklist covering identity, data, and compute. |
 | **#318** | Ignores newly disclosed Common Vulnerabilities and Exposures (CVEs) in deployed production dependencies. | Configures continuous CVE monitoring with automated pull requests (Dependabot) and emergency security patch protocols. |
 | **#322** | Merges high-velocity AI-generated pull requests without automated static analysis security testing (SAST) gates. | Blocks PR merges failing automated Semgrep/SonarQube SAST gates designed to catch insecure AI coding patterns. |
+| **#326** | Flat Docker/VPC network where all services share credentials, communicate without tokens, and have unrestricted egress. | Microsegmented subnets with Calico/Docker network isolation, mandatory mTLS tokens, and egress firewalls. |
+| **#327** | Setting Access-Control-Allow-Origin: * or echoing req.headers.origin blindly with allowCredentials: true. | Explicit domain allowlist, strict regex matching for trusted origins, and credentials set exclusively for verified peers. |
 
 ## 📁 Database & Storage Engineering (`03-database-storage`)
 | Ep # | ❌ The Naive Vibe-Coding Antipattern | ✅ Senior Production Standard |
@@ -124,6 +126,7 @@
 | **#288** | Executes database queries directly from client components or frontend code, exposing database credentials and bypassing business logic. | Enforces Layer 2 API isolation with server-side authentication, input validation, rate limiting, and zero direct database access from clients. |
 | **#298** | Deploys applications without configuring database connection leak alerts, crashing servers silently when connections remain open. | Monitors database active connection metrics and enforces connection pool timeouts with automatic garbage collection of idle pools. |
 | **#320** | Assumes database stability under 10 users translates linearly to production loads without index optimization or connection limits. | Pre-calculates query latency under scale using realistic benchmarks and optimizes queries before onboarding production users. |
+| **#329** | Creating a single public bucket for both user images and DB backups with predictable names like company-backups. | Dual-bucket topology: public CDN bucket for static media + private bucket with expiring pre-signed URLs (TTL < 15m) and access logging. |
 
 ## 📁 Caching & Edge Performance (`04-caching-performance`)
 | Ep # | ❌ The Naive Vibe-Coding Antipattern | ✅ Senior Production Standard |
@@ -251,6 +254,8 @@
 | **#302** | Operates in complete developer isolation, missing out on shared architectural lessons and production engineering patterns. | Engages in senior engineering peer reviews and production post-mortems to continuously level up architectural judgment. |
 | **#309** | Deploys no-code visual AI prototypes straight to enterprise customers without auditing backend security or API boundaries. | Hardens visual AI exports by decoupling business logic into secure backend APIs with server-side authentication and rate limits. |
 | **#310** | Focuses on social media vanity metrics while production error rates and unhandled exceptions spike unnoticed in backend systems. | Directs focus to real engineering KPIs: system uptime, p99 latency, error rates, and deterministic test suite passes. |
+| **#323** | Passive vibe coding: accepting unverified AI code blindly and letting the agent dictate system design. | Directive specification: formulating exact multi-layer invariants and inspecting every generated boundary with automated gates. |
+| **#331** | Granting proprietary cloud agents full read/write access to Stripe, QuickBooks, and Slack workflows on external vendor terms. | Sovereign agent architecture: self-hosted tool calling, private execution boundaries, and zero data leakage to external models. |
 
 ## 📁 Testing, Staging & CI/CD (`10-cicd-deployments`)
 | Ep # | ❌ The Naive Vibe-Coding Antipattern | ✅ Senior Production Standard |
@@ -294,6 +299,7 @@
 | **#315** | Deploys non-deterministic build artifacts that work or break randomly depending on upstream package updates. | Enforces deterministic builds using pinned package lockfiles, base Docker image SHAs, and reproducible artifact caches. |
 | **#316** | Installs dozens of redundant utility packages, inflating frontend bundle sizes and slowing page load speeds. | Audits bundle sizes using Webpack/Vite bundle analyzers, replacing heavy external packages with native JavaScript APIs. |
 | **#317** | Relies on polished pitch deck demos while skipping resilience testing, watching software fail when real users enter unpredicted inputs. | Runs automated chaos engineering and edge-case fuzzing against application APIs prior to opening public user access. |
+| **#324** | Hiring consultants based on slide decks, social followers, and sandbox screen shares without production lineage. | Production track record gating: validating live pipeline telemetry, zero-leak isolation, and verified SLA history. |
 
 ## 📁 Cloud Infrastructure & FinOps (`11-cloud-finops`)
 | Ep # | ❌ The Naive Vibe-Coding Antipattern | ✅ Senior Production Standard |
@@ -330,6 +336,10 @@
 | **#307** | Allows autonomous AI agent loops to make unconstrained recursive API calls, draining hundreds of dollars in minutes. | Implements recursion depth limits and hard monetary spend ceilings that kill automated agent loops if budgets are exceeded. |
 | **#311** | Treats individual API call costs as negligible, failing to anticipate exponential cost scaling when user volumes multiply. | Calculates blended unit economics per user session, optimizing expensive prompts and caching high-frequency queries. |
 | **#319** | Operates metered API services without tracking cumulative monthly spend per customer, risking unpaid platform charges. | Maintains real-time user credit balances in Redis, declining incoming requests when customer account balances reach zero. |
+| **#325** | Routing high-volume proprietary workflows to metered third-party APIs, surrendering IP and paying 5x–10x markup. | Self-hosted sovereign inference with fixed compute costs ($200–$400/mo) and complete data isolation within private VPC. |
+| **#328** | Treating proprietary frontier APIs as the only viable deployment model, bleeding margins on repetitive queries. | 4-step self-hosted pipeline: Hugging Face model + domain fine-tuning + vLLM on private VPS + internal REST API. |
+| **#330** | Running continuous 24/7 AI inference and database workloads on metered hourly VPS instances indefinitely. | Workload-driven infrastructure tiering: dedicated bare metal for sustained 24/7 baseline + elastic VPS for burst spikes. |
+| **#332** | Routing simple extraction, summarization, and parsing requests to top-tier frontier APIs at maximum dollar rates. | Intelligent tiered routing: 80% handled by local open-weight inference (GLM/Llama via vLLM) + 20% routed to frontier models conditionally. |
 
 ## 📁 Frontend Architecture & API Hygiene (`12-frontend-api-hygiene`)
 | Ep # | ❌ The Naive Vibe-Coding Antipattern | ✅ Senior Production Standard |
