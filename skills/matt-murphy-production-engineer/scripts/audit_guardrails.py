@@ -169,11 +169,38 @@ AUDIT_RULES = [
         "regex": r"['\"]use client['\"][^;]*;[\s\S]*?(import\s+.*from\s+['\"]@prisma\/client['\"]|import\s+.*from\s+['\"]\.\.\/.*db['\"])",
         "lesson": "288",
         "remediation": "Never import Prisma or database clients in 'use client' components. Move database queries to Server Actions or API routes."
+    },
+    {
+        "id": "MM-326",
+        "title": "Unsegmented Service Network or Unauthenticated Internal RPC",
+        "layer": "Layer 08 (Security & Defense)",
+        "severity": "CRITICAL",
+        "regex": r"(networks\s*:\s*\[\s*['\"]default['\"]\s*\]|http:\/\/localhost:\d+\/(admin|db|internal))",
+        "lesson": "326",
+        "remediation": "Enforce network microsegmentation and mandate mTLS or signed service tokens for internal RPC calls."
+    },
+    {
+        "id": "MM-327",
+        "title": "Permissive Origin Reflection / Dynamic Echo Without Allowlist",
+        "layer": "Layer 08 (Security & RLS)",
+        "severity": "CRITICAL",
+        "regex": r"res\.setHeader\s*\(\s*['\"]Access-Control-Allow-Origin['\"]\s*,\s*(req\.headers\.origin|req\.get\(['\"]origin['\"]\))",
+        "lesson": "327",
+        "remediation": "Never reflect incoming Origin headers dynamically without validating against an immutable allowlist."
+    },
+    {
+        "id": "MM-329",
+        "title": "Public Storage Bucket Configuration / Missing Signed URL TTL",
+        "layer": "Layer 03 (Database & Storage)",
+        "severity": "CRITICAL",
+        "regex": r"(ACL\s*:\s*['\"]public-read['\"]|publicAccess\s*:\s*true|getSignedUrl\([^)]*expiresIn:\s*(?:[1-9]\d{4,}|86400))",
+        "lesson": "329",
+        "remediation": "Never set storage buckets to public-read for application data; enforce short-lived expiring pre-signed URLs (TTL < 900s)."
     }
 ]
 
 IGNORE_DIRS = {'.git', 'node_modules', '.next', 'dist', 'build', '.gemini', '.cache', 'venv', '__pycache__', '.turbo', 'site', 'skills', 'docs'}
-IGNORE_FILES = {'data.json', 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'build_enterprise_skill.py', 'enrich_all_masterclasses.py', 'synthesize_bespoke_matrices.py', 'update_docs_tables.py', 'audit_guardrails.py', 'audit_codebase.py'}
+IGNORE_FILES = {'data.json', 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'build_enterprise_skill.py', 'enrich_all_masterclasses.py', 'synthesize_bespoke_matrices.py', 'update_docs_tables.py', 'audit_guardrails.py', 'audit_codebase.py', 'app.js'}
 EXTENSIONS = {'.js', '.jsx', '.ts', '.tsx', '.go', '.env'}
 
 def run_audit(target_dir, output_json=False):

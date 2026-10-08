@@ -28,10 +28,10 @@ def load_dataset():
         return json.load(f)
 
 def build_skill():
-    print("🚀 Starting Enterprise Skill generation from 321 Masterclasses...")
     data = load_dataset()
     episodes = data['episodes']
     modules = data['modules']
+    print(f"🚀 Starting Enterprise Skill generation from {len(episodes)} Masterclasses...")
 
     os.makedirs(RULES_DIR, exist_ok=True)
     os.makedirs(REFS_DIR, exist_ok=True)
@@ -221,8 +221,8 @@ def build_skill():
     # 2.2 Anti-Vibe Traps
     traps_path = os.path.join(REFS_DIR, "anti-vibe-traps.md")
     traps_md = []
-    traps_md.append("# 🚨 Master Anti-Vibe-Coding Matrix (All 321 Masterclasses)")
-    traps_md.append("> Exhaustive catalog of catastrophic vibe-coding anti-patterns across all 321 lessons, contrasted against battle-tested senior production engineering standards.")
+    traps_md.append(f"# 🚨 Master Anti-Vibe-Coding Matrix (All {len(episodes)} Masterclasses)")
+    traps_md.append(f"> Exhaustive catalog of catastrophic vibe-coding anti-patterns across all {len(episodes)} lessons, contrasted against battle-tested senior production engineering standards.")
     traps_md.append("")
     traps_md.append("---")
     traps_md.append("")
@@ -602,11 +602,38 @@ AUDIT_RULES = [
         "regex": r"['\"]use client['\"][^;]*;[\s\S]*?(import\s+.*from\s+['\"]@prisma\/client['\"]|import\s+.*from\s+['\"]\.\.\/.*db['\"])",
         "lesson": "288",
         "remediation": "Never import Prisma or database clients in 'use client' components. Move database queries to Server Actions or API routes."
+    },
+    {
+        "id": "MM-326",
+        "title": "Unsegmented Service Network or Unauthenticated Internal RPC",
+        "layer": "Layer 08 (Security & Defense)",
+        "severity": "CRITICAL",
+        "regex": r"(networks\s*:\s*\[\s*['\"]default['\"]\s*\]|http:\/\/localhost:\d+\/(admin|db|internal))",
+        "lesson": "326",
+        "remediation": "Enforce network microsegmentation and mandate mTLS or signed service tokens for internal RPC calls."
+    },
+    {
+        "id": "MM-327",
+        "title": "Permissive Origin Reflection / Dynamic Echo Without Allowlist",
+        "layer": "Layer 08 (Security & RLS)",
+        "severity": "CRITICAL",
+        "regex": r"res\.setHeader\s*\(\s*['\"]Access-Control-Allow-Origin['\"]\s*,\s*(req\.headers\.origin|req\.get\(['\"]origin['\"]\))",
+        "lesson": "327",
+        "remediation": "Never reflect incoming Origin headers dynamically without validating against an immutable allowlist."
+    },
+    {
+        "id": "MM-329",
+        "title": "Public Storage Bucket Configuration / Missing Signed URL TTL",
+        "layer": "Layer 03 (Database & Storage)",
+        "severity": "CRITICAL",
+        "regex": r"(ACL\s*:\s*['\"]public-read['\"]|publicAccess\s*:\s*true|getSignedUrl\([^)]*expiresIn:\s*(?:[1-9]\d{4,}|86400))",
+        "lesson": "329",
+        "remediation": "Never set storage buckets to public-read for application data; enforce short-lived expiring pre-signed URLs (TTL < 900s)."
     }
 ]
 
 IGNORE_DIRS = {'.git', 'node_modules', '.next', 'dist', 'build', '.gemini', '.cache', 'venv', '__pycache__', '.turbo', 'site', 'skills', 'docs'}
-IGNORE_FILES = {'data.json', 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'build_enterprise_skill.py', 'enrich_all_masterclasses.py', 'synthesize_bespoke_matrices.py', 'update_docs_tables.py', 'audit_guardrails.py', 'audit_codebase.py'}
+IGNORE_FILES = {'data.json', 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'build_enterprise_skill.py', 'enrich_all_masterclasses.py', 'synthesize_bespoke_matrices.py', 'update_docs_tables.py', 'audit_guardrails.py', 'audit_codebase.py', 'app.js'}
 EXTENSIONS = {'.js', '.jsx', '.ts', '.tsx', '.go', '.env'}
 
 def run_audit(target_dir, output_json=False):
@@ -709,15 +736,15 @@ if __name__ == '__main__':
     skill_content = [
         "---",
         "name: matt-murphy-production-engineer",
-        "description: Production-grade architectural hardening and security guardrails based on 320+ Matt Murphy production engineering masterclasses. Enforces resilient authentication, database connection pooling, zero-leak multi-tenancy, raw-buffer webhook validation, rate limiting, and 4-state UI hygiene. Prevents naive 'vibe coding' anti-patterns.",
-        "version: 3.0.0",
+        f"description: Production-grade architectural hardening and security guardrails based on {len(episodes)}+ Matt Murphy production engineering masterclasses. Enforces resilient authentication, database connection pooling, zero-leak multi-tenancy, raw-buffer webhook validation, rate limiting, and 4-state UI hygiene. Prevents naive 'vibe coding' anti-patterns.",
+        "version: 3.3.1",
         "---",
         "",
-        "# 🧠 Matt Murphy Production Engineering Guardrails (321 Masterclasses)",
+        f"# 🧠 Matt Murphy Production Engineering Guardrails ({len(episodes)} Masterclasses)",
         "",
         "## 👑 Executive Persona & Directives",
         "You are operating in the capacity of a **Principal Systems Architect, Production Reliability Engineer, and Security Hardener**.",
-        "Your mission is to eradicate fragile, prototype-level code ('vibe coding') and enforce battle-tested engineering standards derived from **321 Matt Murphy Production Masterclasses**.",
+        f"Your mission is to eradicate fragile, prototype-level code ('vibe coding') and enforce battle-tested engineering standards derived from **{len(episodes)} Matt Murphy Production Masterclasses**.",
         "",
         "### 🏛️ The Anti-Vibe-Coding Doctrine",
         "- **Vibe Coding:** Code that runs once in development on a single happy path, stores JWTs in `localStorage`, accepts unverified webhooks, queries databases by bare IDs without tenant scoping, and ignores error states.",

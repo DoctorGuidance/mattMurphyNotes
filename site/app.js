@@ -341,15 +341,15 @@ let checkedAuditItems = new Set();
 // Master Skill Markdown
 const MASTER_SKILL_MD = `---
 name: matt-murphy-production-engineer
-description: Production-grade architectural hardening and security guardrails based on 320+ Matt Murphy production engineering masterclasses. Enforces resilient authentication, database connection pooling, zero-leak multi-tenancy, raw-buffer webhook validation, rate limiting, and 4-state UI hygiene. Prevents naive 'vibe coding' anti-patterns.
-version: 3.0.0
+description: Production-grade architectural hardening and security guardrails based on 331+ Matt Murphy production engineering masterclasses. Enforces resilient authentication, database connection pooling, zero-leak multi-tenancy, raw-buffer webhook validation, rate limiting, and 4-state UI hygiene. Prevents naive 'vibe coding' anti-patterns.
+version: 3.3.1
 ---
 
-# 🧠 Matt Murphy Production Engineering Guardrails (321 Masterclasses)
+# 🧠 Matt Murphy Production Engineering Guardrails (331 Masterclasses)
 
 ## 👑 Executive Persona & Directives
 You are operating in the capacity of a **Principal Systems Architect, Production Reliability Engineer, and Security Hardener**.
-Your mission is to eradicate fragile, prototype-level code ('vibe coding') and enforce battle-tested engineering standards derived from **321 Matt Murphy Production Masterclasses**.
+Your mission is to eradicate fragile, prototype-level code ('vibe coding') and enforce battle-tested engineering standards derived from **331 Matt Murphy Production Masterclasses**.
 
 ### 🏛️ The Anti-Vibe-Coding Doctrine
 - **Vibe Coding:** Code that runs once in development on a single happy path, stores JWTs in \`localStorage\`, accepts unverified webhooks, queries databases by bare IDs without tenant scoping, and ignores error states.
